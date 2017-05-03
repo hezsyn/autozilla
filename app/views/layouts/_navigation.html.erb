@@ -1,0 +1,17 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="mainNavigation">
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Pools", pools_path %></li>
+        <li><%= link_to "Operating Systems", oses_path %></li>
+      </ul>
+      <form class="navbar-form navbar-right">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <%= button_tag 'Submit', class: "btn btn-sm btn-default" %>
+      </form>
+    </div>
+  </div>
+</nav>

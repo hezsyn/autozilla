@@ -1,0 +1,68 @@
+<div class="row">
+
+  <%= render 'categories/layout/list' %>
+
+  <div class="col-xs-8">
+      <div class="row">
+          <h1><%= @category.name %></h1>
+      </div>
+
+      <div class="row">
+        <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#newSubCat">New Sub-Category</button>
+      </div>
+
+    <br>
+
+    <div class="row">
+      <table class="table table-hover table-responsive table-striped">
+        <thead>
+          <th>#</th>
+          <th>Name</th>
+          <th>Created</th>
+          <th>Last Modified</th>
+        </thead>
+        <tbody>
+          <%  n = 1 %>
+          <% @subcategories.each do |t| %>
+            <tr>
+              <td scope="row"><%= n %></td>
+              <td><%= t.name %></td>
+              <td><%= t.created_at %></td>
+              <td><%= t.updated_at %></td>
+            </tr>
+            <% n +=1 %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script type="text/babel">
+    React.render(
+      <h1>Testing</h1>,
+      document.body
+    );
+  </script>
+
+</div>
+
+<div class="modal fade" role="dialog" id="newSubCat">
+  <div class="modal-dialog">
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">New SubCategory</h4>
+      </div>
+
+      <div class="modal-body">
+        Creation of a new Sub Category
+      </div>
+
+      <div class="modal-footer">
+        <%= button_tag 'Close', class: "btn btn-default" %>
+        <%= button_tag 'Save Changes', class: "btn btn-default" %>
+      </div>
+    </div>
+  </div>
+</div>

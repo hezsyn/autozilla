@@ -1,0 +1,2 @@
+class ClonezillaVersionsController < ApplicationController
+end
