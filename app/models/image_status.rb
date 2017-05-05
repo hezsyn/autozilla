@@ -1,3 +1,3 @@
 class ImageStatus < ApplicationRecord
-  has_and_belongs_to :images
+  has_many :images
 end

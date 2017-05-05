@@ -1,6 +1,6 @@
 class Image < ApplicationRecord
   belongs_to :system
-  has_many :image_statuses
-  has_many :oses
-  has_many :pools
+  belongs_to :image_statuses
+  belongs_to :oses
+  belongs_to :pools
 end

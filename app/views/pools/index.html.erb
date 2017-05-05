@@ -1,0 +1,34 @@
+<div class="row">
+
+  <div class="col-xs-3">
+    <h2>Pools</h2>
+    <hr>
+    <%= link_to 'New Pool', new_pool_path, class: "btn btn-default btn-info" %>
+  </div>
+
+  <div class="col-xs-8">
+
+      <table class="table table-hover table-striped ">
+        <thead>
+          <th>#</th>
+          <th>Name</th>
+          <th>Edit</th>
+          <th>Disable</th>
+        </thead>
+        <tbody>
+    <% i = 1 %>
+    <%= @pools.each do |t| %>
+          <tr>
+            <td><%= i %></td>
+            <td><%= t.name %></td>
+            <td><%= link_to 'Edit', edit_pool_path(t) %></td>
+            <td><%= link_to 'Disable', pool_path(t), data: { confirm: 'Are you sure?'} %></td>
+          </tr>
+        <% i +=1 %>
+    <% end %>
+        </tbody>
+      </table>
+
+  </div>
+
+</div>
