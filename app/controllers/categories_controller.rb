@@ -2,19 +2,25 @@ class CategoriesController < ApplicationController
 
   def index
     @categories = Category.where(category_id: NIL, is_enabled: 1)
+    @newCategory = Category.new
   end
 
   def show
     @categories = Category.where(category_id: NIL, is_enabled: 1)
     @category = Category.find(params[:id])
+    @newCategory = Category.new
+    @subcategory = Category.new
     @subcategories = Category.where(category_id: params[:id], is_enabled: 1).all
   end
 
   def new
-    @categories = Category.new
+    @categories = Category.all
+    @category = Category.new
   end
 
   def create
+    @categories = Category.all
+
     if :category_id != NIL
       @category = Category.new(sub_category_params)
     else
@@ -22,9 +28,9 @@ class CategoriesController < ApplicationController
     end
 
     if @category.save
-      redirect_to @category
+      redirect_to categories_path
     else
-      render 'new'
+      redirect_to categories_path
     end
 
   end

@@ -8,18 +8,18 @@
       </div>
 
       <div class="row">
-        <%= link_to 'New SubCategory', new_category_path %>
-        <%= button_tag 'New SubCategory', class: "btn btn-sm btn-default", "data-toggle" => "modal", "data-target" => "#newSubCat" %>
+        <%= button_tag 'New SubCategory', class: "btn btn-sm btn-warning", "data-toggle" => "modal", "data-target" => "#newSubCat" %>
       </div>
-
 
     <br>
 
     <div class="row">
       <table class="table table-hover table-responsive table-striped">
         <thead>
+          <th></th>
           <th>#</th>
           <th>Name</th>
+          <th>Slug</th>
           <th>Created</th>
           <th>Last Modified</th>
         </thead>
@@ -27,10 +27,13 @@
           <%  n = 1 %>
           <% @subcategories.each do |t| %>
             <tr>
+              <td><%= link_to 'View', category_system_path(params[:id]) %></td>
               <td scope="row"><%= n %></td>
               <td><%= t.name %></td>
+              <td><%= t.slug %></td>
               <td><%= t.created_at %></td>
               <td><%= t.updated_at %></td>
+              <td><%= link_to 'Edit', edit_category_path(params[:id]) %></td>
             </tr>
             <% n +=1 %>
           <% end %>
@@ -51,13 +54,33 @@
       </div>
 
       <div class="modal-body">
-        Creation of a new Sub Category
+        <%= form_for @subcategory do |f| %>
+          <p>
+            <%= f.collection_select :category_id, Category.where(:category_id => NIL, :is_enabled => 1).all, :id, :name, include_blank: true %>
+          </p>
+          <p>
+            <%= f.label :name %>
+            <%= f.text_field :name %>
+          </p>
+          <p>
+            <%= f.label :description %>
+            <%= f.text_field :description %>
+          </p>
+          <p>
+            <%= f.label "Enabled?" %>
+            <%= f.check_box :is_enabled %>
+          </p>
+          <p>
+            <%= f.submit %>
+          </p>
+        <% end %>
       </div>
 
       <div class="modal-footer">
-        <%= button_tag 'Close', class: "btn btn-default" %>
-        <%= button_tag 'Save Changes', class: "btn btn-default" %>
+        <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal", "aria-label" => "Close" %>
+        <%= link_to 'Save Changes',  class: "btn btn-default" %>
       </div>
+
     </div>
   </div>
 </div>

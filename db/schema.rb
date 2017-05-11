@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 20170420172711) do
 
   create_table "oses", force: :cascade do |t|
     t.string "name"
+    t.text "description"
     t.integer "is_enabled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -100,6 +101,7 @@ ActiveRecord::Schema.define(version: 20170420172711) do
 
   create_table "pools", force: :cascade do |t|
     t.string "name"
+    t.text "description"
     t.integer "is_enabled"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -1,0 +1,12 @@
+<%= form_for @pool do |f| %>
+  <p><%= f.label :name %></p>
+  <p><%= f.text_area :name %></p>
+
+<p><%= f.label :description %></p>
+<p><%= f.text_area :description %></p>
+
+<p><%= f.label :is_enabled %></p>
+<p><%= f.check_box :is_enabled %></p>
+
+<p><%= f.submit %></p>
+<% end %>

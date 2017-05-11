@@ -1,0 +1,66 @@
+<div class="row">
+
+  <div class="jumbotron">
+    <h1><%= @topCategory.name %></h1>
+    <h2><%= @parentCategory.name %></h2>
+  </div>
+
+  <%= button_tag 'New System', class: "btn btn-warning btn-sm", "data-toggle" => "modal", "data-target" => "#newSystem" %>
+
+  <table class="table table-stripped table-hover">
+    <thead>
+      <th></th>
+      <th>#</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th></th>
+    </thead>
+    <tbody>
+    <% n = 1 %>
+    <% @systems.each do |t| %>
+      <tr>
+        <td><%= link_to 'View', category_system_path(t) %></td>
+        <td><%= n %></td>
+        <td><%= t.name %></td>
+        <td><%= t.description %></td>
+        <td><%= link_to 'Edit', edit_category_system_path(t) %></td>
+      </tr>
+      <% n += 1 %>
+    <% end %>
+    </tbody>
+  </table>
+
+</div>
+
+<div id="newSystem" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <%= button_tag '&times;', class: "close", "data-dismiss" => "modal" %>
+          <h4 class="modal-title">New System</h4>
+        </div>
+
+        <div class="modal-body">
+          <%= form_for @newSystem do |f| %>
+            <p>
+              <%= f.label :name %>
+              <%= f.text_field :name %>
+            </p>
+            <p>
+              <%= f.label :description %>
+              <%= f.text_area :description %>
+            </p>
+            <p>
+              <%= f.submit %>
+            </p>
+          <% end %>
+        </div>
+
+        <div class="modal-footer">
+          <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal" %>
+        </div>
+      </div>
+
+  </div>
+</div>
