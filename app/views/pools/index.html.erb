@@ -1,19 +1,15 @@
-
-
-  <div class="col-xs-3">
+  <div class="col-xs-2">
     <div class="page-header">
       <h1>Pools</h1>
     </div>
-    <%= link_to 'New Pool', new_pool_path, class: "btn btn-primary btn-block" %>
+    <%= button_tag 'New Pool', class: "btn btn-primary btn-block", "data-toggle" => "modal", "data-target" => "#newPool" %>
   </div>
 
 
   <div class="col-xs-8">
 
     <div class="row">
-      <div class="jumbotron">
-        <h2>List of Pools</h2>
-      </div>
+        <h1>List of Pools</h1>
     </div>
 
 
@@ -34,11 +30,6 @@
             <td><%= t.description %></td>
             <td><%= is_enabled?(t.is_enabled) %></td>
             <td><%= link_to 'Edit', edit_pool_path(t) %></td>
-            <% if t.is_enabled == 1 %>
-              <td><%= link_to 'Disable', pool_path(t), method: :delete, data: { confirm: 'Are you sure?'} %></td>
-            <% else %>
-              <td><%= link_to 'Enable', pool_path(t), method: :enable, data: { confirm: 'Are you sure?'} %></td>
-            <% end %>
           </tr>
         <% i +=1 %>
     <% end %>
@@ -46,3 +37,36 @@
       </table>
     </div>
   </div>
+
+  <div id="newPool" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismis="modal">&times;</button>
+          <h4>New Pool Creation</h4>
+        </div><!-- End of Modal Header -->
+
+        <div class="modal-body">
+          <%= form_for @newPool do |f| %>
+            <div class="input-group">
+              <span class="input-group-addon"><%= f.label :name %></span>
+              <%= f.text_field :name, class: "form-control" %>
+            </div>
+            <br>
+            <div class="input-group">
+              <span class="input-group-addon"><%= f.label :description %></span>
+              <%= f.text_area :description, class: "form-control" %>
+            </div>
+        </div><!-- End of Modal Body -->
+
+        <div class="modal-footer">
+            <%= f.submit 'Subimt', class: "btn btn-primary" %>
+            <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal" %>
+          <% end %>
+        </div><!-- End of Modal Footer -->
+
+      </div><!-- End of Modal Content -->
+
+    </div><!-- End of dialog -->
+  </div><!-- End of Modal Div -->

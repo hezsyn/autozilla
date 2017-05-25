@@ -13,7 +13,7 @@ class OsesController < ApplicationController
   end
 
   def create
-    @os = Ose.create(pool_params)
+    @os = Ose.create(os_params)
 
     @os.save
     redirect_to oses_path

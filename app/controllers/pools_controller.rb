@@ -2,10 +2,7 @@ class PoolsController < ApplicationController
 
   def index
     @pools = Pool.all
-  end
-
-  def show
-    @pool = Pool.find(params[:id])
+    @newPool = Pool.new
   end
 
   def new
@@ -30,13 +27,13 @@ class PoolsController < ApplicationController
     redirect_to pools_path
   end
 
-  def destroy
-    @pool = Pool.find(params[:id]).update(is_enabled: 0)
-    redirect_to pools_path
-  end
-
-  def enable
-    @pool = Pool.find(params[:id]).update(is_enabled: 1)
+  def status
+    @pool = Pool.find(params[:id])
+      if @pool.is_enabled == 0
+        @pool.update(:is_enabled 1)
+      else
+        @pool.update(:is_enabled 0)
+      end
     redirect_to pools_path
   end
 

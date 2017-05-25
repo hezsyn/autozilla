@@ -11,6 +11,10 @@ class CategoriesController < ApplicationController
     @newCategory = Category.new
     @subcategory = Category.new
     @subcategories = Category.where(category_id: params[:id], is_enabled: 1).all
+    @systems = System.where(category_id: params[:category_id]).all
+    @system = @category.systems.new(system_params)
+
+    @topLevel = Category.find(params[:category_id])
   end
 
   def new
@@ -27,10 +31,14 @@ class CategoriesController < ApplicationController
       @category = Category.new(category_params)
     end
 
-    if @category.save
-      redirect_to categories_path
+    @category.is_enabled = 1
+
+    if :category_id != NIL
+      @category.save
+      redirect_to categories_path(@category)
     else
-      redirect_to categories_path
+      @category.save
+      redirect_to category_path(@category)
     end
 
   end
@@ -62,6 +70,10 @@ class CategoriesController < ApplicationController
 
     def category_params
       params.require(:category).permit(:name, :slug, :description, :is_enabled)
+    end
+
+    def system_params
+      params.require(:category).permit(:name, :slug, )
     end
 
 end

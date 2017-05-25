@@ -165,6 +165,8 @@ GEM
     turbolinks-source (5.0.1)
     tzinfo (1.2.3)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2017.2)
+      tzinfo (>= 1.0.0)
     uglifier (3.2.0)
       execjs (>= 0.3.0, < 3)
     web-console (3.5.0)
@@ -192,7 +194,6 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   faker
   jbuilder (~> 2.5)
-  listen (>= 3.0.5, < 3.2)
   pg
   populator
   puma (~> 3.7)

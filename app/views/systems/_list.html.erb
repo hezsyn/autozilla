@@ -1,0 +1,9 @@
+<div class="page-header">
+  <h1><%= @parentCategory.name %></h1>
+</div>
+
+<div class="list-group">
+  <% @subcategories.each do |subCat| %>
+    <%= link_to subCat.name, category_system_path(subCat.id), class: "list-group-item" %>
+  <% end %>
+</div>

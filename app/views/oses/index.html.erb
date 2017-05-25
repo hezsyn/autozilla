@@ -6,13 +6,13 @@
 
     <hr>
 
-    <%= link_to 'New OS', new_ose_path, class: "btn btn-warning" %>
+    <%= link_to 'New OS', new_ose_path, class: "btn btn-warning", data-toggle: "modal", data-target: "#osForm" %>
 
   </div>
 
   <div class="col-xs-8">
     <div class="row">
-      <h2>All OSes...</h2>
+      <h2>All Operating Systems...</h2>
     </div>
 
     <div class="row">
@@ -31,7 +31,7 @@
               <td><%= os.name %></td>
               <td><%= os.description %></td>
               <td><%= is_enabled?(os.is_enabled) %></td>
-              <td><%= link_to 'Edit', edit_ose_path(:id) %></td>
+              <td><%= link_to 'Edit', edit_ose_path(os.id) %></td>
             </tr>
             <% i += 1 %>
           <% end %>
@@ -42,3 +42,4 @@
   </div>
 
 </div>
+
