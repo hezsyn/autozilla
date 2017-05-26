@@ -1,0 +1,2 @@
+module RandyHelper
+end

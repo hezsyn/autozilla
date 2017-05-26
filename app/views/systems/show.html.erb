@@ -9,7 +9,7 @@
 <div class="col-xs-8">
 
   <div class="jumbotron">
-    <h1><%= @topCategory.name %></h1>
+    <h1><%= @parentCategory.name %></h1>
     <%= button_tag 'New System', class: "btn btn-warning btn-sm", "data-toggle" => "modal", "data-target" => "#newSystem" %>
   </div>
 
@@ -49,7 +49,7 @@
           </div>
 
           <div class="modal-body">
-            <%= form_for [@parentCategory, @newSystem] do |f| %>
+            <%= form_for [@newSystem] do |f| %>
               <p>
                 <%= f.label :name %>
                 <%= f.text_field :name %>
