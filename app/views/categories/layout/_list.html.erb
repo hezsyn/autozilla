@@ -1,4 +1,4 @@
-<div class="col-xs-2">
+<div class="col-md-3">
 
   <!-- What is displayed on screen -->
 
@@ -7,12 +7,22 @@
     <%= button_tag 'New Category', class: "btn btn-warning btn-sm", "data-toggle" => "modal", "data-target" => "#newCategory" %>
   <hr>
 
-    <!-- Side navigation -->
-    <div class="list-group">
-      <% @categories.each do |cat| %>
-        <%= link_to cat.name, category_path(cat), class: "list-group-item" %>
-      <% end %>
-    </div>
+
+    <!-- Checking if it's a top category -->
+    <% if @subcategories.present? %>
+      <!-- Side navigation -->
+      <div class="list-group">
+        <% @subcategories.each do |cat| %>
+          <%= link_to cat.name, category_path(cat), class: "list-group-item" %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="list-group">
+        <% @categories.each do |cat| %>
+          <%= link_to cat.name, category_path(cat), class: "list-group-item" %>
+        <% end %>
+      </div>
+    <% end %>
 
 </div>
 

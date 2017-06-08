@@ -1,14 +1,17 @@
 class SystemsController < ApplicationController
 
   def show
-    @parentCategory = Category.find(params[:id])
-    @systems = @parentCategory.systems.all
-    @newSystem = @parentCategory.systems.build
-    @subcategories = Category.where(category_id: params[:id]).all
+    @category = Category.find(params[:category_id])
+    @system = System.find(params[:id])
+    @systems = @category.systems.all
+    @images = @system.images.all
+    @pools = Pool.all
+    @oses = Ose.all
+    @imagesStatuses = ImageStatus.all
+    @clonezillas = ClonezillaVersion.all
   end
 
   def new
-
     @system = System.new
   end
 
@@ -22,11 +25,14 @@ class SystemsController < ApplicationController
   end
 
   def edit
-    @system.find(params[:id])
+    @system = System.find(params[:id])
   end
 
   def update
-    @system.update(system_params)
+    @category = Category.find(:category_id)
+    @system = System.update(system_params)
+
+    redirect_to category_path(@category)
   end
 
   def destroy

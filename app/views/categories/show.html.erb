@@ -1,7 +1,7 @@
 
 <%= render 'categories/layout/list' %>
 
-  <div class="col-xs-8">
+  <div class="col-xs-9">
       <div class="row">
         <div class="jumbotron">
           <h1><%= @category.name %></h1>
@@ -36,14 +36,14 @@
               <td><%= t.updated_at %></td>
               <td><%= link_to 'Edit', edit_category_path(t.id) %></td>
             </tr>
-            <% n +=1 %>
+            <% n += 1 %>
           <% end %>
         </tbody>
       </table>
       <% end %>
 
       <% if @systems.present? %>
-        <h2>Systems</h2>
+        <h2 class="text-center">Systems</h2>
         <hr>
         <table class="table table-hover table-striped">
           <thead>
@@ -55,9 +55,12 @@
         <% n = 1 %>
             <% @systems.each do |sys| %>
               <tr>
-                <td>View</td>
+                <td><%= link_to 'View', category_system_path(@category, sys) %></td>
                 <td><%= n %></td>
                 <td><%= sys.name %></td>
+                <td><%= sys.slug %></td>
+                <td><%= sys.description %></td>
+                <td><%= link_to 'Edit', edit_category_system_path(@category, sys) %></td>
               </tr>
               <% n += 1 %>
             <% end %>
@@ -83,8 +86,7 @@
       <div class="modal-body">
         <%= form_for @subcategory do |f| %>
           <div class="form-group">
-            <%= f.label 'Category: ' %>
-            <%= f.collection_select :category_id, Category.where(:category_id => NIL, :is_enabled => 1).all, :id, :name, {include_blank: true}, {default: @category.id} %>
+            <%= f.text_field :category_id, value: @category.id %>
           </div>
 
           <div class="input-group">
@@ -119,7 +121,7 @@
       </div>
 
       <div class="modal-body">
-        <%= form_for [@category, @system] do |f| %>
+        <%= form_for([@category, @category.systems.build]) do |f| %>
           <%= f.text_field :category_id, value: @category.id %>
           <div class="input-group">
           <span class="input-group-addon"><%= f.label :name %></span>

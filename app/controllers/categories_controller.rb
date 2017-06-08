@@ -11,7 +11,7 @@ class CategoriesController < ApplicationController
     @newCategory = Category.new
     @subcategory = Category.new
     @subcategories = Category.where(category_id: params[:id], is_enabled: 1).all
-    @systems = System.where(category_id: params[:category_id]).all
+    @systems = @category.systems.all
     @system = @category.systems.build
   end
 
@@ -23,16 +23,20 @@ class CategoriesController < ApplicationController
   def create
     @categories = Category.all
 
-    if :category_id != NIL
-      @category = Category.new(sub_category_params)
-    else
+    if :category_id == NIL
       @category = Category.new(category_params)
+    else
+      @category = Category.new(sub_category_params)
     end
 
     @category.is_enabled = 1
 
-   @category.save
-   redirect_to categories_path(@category)
+    @category.save
+     if @category.category_id == NIL
+       redirect_to category_path(@category)
+     else
+       redirect_to category_path(@category.category_id)
+     end
 
   end
 

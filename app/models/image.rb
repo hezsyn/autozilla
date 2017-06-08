@@ -1,6 +1,7 @@
 class Image < ApplicationRecord
-  belongs_to :system
-  belongs_to :image_statuses
-  belongs_to :oses
-  belongs_to :pools
+  has_many :image_status
+  has_many :pool
+  has_many :ose
+  has_many :clonezilla_version
+  has_many :user
 end

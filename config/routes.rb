@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
 
+  get '/login', to: 'sessions#new'
+  post '/login', to: 'session#create'
+  delete '/logout', to: 'session#destroy'
+
+
   root 'categories#index'
 
   resources :categories do
-      resources :systems do
-        resources :images
+    resources :systems do
+      resources :images
     end
   end
 
