@@ -14,7 +14,7 @@ class CreateImages < ActiveRecord::Migration[5.0]
       t.references  :pool, foregin_key: true
       t.references  :ose, foregin_key: true
       t.references  :image_status, foregin_key: true
-      t.references  :clonezilla_version_id, foregin_key: true
+      t.references  :clonezilla_version, foregin_key: true
       t.string      :autoboot
 
       t.timestamps

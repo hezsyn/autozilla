@@ -20,7 +20,7 @@ class ImagesController < ApplicationController
 
   private
     def image_params
-      params.require(:image).permit(:name, :note, :description, :disk, :flags, :flags_upload, :path, :loader_string)
+      params.require(:image).permit(:name, :note, :description, :disk, :flags, :flags_upload, :path, :loader_string, :pool_id, :user_id, :ose_id, :image_status_id, :clonezilla_version_id, :system_id)
     end
 
 end

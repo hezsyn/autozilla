@@ -27,16 +27,16 @@
       </thead>
       <tbody>
       <% n = 1 %>
-      <% @images.each do |t| %>
+      <% @system.images.each do |t| %>
         <tr>
           <td><%= link_to 'Edit', edit_category_system_image_path(@category, @system, t) %></td>
           <td><%= t.name %></td>
-          <td><%= t.pool.name %></td>
-          <td><%= t.image_status %></td>
-          <td><%= t.ose %></td>
-          <td><%= t.clonezilla_version %></td>
+          <td><%= t.pool.is_enabled %></td>
+          <td><%= t.image_status.name %></td>
+          <td><%= t.ose.name %></td>
+          <td><%= t.clonezilla_version.name %></td>
           <td><%= t.created_at %></td>
-          <td><%= t.user %></td>
+          <td><%= t.user.name %></td>
         </tr>
         <% n += 1 %>
       <% end %>
@@ -78,7 +78,7 @@
               </p>
               <p>
                 <%= f.label :clonezilla_version %>
-                <%= f.collection_select :clonezilla_version_id, @clonezillas, :id, :name, include_blank: true %>
+                <%= f.collection_select :clonezilla_version, @clonezillas, :id, :name, include_blank: true %>
               </p>
           </div>
 

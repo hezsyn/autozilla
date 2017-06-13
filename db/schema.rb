@@ -69,11 +69,11 @@ ActiveRecord::Schema.define(version: 20170420172711) do
     t.integer "pool_id"
     t.integer "ose_id"
     t.integer "image_status_id"
-    t.integer "clonezilla_version_id_id"
+    t.integer "clonezilla_version_id"
     t.string "autoboot"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["clonezilla_version_id_id"], name: "index_images_on_clonezilla_version_id_id"
+    t.index ["clonezilla_version_id"], name: "index_images_on_clonezilla_version_id"
     t.index ["image_status_id"], name: "index_images_on_image_status_id"
     t.index ["ose_id"], name: "index_images_on_ose_id"
     t.index ["pool_id"], name: "index_images_on_pool_id"
