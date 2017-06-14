@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
   resources :categories do
     resources :systems do
-      resources :images
+      resources :images do
+        resources :notes
+      end
     end
   end
 

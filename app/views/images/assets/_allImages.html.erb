@@ -1,0 +1,12 @@
+<div class="col-md-3">
+
+    <h1><%= @system.name %></h1>
+
+
+    <div class="list-group">
+    <% @images.each do |image| %>
+      <%= link_to image.name, edit_category_system_image_path(@category, @system, image), class: "list-group-item" %>
+    <% end %>
+    </div>
+
+</div><!-- End of Column -->

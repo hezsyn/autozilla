@@ -17,6 +17,20 @@ class ImagesController < ApplicationController
     redirect_to category_system_path(@category, @system)
   end
 
+  def edit
+    @category = Category.find(params[:category_id])
+    @system = System.find(params[:system_id])
+    @image = Image.find(params[:id])
+    @images = @system.images.all
+    @notes = @image.notes.all
+  end
+
+  def update
+    @image = Image.find(params[:id])
+    @image.update(image_params)
+
+    redirect_to category_system_path
+  end
 
   private
     def image_params

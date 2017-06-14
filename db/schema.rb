@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420172711) do
+ActiveRecord::Schema.define(version: 20170613232545) do
 
   create_table "categories", force: :cascade do |t|
     t.string "name"
@@ -57,13 +57,13 @@ ActiveRecord::Schema.define(version: 20170420172711) do
 
   create_table "images", force: :cascade do |t|
     t.string "name"
-    t.text "note"
     t.text "description"
     t.string "disk"
     t.string "flags"
     t.string "flags_upload"
     t.string "path"
     t.string "loader_string"
+    t.integer "note_id"
     t.integer "user_id"
     t.integer "system_id"
     t.integer "pool_id"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20170420172711) do
     t.datetime "updated_at", null: false
     t.index ["clonezilla_version_id"], name: "index_images_on_clonezilla_version_id"
     t.index ["image_status_id"], name: "index_images_on_image_status_id"
+    t.index ["note_id"], name: "index_images_on_note_id"
     t.index ["ose_id"], name: "index_images_on_ose_id"
     t.index ["pool_id"], name: "index_images_on_pool_id"
     t.index ["system_id"], name: "index_images_on_system_id"
@@ -89,6 +90,14 @@ ActiveRecord::Schema.define(version: 20170420172711) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_logs_on_user_id"
+  end
+
+  create_table "notes", force: :cascade do |t|
+    t.text "information"
+    t.integer "image_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["image_id"], name: "index_notes_on_image_id"
   end
 
   create_table "oses", force: :cascade do |t|

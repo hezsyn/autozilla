@@ -1,0 +1,45 @@
+
+<%= render 'images/assets/allImages' %>
+
+<div class="col-xs-9">
+
+  <div class="row">
+
+    <h1><%= @image.name %></h1>
+  <hr>
+
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <h3>Description</h3>
+      <hr>
+      <div class="well"><%= @image.description %></div>
+      <hr>
+      <h3>Details</h3>
+    </div>
+
+    <div class="col-md-6">
+      <h3>Notes</h3>
+      <hr>
+      <table class="table table-striped table-hover">
+        <tbody>
+        <% c = 1 %>
+        <% @notes.each do |note| %>
+          <tr>
+            <td><%= c %></td>
+            <td><%= note.information %></td>
+            <td><%= link_to 'Edit', edit_category_system_image_note_path(@category, @system, @image, note) %></td>
+            <td>Disable</td>
+          </tr>
+          <% c += 1 %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div><!-- End of Overall Column -->
+

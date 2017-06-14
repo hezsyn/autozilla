@@ -1,3 +1,3 @@
 class Pool < ApplicationRecord
-  has_many :image
+  has_one :images
 end
