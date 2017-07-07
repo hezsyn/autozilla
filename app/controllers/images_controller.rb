@@ -23,13 +23,19 @@ class ImagesController < ApplicationController
     @image = Image.find(params[:id])
     @images = @system.images.all
     @notes = @image.notes.all
+
+    @image_statuses = ImageStatus.all
+    @clonezillas = ClonezillaVersion.all
+    @oss = Ose.where(:is_enabled => 1)
   end
 
   def update
+    @category = Category.find(params[:category_id])
+    @system = System.find(params[:system_id])
     @image = Image.find(params[:id])
     @image.update(image_params)
 
-    redirect_to category_system_path
+    redirect_to edit_category_system_image_path(@category, @system, @image)
   end
 
   private

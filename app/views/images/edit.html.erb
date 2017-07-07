@@ -5,23 +5,91 @@
 
   <div class="row">
 
-    <h1><%= @image.name %></h1>
+    <h1><%= best_in_place [@category, @system, @image], :name, :as => :textarea %></h1>
   <hr>
 
   </div>
 
+  <%= form_for [@category, @system, @image] do |f| %>
+  <% c = 1 %> <!-- Staging the tab index -->
   <div class="row">
+
+    <div class="col-md-4">
+      <div class="form_group">
+        <label>Image Status -</label>
+        <%= f.collection_select :image_status, @image_statuses, :id, :name, class: "form-control", :include_blank => true %>
+      </div>
+
+      <div class="form_group">
+        <label>CloneZilla Version -</label>
+        <%= f.collection_select :clonezilla_version, @clonezillas, :id, :name, class: "form-control", :include_blank => true %>
+      </div>
+
+      <div class="form_group">
+        <label >Operating System -</label>
+        <%= f.collection_select :ose, @oss, :id, :name, :include_blank => true %>
+      </div>
+
+   </div>
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="row">
+        <h3>Details</h3>
+        <hr>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+
+            <% ["disk", "flags", "flags_upload" ].each do |para| %>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <%= f.label para.to_sym %>
+                </span>
+                <%= f.text_field para.to_sym, class: "form-control", "placeholder" => para.to_s, "tabindex" => c %>
+              </div>
+              <br>
+              <% c += 1 %>
+            <% end %>
+
+        </div>
+
+        <div class="col-md-6">
+
+           <% ["path", "loader_string"].each do |para| %>
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <%= f.label para.to_sym %>
+                </span>
+                <%= f.text_field para.to_sym, class: "form-control", "placeholder" => para.to_s, "tabindex" => c %>
+              </div>
+              <br>
+              <% c += 1 %>
+            <% end %>
+
+            <div class="row">
+              <%= f.submit "tabindex" => c %>
+            </div>
+          <% end %>
+
+        </div>
+
+      </div>
+
+    </div><!-- End of col-md-6 inner -->
 
     <div class="col-md-6">
       <h3>Description</h3>
       <hr>
-      <div class="well"><%= @image.description %></div>
-      <hr>
-      <h3>Details</h3>
-    </div>
-
-    <div class="col-md-6">
-      <h3>Notes</h3>
+      <div class="well"><%= best_in_place [@category, @system, @image], :description, :as => :textarea %></div>
+      <div class="row">
+      <p>Notes
+        <%= button_tag "data-toggle" => "modal", "data-target" => "#newNote" do %>
+          <span class="glyphicon glyphicon-plus"></span>
+        <% end %>
+      </p>
       <hr>
       <table class="table table-striped table-hover">
         <tbody>
@@ -43,3 +111,33 @@
 
 </div><!-- End of Overall Column -->
 
+  <div id="newNote" class="modal fade", role="dialog">
+    <div class="modal-dialog">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <%= button_tag class: "close", "data-dismiss" => "modal" do %>
+            &times;
+          <% end %>
+          <h4 class="modal-title">Notes</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_for [@category, @system, @image, @image.notes.build ] do |f| %>
+            <div class="input-group">
+              <span class="input-group-addon">Note</span>
+              <%= f.text_area :information, class: "form-control", "placeholder" => "Notes" %>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit "Create" %>
+          <% button_tag "Close", class: "btn btn-default", "data-dismiss" => "modal" %>
+        </div>
+      </div>
+
+          <% end %>
+    </div>
+  </div>
+
+
+
+</div>

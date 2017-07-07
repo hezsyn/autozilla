@@ -13,6 +13,13 @@
 //= require rails-ujs
 //= require turbolinks
 //= require jquery/dist/jquery
+//= require jquery-ui/external/requirejs/require
+//= require best_in_place
+//= require best_in_place.jquery-ui
 //= require bootstrap/dist/js/bootstrap
 //= require_tree .
 
+$(document).ready(function() {
+  /* Activating Best In Place */
+  jQuery(".best_in_place").best_in_place();
+});
