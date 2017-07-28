@@ -1,0 +1,5 @@
+Questions?
+
+  - HVR, should the image only be accessible for a limited time?
+    - Should the image be deleted by human or machine?
+      - Notification by email or tool? Both?

@@ -6,18 +6,18 @@ class PoolsController < ApplicationController
   end
 
   def new
-    @pool = Pool.new
+    @pool  = Pool.new
   end
 
   def create
     @pool = Pool.create(pool_params)
 
-    @pool.save
     redirect_to pools_path
   end
 
   def edit
     @pool = Pool.find(params[:id])
+    @pools = Pool.all
   end
 
   def update
@@ -27,12 +27,12 @@ class PoolsController < ApplicationController
     redirect_to pools_path
   end
 
-  def status
+  def destroy
     @pool = Pool.find(params[:id])
       if @pool.is_enabled == 0
-        @pool.update(:is_enabled 1)
+        @pool.update(:is_enabled => 1)
       else
-        @pool.update(:is_enabled 0)
+        @pool.update(:is_enabled => 0)
       end
     redirect_to pools_path
   end

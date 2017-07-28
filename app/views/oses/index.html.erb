@@ -1,18 +1,7 @@
-<div class="row">
-
-  <div class="col-xs-3">
-
-    <h1>Operating System</h1>
-
-    <hr>
-
-    <%= link_to 'New OS', new_ose_path, class: "btn btn-warning", data-toggle: "modal", data-target: "#osForm" %>
-
-  </div>
-
-  <div class="col-xs-8">
+  <div class="col-xs-8 col-xs-offset-2">
     <div class="row">
       <h2>All Operating Systems...</h2>
+    <%= link_to 'New OS', new_ose_path, class: "btn btn-info btn-sm", "data-toggle" => "modal", "data-target" => "#newOS" %>
     </div>
 
     <div class="row">
@@ -22,16 +11,21 @@
           <th>Name</th>
           <th>Description</th>
           <th>Enabled?</th>
+          <th></th>
+          <th></th>
         </thead>
         <tbody>
           <% i = 1 %>
           <% @oses.each do |os| %>
-            <tr>
+            <tr class="<%= os.is_enabled == 1 ? "success" : "danger" %>" >
               <td><%= i %></td>
               <td><%= os.name %></td>
               <td><%= os.description %></td>
               <td><%= is_enabled?(os.is_enabled) %></td>
               <td><%= link_to 'Edit', edit_ose_path(os.id) %></td>
+              <td><%= link_to os.is_enabled == 1 ? "Disable" : "Enable", ose_path(os.id),
+                      method: :delete,
+                      data: { confirm: "Are you sure?" } %></td>
             </tr>
             <% i += 1 %>
           <% end %>
@@ -43,3 +37,34 @@
 
 </div>
 
+<div id="newOS" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismis="modal">&times;</button>
+          <h4>New OS Creation</h4>
+        </div><!-- End of Modal Header -->
+
+        <div class="modal-body">
+          <%= form_for @newOS do |f| %>
+            <div class="input-group">
+              <span class="input-group-addon"><%= f.label :name %></span>
+              <%= f.text_field :name, class: "form-control" %>
+            </div>
+            <br>
+            <div class="input-group">
+              <span class="input-group-addon"><%= f.label :description %></span>
+              <%= f.text_area :description, class: "form-control" %>
+            </div>
+        </div><!-- End of Modal Body -->
+
+        <div class="modal-footer">
+            <%= f.submit 'Subimt', class: "btn btn-primary" %>
+            <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal" %>
+          <% end %>
+        </div><!-- End of Modal Footer -->
+
+      </div><!-- End of Modal Content -->
+
+    </div><!-- End of dialog -->
+  </div><!-- End of Modal Div -->

@@ -15,9 +15,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :pools, only: [:index, :new, :edit, :update, :status]
+  resources :pools
   resources :oses
   resources :users
+  resources :clonezilla_versions
+  resources :support_stuffs
 
   get '/ohya!', to: 'randy#savage'
 

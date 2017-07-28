@@ -2,17 +2,15 @@
 
   <!-- What is displayed on screen -->
 
-  <h1>Categories</h1>
+    <!-- Checking if it's a top category -->
+    <% if @parentCategory.present? %>
+    <h3>Sub-Categories</h3>
     <!-- New category button (Top level category) -->
     <%= button_tag 'New Category', class: "btn btn-warning btn-sm", "data-toggle" => "modal", "data-target" => "#newCategory" %>
-  <hr>
-
-
-    <!-- Checking if it's a top category -->
-    <% if @subcategories.present? %>
+    <hr>
       <!-- Side navigation -->
       <div class="list-group">
-        <% @subcategories.each do |cat| %>
+        <% @parentCategory.categories.each do |cat| %>
           <%= link_to cat.name, category_path(cat), class: "list-group-item" %>
         <% end %>
       </div>

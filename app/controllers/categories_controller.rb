@@ -8,6 +8,9 @@ class CategoriesController < ApplicationController
   def show
     @categories = Category.where(category_id: NIL, is_enabled: 1)
     @category = Category.find(params[:id])
+    if @category.category_id?
+      @parentCategory = Category.find(@category.category_id)
+    end
     @newCategory = Category.new
     @subcategory = Category.new
     @subcategories = Category.where(category_id: params[:id], is_enabled: 1).all

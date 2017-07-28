@@ -27,6 +27,7 @@ class ImagesController < ApplicationController
     @image_statuses = ImageStatus.all
     @clonezillas = ClonezillaVersion.all
     @oss = Ose.where(:is_enabled => 1)
+    @pools = Pool.all
   end
 
   def update

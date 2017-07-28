@@ -1,0 +1,147 @@
+Phase 1 - Upgrading Autozilla to Version 2
+  - Organize Images - 8 Hours
+    ! Category / SubCat / System / Images / Dealing with HVR
+      -> Navigate between Category / Subcat / System / Image
+        X - Create View for Image for editing
+          X - Create controller for Images
+          X- Create View for System for viewing show all / one
+            X - Create controller for Systems
+            X- Create View for SubCategory for Show all / one
+              X - Create View for Category for show all / one
+              X - Create controller for Categories
+      -> HVR
+        ! Able to send data over to HVR
+          -> Method - Image is copied over to HVR
+            - Notification says image has been finished copying
+              - Image is copied over
+                - File structure is created at destination location
+                  - User press, create HVR accessible
+
+  - Support Assets - 4 Hours
+    ! Manage support assets like OS / Order Groups / Clonezilla Versions / Other assets * Admin only *
+      X -> Creation of new asset
+        X - Asset created
+         X - Inserted into database
+           X - Form filled in with details regarding asset
+             X - Modal activated by admin for creating assets
+      -> Enable / Deactivated asset
+        - Asset deactivated
+          - Enable column changes from 1 to 0
+            - Admin saves form
+              - Admin selects toggle to disable
+                - Admin views desired asset to disable
+
+  - Searchable - 8 Hours
+    ! Able to search between categories / system / images
+      - Single search section that looks at the names of Categories / System / Images
+        - Create View for rendering what was searched for
+          - Search method activated
+            - Create Controller for searches
+              X - Input search box created
+
+  - Key creation - 20 Hours
+    ! keeping current design, key is created for imaging on machine / Both for HVR and production
+      - Able to download a key
+        - Need to research how the key needs to be setup
+
+  - Users 8 Hours
+    ! User authentication / creation / deactivation
+      -> User Login
+        - Credentials would be checked with user table
+          - Credentials would be pulled from where?
+      -> User Account is created
+        - User would be sent an email saying account was created
+          - Details about would be inserted into database
+            - Details would be pulled from LDAP information
+              - Approval request would be approved
+                - Approval email would be sent to those with permissions
+                  - User requests an account
+                    - User navigates to Autozilla website
+      -> User account is deactivated
+        - Account deactivated
+          - Admin deactivates account
+            - Admin views user going to deactivate
+              - Reason for deactivation is defined
+      -> User account with admin privileges
+        - Current Admin saves user information
+          - Current Admin checks admin checkbox
+            - Current Admin views future Admin users Account
+
+  - Backup Service 12 Hours
+    ! Backup service that controls revisions, view old backups, manages old back up
+      -> Back up procedure
+        - Full Backup has been completed
+          - Text file created regarding the results as well as time of day, stored with backup
+            - Check if any
+              - Copy database directory over to backup location
+                - Production database identified
+                  - Backup procedure activated automatically every day
+                  - Backup procedure activated manually by admin
+      -> View older Backup
+        - View render old back ups
+          - Query all old back ups
+            - User access page of old backups
+      -> Delete old back ups
+        - Back up was deleted
+          - Back up was identified to be deleted
+            - AzManagement searches for all backups older then 1 month
+              - AzMangement starts procedure every Sunday
+      -> Restore Backup
+        - Backup restored
+          - Database service activated
+            - Backup data copied over to production location, overwriting everything within destination
+              - Database service deactivated
+                - Tag file created with user who activated backup, date activated stored in location of backup
+                  - Current database data is copied over to backup location
+                    - Current database data identified
+                      - Admin triggers a restore by selecting which data to restore with
+
+  - Logging System - 8 Hrs
+    ! History of anything that happens to Autozilla
+      -> List all history items
+        - Add item to maser list of activities
+          - Create views for viewing all activity items
+            - Create controller for managing logging systems
+              - Create database table for storing all activities
+                - Create a method to insert activity into by taking date / time / activity / user
+
+Phase 2 - New Enhancements
+  - File Shadowing
+    ! Ability for autozilla to watch the file structure / Find orphan files / Aging Images / Size of images
+
+  - Live image
+    ! Able to have dynamic updates
+
+  - Single Sign on
+    ! No passwords
+
+  - Standalone Flash Drive
+    ! Create a flash drive to image a computer standalone
+
+  - Rename Computer
+    ! First boot, system is renamed
+
+  - Autozilla Plan C
+    ! Watchs the health of Autozilla.  If something is identified, measures would be taken to resolve issue.
+
+  - Track Image updates
+    ! Tracks images, mimics the excel document
+
+  - Tracking Computers
+    ! Autozilla would inteligently identify what the system is.  Easy upload / download.
+
+  - Documentation - On-Going
+    ! Creating documentation / Help Category / Built into tool / Editable by admins
+      -> Documentation system created
+        -
+      -> Documented Categories
+
+      -> Documented Support Assets
+
+      -> Documented Backup Service
+
+      -> Documented User Accounts
+
+      -> Documented Logging System
+
+      -> Documented Key Creation

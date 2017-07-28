@@ -1,0 +1,126 @@
+CategoryController
+  > Index
+    ! List all top level categories - Display recent changes
+    - Create Top Level Category
+
+    -> Show Sub Category
+      ! View individual Category
+      - Create System
+      - Create Image
+
+      ~ Details
+        ! What is dislayed
+        - Name of Entry
+        - Location of Entry
+          - Copy to clipboard button
+
+      -> Show System
+        ! View system
+        ~ Details
+          ! What is displayed
+            - Name
+            - List all images of system
+            - Location of Entry
+              - Copy to cipboard button
+              - Link to location
+        - Create Image
+        - Create Note
+
+        -> Edit Image
+          ! Change the details of the system
+          ~ Details
+            ! What to display, all editable
+              - Name
+              - Location of Entry
+                - Copy to clipboard button
+                - Link to location
+              - Image Status
+              - Clonezilla Version
+              - Pool
+              - OS
+              - Disk
+              - Path
+              - Flags
+              - Flags Uploaded
+              - Loader String
+              - Description
+              - Notes
+
+
+Pool Controller
+  > Index
+    ! Show all Pools available
+    ~ Details
+      - Name
+      - Description
+      - Creation Date
+      - Created By
+    - Create Pool
+    -> Edit Pool
+      ! Edit a pool
+      ~ Editable Details
+        - Name
+        - Description
+
+
+Operating System Controller
+  -> Index
+    ! Display all OS
+    ~ Details
+      - Name
+      - Is Visible Check box
+    -> Edit OS
+      ~ Editable Detail
+        - Name
+        - Visible
+
+User Controller * Admin *
+  -> Index
+    ! Display all Users
+      - Name
+      - Email
+      - Username
+      - Admin?
+      - Active?
+    ~ Methods
+      - Filterable
+        - By columns
+        - Search
+      - Deactivite users
+      - Authorized
+
+    -> Create User
+      ! Creation of user, account creation is done by requesting account creation
+
+
+    -> Show User
+      ! Look at an user
+      ~ Detail
+        - Name
+        - Username
+        - Admin?
+        - Active?
+      - List recent activity
+    -> Edit Users
+      ! Change details about a particular user
+      ~ Editable Details
+        - Admin
+        - Active
+      ~ Viewable Details
+        - Name
+        - Username
+        - Email
+        - Date created
+
+Feedback / Bug report Controller
+  -> Index
+    ! Display list of feedback from users from bug reports or words of wisdom
+    ~ Details
+      -
+
+
+
+
+
+
+

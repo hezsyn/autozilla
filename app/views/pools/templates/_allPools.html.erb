@@ -1,0 +1,16 @@
+<div class="col-md-3">
+  <div class="row">
+    <h1>Order Groups</h1>
+    <hr>
+  </div>
+
+  <div class="row">
+    <div class="list-group">
+      <% @pools.each do |pool| %>
+        <%= link_to pool.name, edit_pool_path(pool), class: "list-group-item" %>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+

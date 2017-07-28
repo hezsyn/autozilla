@@ -2,6 +2,7 @@ class OsesController < ApplicationController
 
   def index
     @oses = Ose.all
+    @newOS = Ose.new
   end
 
   def show
@@ -13,14 +14,15 @@ class OsesController < ApplicationController
   end
 
   def create
-    @os = Ose.create(os_params)
-
+    @os = Ose.new(os_params)
+    @os.update(:is_enabled => 1)
     @os.save
     redirect_to oses_path
   end
 
   def edit
     @os = Ose.find(params[:id])
+    @oses = Ose.all
   end
 
   def update
@@ -31,7 +33,10 @@ class OsesController < ApplicationController
   end
 
   def destroy
-    @os = Ose.find(params[:id]).update(is_enabled: 0)
+    @os = Ose.find(params[:id])
+    @os.update(:is_enabled => @os.is_enabled == 1 ? 0 : 1 )
+
+    redirect_to oses_path
   end
 
   private

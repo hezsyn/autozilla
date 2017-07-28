@@ -4,8 +4,8 @@
 <div class="col-xs-9">
 
   <div class="row">
-
-    <h1><%= best_in_place [@category, @system, @image], :name, :as => :textarea %></h1>
+    <h1><%= @system.name %></h1>
+    <h2><%= @image.name %></h2>
   <hr>
 
   </div>
@@ -14,20 +14,26 @@
   <% c = 1 %> <!-- Staging the tab index -->
   <div class="row">
 
-    <div class="col-md-4">
+    <div class="col-md-3">
+
       <div class="form_group">
         <label>Image Status -</label>
-        <%= f.collection_select :image_status, @image_statuses, :id, :name, class: "form-control", :include_blank => true %>
+        <%= f.collection_select :image_status_id, @image_statuses, :id, :name, class: "form-control", :include_blank => true, "tabindex" => c %>
       </div>
 
       <div class="form_group">
         <label>CloneZilla Version -</label>
-        <%= f.collection_select :clonezilla_version, @clonezillas, :id, :name, class: "form-control", :include_blank => true %>
+        <%= f.collection_select :clonezilla_version_id, @clonezillas, :id, :name, class: "form-control", :include_blank => true, "tabindex" => c %>
       </div>
 
       <div class="form_group">
-        <label >Operating System -</label>
-        <%= f.collection_select :ose, @oss, :id, :name, :include_blank => true %>
+        <label>Operating System -</label>
+        <%= f.collection_select :ose_id, @oss, :id, :name, :include_blank => true, "tabindex" => c %>
+      </div>
+
+      <div class="form_group">
+        <label>Pools -</label>
+        <%= f.collection_select :pool_id, @pools, :id, :name, :include_blank => true, "tabindex" => c %>
       </div>
 
    </div>

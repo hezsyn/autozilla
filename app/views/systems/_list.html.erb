@@ -2,3 +2,9 @@
   <h1><%= @category.name %></h1>
 </div>
 
+<div class="list-group-item">
+  <% @category.systems.all.each do |l| %>
+    <%= link_to l.name, category_system_path(@category, l), class: "list-group-item" %>
+  <% end %>
+</div>
+
