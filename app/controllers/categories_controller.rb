@@ -1,12 +1,12 @@
 class CategoriesController < ApplicationController
 
   def index
-    @categories = Category.where(category_id: NIL, is_enabled: 1)
+    @categories = Category.where(category_id: NIL, is_enabled: 1).order(:name)
     @newCategory = Category.new
   end
 
   def show
-    @categories = Category.where(category_id: NIL, is_enabled: 1)
+    @categories = Category.where(category_id: NIL, is_enabled: 1).order(:name)
     @category = Category.find(params[:id])
     if @category.category_id?
       @parentCategory = Category.find(@category.category_id)

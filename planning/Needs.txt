@@ -1,7 +1,7 @@
 Phase 1 - Upgrading Autozilla to Version 2
   - Organize Images - 8 Hours
     ! Category / SubCat / System / Images / Dealing with HVR
-      -> Navigate between Category / Subcat / System / Image
+      -> Navigate between Category / Subcpat / System / Image
         X - Create View for Image for editing
           X - Create controller for Images
           X- Create View for System for viewing show all / one

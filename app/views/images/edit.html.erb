@@ -2,19 +2,20 @@
 <%= render 'images/assets/allImages' %>
 
 <div class="col-xs-9">
+  <% c = 1 %> <!-- Staging the tab index -->
 
   <div class="row">
-    <h1><%= @system.name %></h1>
-    <h2><%= @image.name %></h2>
-  <hr>
-
+      <h1><%= @system.name %></h1>
+      <h2><%= best_in_place @image, :name, tabindex: c %></h2>
+    <hr>
   </div>
 
   <%= form_for [@category, @system, @image] do |f| %>
-  <% c = 1 %> <!-- Staging the tab index -->
-  <div class="row">
 
-    <div class="col-md-3">
+
+      <h3>Description</h3>
+      <hr>
+      <div class="well"><%= best_in_place [@category, @system, @image], :description, :as => :textarea %></div>
 
       <div class="form_group">
         <label>Image Status -</label>
@@ -36,18 +37,9 @@
         <%= f.collection_select :pool_id, @pools, :id, :name, :include_blank => true, "tabindex" => c %>
       </div>
 
-   </div>
 
-  <div class="row">
-
-    <div class="col-md-6">
-      <div class="row">
         <h3>Details</h3>
         <hr>
-      </div>
-
-      <div class="row">
-        <div class="col-md-6">
 
             <% ["disk", "flags", "flags_upload" ].each do |para| %>
               <div class="input-group">
@@ -60,9 +52,7 @@
               <% c += 1 %>
             <% end %>
 
-        </div>
 
-        <div class="col-md-6">
 
            <% ["path", "loader_string"].each do |para| %>
               <div class="input-group">
@@ -73,47 +63,13 @@
               </div>
               <br>
               <% c += 1 %>
-            <% end %>
 
-            <div class="row">
+            <% end %>
               <%= f.submit "tabindex" => c %>
-            </div>
           <% end %>
 
-        </div>
 
-      </div>
 
-    </div><!-- End of col-md-6 inner -->
-
-    <div class="col-md-6">
-      <h3>Description</h3>
-      <hr>
-      <div class="well"><%= best_in_place [@category, @system, @image], :description, :as => :textarea %></div>
-      <div class="row">
-      <p>Notes
-        <%= button_tag "data-toggle" => "modal", "data-target" => "#newNote" do %>
-          <span class="glyphicon glyphicon-plus"></span>
-        <% end %>
-      </p>
-      <hr>
-      <table class="table table-striped table-hover">
-        <tbody>
-        <% c = 1 %>
-        <% @notes.each do |note| %>
-          <tr>
-            <td><%= c %></td>
-            <td><%= note.information %></td>
-            <td><%= link_to 'Edit', edit_category_system_image_note_path(@category, @system, @image, note) %></td>
-            <td>Disable</td>
-          </tr>
-          <% c += 1 %>
-        <% end %>
-        </tbody>
-      </table>
-    </div>
-
-  </div>
 
 </div><!-- End of Overall Column -->
 

@@ -16,7 +16,7 @@
       </div>
     <% else %>
       <div class="list-group">
-        <% @categories.order(:name).each do |cat| %>
+        <% @categories.each do |cat| %>
           <%= link_to cat.name, category_path(cat), class: "list-group-item" %>
         <% end %>
       </div>
