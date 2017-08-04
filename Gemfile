@@ -56,7 +56,7 @@ group :development do
   gem 'faker'
 end
 
-gem 'pg'
+gem 'pg', '~> 0.21.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data'
