@@ -8,6 +8,7 @@ class CreateImages < ActiveRecord::Migration[5.0]
       t.string      :flags_upload
       t.string      :path
       t.string      :loader_string
+      t.string      :file_location
       t.belongs_to  :note, index: true
       t.belongs_to  :user, index: true
       t.belongs_to  :system, index: true

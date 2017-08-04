@@ -6,35 +6,35 @@
 
   <div class="row">
       <h1><%= @system.name %></h1>
-      <h2><%= best_in_place @image, :name, tabindex: c %></h2>
+      <h2><%= @image.name %></h2>
     <hr>
   </div>
 
   <%= form_for [@category, @system, @image] do |f| %>
 
 
-      <h3>Description</h3>
-      <hr>
-      <div class="well"><%= best_in_place [@category, @system, @image], :description, :as => :textarea %></div>
-
       <div class="form_group">
         <label>Image Status -</label>
-        <%= f.collection_select :image_status_id, @image_statuses, :id, :name, class: "form-control", :include_blank => true, "tabindex" => c %>
+        <%= f.collection_select(:image_status_id, @image_statuses, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"})  %>
+      <% c += 1%>
       </div>
 
       <div class="form_group">
         <label>CloneZilla Version -</label>
-        <%= f.collection_select :clonezilla_version_id, @clonezillas, :id, :name, class: "form-control", :include_blank => true, "tabindex" => c %>
+        <%= f.collection_select(:clonezilla_version_id, @clonezillas, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"})  %>
+      <% c += 1%>
       </div>
 
       <div class="form_group">
         <label>Operating System -</label>
-        <%= f.collection_select :ose_id, @oss, :id, :name, :include_blank => true, "tabindex" => c %>
+        <%= f.collection_select :ose_id, @oss, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"}%>
+      <% c += 1%>
       </div>
 
       <div class="form_group">
         <label>Pools -</label>
-        <%= f.collection_select :pool_id, @pools, :id, :name, :include_blank => true, "tabindex" => c %>
+        <%= f.collection_select :pool_id, @pools, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"} %>
+      <% c += 1%>
       </div>
 
 

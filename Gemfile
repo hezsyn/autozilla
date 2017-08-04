@@ -44,8 +44,6 @@ group :development, :test do
 end
 
 group :development do
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -58,9 +56,7 @@ group :development do
   gem 'faker'
 end
 
-group :production do
-  gem 'pg'
-end
+gem 'pg'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data'

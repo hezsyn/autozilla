@@ -12,11 +12,15 @@
 
 ActiveRecord::Schema.define(version: 20170613232545) do
 
-  create_table "categories", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "slug"
     t.text "description"
     t.string "is_enabled"
+    t.string "file_location"
     t.integer "user_id"
     t.integer "category_id"
     t.datetime "created_at", null: false
@@ -25,7 +29,7 @@ ActiveRecord::Schema.define(version: 20170613232545) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
-  create_table "clonezilla_versions", force: :cascade do |t|
+  create_table "clonezilla_versions", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.text "loader_string"
@@ -40,7 +44,7 @@ ActiveRecord::Schema.define(version: 20170613232545) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "configurations", force: :cascade do |t|
+  create_table "configurations", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "value"
     t.text "description"
@@ -48,14 +52,14 @@ ActiveRecord::Schema.define(version: 20170613232545) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "image_statuses", force: :cascade do |t|
+  create_table "image_statuses", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "is_visible"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "images", force: :cascade do |t|
+  create_table "images", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "disk"
@@ -63,6 +67,7 @@ ActiveRecord::Schema.define(version: 20170613232545) do
     t.string "flags_upload"
     t.string "path"
     t.string "loader_string"
+    t.string "file_location"
     t.integer "note_id"
     t.integer "user_id"
     t.integer "system_id"
@@ -82,7 +87,7 @@ ActiveRecord::Schema.define(version: 20170613232545) do
     t.index ["user_id"], name: "index_images_on_user_id"
   end
 
-  create_table "logs", force: :cascade do |t|
+  create_table "logs", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "user_id"
     t.string "ip_address"
@@ -94,13 +99,13 @@ ActiveRecord::Schema.define(version: 20170613232545) do
 
   create_table "notes", force: :cascade do |t|
     t.text "information"
-    t.integer "image_id"
+    t.bigint "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["image_id"], name: "index_notes_on_image_id"
   end
 
-  create_table "oses", force: :cascade do |t|
+  create_table "oses", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.integer "is_enabled"
@@ -108,7 +113,7 @@ ActiveRecord::Schema.define(version: 20170613232545) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pools", force: :cascade do |t|
+  create_table "pools", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.integer "is_enabled"
@@ -116,23 +121,24 @@ ActiveRecord::Schema.define(version: 20170613232545) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "systems", force: :cascade do |t|
+  create_table "systems", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "slug"
     t.text "description"
     t.integer "is_enabled"
+    t.string "file_location"
     t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_systems_on_category_id"
   end
 
-  create_table "templates", force: :cascade do |t|
+  create_table "templates", id: :serial, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "username"
     t.integer "is_domain_login"
