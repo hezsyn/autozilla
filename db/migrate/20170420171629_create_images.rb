@@ -1,4 +1,4 @@
-class CreateImages < ActiveRecord::Migration[5.0]
+class CreateImages < ActiveRecord::Migration[5.1]
   def change
     create_table :images do |t|
       t.string      :name
@@ -16,7 +16,13 @@ class CreateImages < ActiveRecord::Migration[5.0]
       t.belongs_to  :ose, index: true
       t.belongs_to  :image_status, index: true
       t.belongs_to  :clonezilla_version, index: true
+      t.belongs_to  :image_type, index: true
       t.string      :autoboot
+      t.integer     :current
+      t.integer     :grub_upload_id
+      t.integer     :grub_download_id
+      t.integer     :syslinux_upload_id
+      t.integer     :syslinux_download_id
 
       t.timestamps
     end

@@ -25,8 +25,8 @@ Phase 1 - Upgrading Autozilla to Version 2
            X - Form filled in with details regarding asset
              X - Modal activated by admin for creating assets
       -> Enable / Deactivated asset
-        - Asset deactivated
-          - Enable column changes from 1 to 0
+      X - Asset deactivated
+      X   - Enable column changes from 1 to 0
             - Admin saves form
               - Admin selects toggle to disable
                 - Admin views desired asset to disable
@@ -66,6 +66,8 @@ Phase 1 - Upgrading Autozilla to Version 2
         - Current Admin saves user information
           - Current Admin checks admin checkbox
             - Current Admin views future Admin users Account
+      -> Single Sign on
+        ! No passwords
 
   - Backup Service 12 Hours
     ! Backup service that controls revisions, view old backups, manages old back up
@@ -112,14 +114,14 @@ Phase 2 - New Enhancements
   - Live image
     ! Able to have dynamic updates
 
-  - Single Sign on
-    ! No passwords
-
   - Standalone Flash Drive
     ! Create a flash drive to image a computer standalone
 
-  - Rename Computer
-    ! First boot, system is renamed
+  - Post Image Automation
+    ! After image is completed, these are services that will run on first boot up
+      -> Rename Computer
+
+      -> Program Installation
 
   - Autozilla Plan C
     ! Watchs the health of Autozilla.  If something is identified, measures would be taken to resolve issue.

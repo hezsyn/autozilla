@@ -17,26 +17,24 @@
     <table class="table table-stripped table-hover">
       <thead>
         <th></th>
-        <th>Name</th>
         <th>Pool</th>
+        <th>Name</th>
+        <th>Type</th>
         <th>Operating System</th>
-        <th>Image Status</th>
         <th>Clonezilla Version</th>
         <th>Last Updated</th>
-        <th>Created</th>
       </thead>
       <tbody>
       <% n = 1 %>
       <% @system.images.each do |t| %>
         <tr>
           <td><%= link_to 'Edit', edit_category_system_image_path(@category, @system, t) %></td>
-          <td><%= t.name %></td>
           <td><%= t.pool.name %></td>
+          <td><%= t.name %></td>
+          <td><%= t.image_type.name %></td>
           <td><%= t.ose.name %></td>
-          <td><%= t.image_status.name %></td>
           <td><%= t.clonezilla_version.name %></td>
-          <td><%= t.updated_at %></td>
-          <td><%= t.created_at %></td>
+          <td><%= t.updated_at.strftime("%m%b%Y") %></td>
         </tr>
         <% n += 1 %>
       <% end %>
@@ -50,7 +48,9 @@
 
         <div class="modal-content">
           <div class="modal-header">
-            <%= button_tag '&times;',class: "close", "data-dismiss" => "modal" %>
+            <%= button_tag class: "close", "data-dismiss" => "modal" do %>
+              &times;
+            <% end %>
             <h4 class="modal-title">New System</h4>
           </div>
 
@@ -63,6 +63,10 @@
               <p>
                 <%= f.label :description %>
                 <%= f.text_area :description %>
+              </p>
+              <p>
+                <%= f.label :image_type %>
+                <%= f.collection_select :image_type_id, @image_types, :id, :name, include_blank: true %>
               </p>
               <p>
                 <%= f.label :pool %>
@@ -83,7 +87,7 @@
           </div>
 
           <div class="modal-footer">
-              <%= f.submit 'Submit' %>
+              <%= f.submit 'Create Image', class: "btn btn-warning"  %>
               <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal" %>
             <% end %>
           </div>

@@ -9,6 +9,7 @@ class SystemsController < ApplicationController
     @oses = Ose.all
     @imagesStatuses = ImageStatus.all
     @clonezillas = ClonezillaVersion.all
+    @image_types = ImageType.order(:name).all
   end
 
   def new
@@ -18,6 +19,7 @@ class SystemsController < ApplicationController
   def create
     @category = Category.find(params[:category_id])
     @system = @category.systems.new(system_params)
+    @system.file_location = @system.objectLocation
     @system.is_enabled = 1
     @system.save
 

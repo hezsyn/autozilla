@@ -10,10 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170613232545) do
+ActiveRecord::Schema.define(version: 20170808203646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "autozilla_key_configs", force: :cascade do |t|
+    t.string "purpose"
+    t.string "kernal"
+    t.string "boot"
+    t.string "user_name"
+    t.string "union"
+    t.string "parameters_set1"
+    t.string "edd"
+    t.string "parameters_set2"
+    t.string "keyboardLayout"
+    t.string "ocs_prerun0"
+    t.string "ocs_prerun1"
+    t.string "ocs_prerun2"
+    t.string "ocs_prerun3"
+    t.string "ocs_prerun4"
+    t.string "ocs_live_run"
+    t.string "ocs_live_keymap"
+    t.string "ocs_live_param"
+    t.string "ocs_live_batch"
+    t.string "locales"
+    t.string "vga"
+    t.string "ifname"
+    t.string "parameters_set3"
+    t.string "fetch"
+    t.string "toram"
+    t.string "live_media_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "autozilla_key_configs_images", id: false, force: :cascade do |t|
+    t.bigint "autozilla_key_config_image_id"
+    t.bigint "imagex_id"
+  end
 
   create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name"
@@ -29,7 +64,7 @@ ActiveRecord::Schema.define(version: 20170613232545) do
     t.index ["user_id"], name: "index_categories_on_user_id"
   end
 
-  create_table "clonezilla_versions", id: :serial, force: :cascade do |t|
+  create_table "clonezilla_versions", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.text "loader_string"
@@ -59,6 +94,14 @@ ActiveRecord::Schema.define(version: 20170613232545) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "image_types", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "is_enabled"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "images", id: :serial, force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -75,11 +118,14 @@ ActiveRecord::Schema.define(version: 20170613232545) do
     t.integer "ose_id"
     t.integer "image_status_id"
     t.integer "clonezilla_version_id"
+    t.integer "image_type_id"
     t.string "autoboot"
+    t.integer "current"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["clonezilla_version_id"], name: "index_images_on_clonezilla_version_id"
     t.index ["image_status_id"], name: "index_images_on_image_status_id"
+    t.index ["image_type_id"], name: "index_images_on_image_type_id"
     t.index ["note_id"], name: "index_images_on_note_id"
     t.index ["ose_id"], name: "index_images_on_ose_id"
     t.index ["pool_id"], name: "index_images_on_pool_id"
@@ -127,6 +173,7 @@ ActiveRecord::Schema.define(version: 20170613232545) do
     t.text "description"
     t.integer "is_enabled"
     t.string "file_location"
+    t.string "default_disk"
     t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

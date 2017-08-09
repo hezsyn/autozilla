@@ -6,6 +6,7 @@ class CreateSystems < ActiveRecord::Migration[5.0]
       t.text          :description
       t.integer       :is_enabled
       t.string        :file_location
+      t.string        :default_disk
       t.references    :category, foregin_key: true
 
       t.timestamps

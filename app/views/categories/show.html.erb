@@ -20,7 +20,7 @@
           <th></th>
           <th>#</th>
           <th>Name</th>
-          <th>Slug</th>
+          <th>File Path</th>
           <th>Created</th>
           <th>Last Modified</th>
         </thead>
@@ -31,7 +31,7 @@
               <td><%= link_to 'View', category_path(t.id) %></td>
               <td><%= n %></td>
               <td><%= t.name %></td>
-              <td><%= t.slug %></td>
+              <td><%= t.file_location %></td>
               <td><%= t.created_at %></td>
               <td><%= t.updated_at %></td>
               <td><%= link_to 'Edit', edit_category_path(t.id) %></td>
@@ -50,6 +50,9 @@
             <th></th>
             <th>#</th>
             <th>Name</th>
+            <th>File Location</th>
+            <th>Description</th>
+            <th>Edit</th>
           </thead>
           <tbody>
         <% n = 1 %>
@@ -58,14 +61,12 @@
                 <td><%= link_to 'View', category_system_path(@category, sys) %></td>
                 <td><%= n %></td>
                 <td><%= sys.name %></td>
-                <td><%= sys.slug %></td>
+                <td><%= sys.file_location %></td>
                 <td><%= sys.description %></td>
                 <td><%= link_to 'Edit', edit_category_system_path(@category, sys) %></td>
               </tr>
               <% n += 1 %>
             <% end %>
-            <tr>
-            </tr>
           </tbody>
         </table>
       <% end %>

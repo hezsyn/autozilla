@@ -1,16 +1,13 @@
-class CreateClonezillaVersions < ActiveRecord::Migration[5.0]
+class CreateClonezillaVersions < ActiveRecord::Migration[5.1]
   def change
     create_table :clonezilla_versions do |t|
       t.string            :name
       t.text              :description
-      t.text              :loader_string
-      t.text              :azk_loader_string
-      t.text              :azk_up_loader_string
-      t.text              :up_loader_string
-      t.text              :azk_syslinux_loader_string
-      t.text              :azk_syslinux_up_loader_string
-      t.text              :azab_loader_string
       t.integer           :is_enabled
+      t.integer           :grub_upload_id
+      t.integer           :grub_download_id
+      t.integer           :syslinux_upload_id
+      t.integer           :syslinux_download_id
 
       t.timestamps
     end

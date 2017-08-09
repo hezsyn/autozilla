@@ -31,7 +31,7 @@ class CategoriesController < ApplicationController
     else
       @category = Category.new(sub_category_params)
     end
-    @category.file_location = @category.fileLocation
+    @category.file_location = @category.objectLocation
     @category.is_enabled = 1
 
     @category.save
@@ -65,11 +65,11 @@ class CategoriesController < ApplicationController
 
   private
     def sub_category_params
-      params.require(:category).permit(:name, :slug, :description, :is_enabled, :category_id)
+      params.require(:category).permit(:name, :slug, :description, :is_enabled, :category_id, :file_location)
     end
 
     def category_params
-      params.require(:category).permit(:name, :slug, :description, :is_enabled)
+      params.require(:category).permit(:name, :slug, :description, :is_enabled, :file_location)
     end
 
 end
