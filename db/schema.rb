@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 20170808203646) do
   enable_extension "plpgsql"
 
   create_table "autozilla_key_configs", force: :cascade do |t|
+    t.string "btldr"
     t.string "purpose"
     t.string "kernal"
     t.string "boot"
@@ -45,11 +46,6 @@ ActiveRecord::Schema.define(version: 20170808203646) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "autozilla_key_configs_images", id: false, force: :cascade do |t|
-    t.bigint "autozilla_key_config_image_id"
-    t.bigint "imagex_id"
-  end
-
   create_table "categories", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "slug"
@@ -67,16 +63,17 @@ ActiveRecord::Schema.define(version: 20170808203646) do
   create_table "clonezilla_versions", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.text "loader_string"
-    t.text "azk_loader_string"
-    t.text "azk_up_loader_string"
-    t.text "up_loader_string"
-    t.text "azk_syslinux_loader_string"
-    t.text "azk_syslinux_up_loader_string"
-    t.text "azab_loader_string"
     t.integer "is_enabled"
+    t.bigint "grub_upload_id"
+    t.bigint "grub_download_id"
+    t.bigint "syslinux_upload_id"
+    t.bigint "syslinux_download_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["grub_download_id"], name: "index_clonezilla_versions_on_grub_download_id"
+    t.index ["grub_upload_id"], name: "index_clonezilla_versions_on_grub_upload_id"
+    t.index ["syslinux_download_id"], name: "index_clonezilla_versions_on_syslinux_download_id"
+    t.index ["syslinux_upload_id"], name: "index_clonezilla_versions_on_syslinux_upload_id"
   end
 
   create_table "configurations", id: :serial, force: :cascade do |t|
@@ -102,7 +99,7 @@ ActiveRecord::Schema.define(version: 20170808203646) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "images", id: :serial, force: :cascade do |t|
+  create_table "images", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.string "disk"
@@ -111,24 +108,32 @@ ActiveRecord::Schema.define(version: 20170808203646) do
     t.string "path"
     t.string "loader_string"
     t.string "file_location"
-    t.integer "note_id"
-    t.integer "user_id"
-    t.integer "system_id"
-    t.integer "pool_id"
-    t.integer "ose_id"
-    t.integer "image_status_id"
-    t.integer "clonezilla_version_id"
-    t.integer "image_type_id"
+    t.bigint "note_id"
+    t.bigint "user_id"
+    t.bigint "system_id"
+    t.bigint "pool_id"
+    t.bigint "ose_id"
+    t.bigint "image_status_id"
+    t.bigint "clonezilla_version_id"
+    t.bigint "image_type_id"
     t.string "autoboot"
     t.integer "current"
+    t.bigint "grub_upload_id_id"
+    t.bigint "grub_download_id_id"
+    t.bigint "syslinux_upload_id_id"
+    t.bigint "syslinux_download_id_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["clonezilla_version_id"], name: "index_images_on_clonezilla_version_id"
+    t.index ["grub_download_id_id"], name: "index_images_on_grub_download_id_id"
+    t.index ["grub_upload_id_id"], name: "index_images_on_grub_upload_id_id"
     t.index ["image_status_id"], name: "index_images_on_image_status_id"
     t.index ["image_type_id"], name: "index_images_on_image_type_id"
     t.index ["note_id"], name: "index_images_on_note_id"
     t.index ["ose_id"], name: "index_images_on_ose_id"
     t.index ["pool_id"], name: "index_images_on_pool_id"
+    t.index ["syslinux_download_id_id"], name: "index_images_on_syslinux_download_id_id"
+    t.index ["syslinux_upload_id_id"], name: "index_images_on_syslinux_upload_id_id"
     t.index ["system_id"], name: "index_images_on_system_id"
     t.index ["user_id"], name: "index_images_on_user_id"
   end

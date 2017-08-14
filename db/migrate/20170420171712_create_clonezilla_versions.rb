@@ -4,10 +4,10 @@ class CreateClonezillaVersions < ActiveRecord::Migration[5.1]
       t.string            :name
       t.text              :description
       t.integer           :is_enabled
-      t.integer           :grub_upload_id
-      t.integer           :grub_download_id
-      t.integer           :syslinux_upload_id
-      t.integer           :syslinux_download_id
+      t.references        :grub_upload
+      t.references        :grub_download
+      t.references        :syslinux_upload
+      t.references        :syslinux_download
 
       t.timestamps
     end

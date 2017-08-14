@@ -9,20 +9,20 @@ class CreateImages < ActiveRecord::Migration[5.1]
       t.string      :path
       t.string      :loader_string
       t.string      :file_location
-      t.belongs_to  :note, index: true
-      t.belongs_to  :user, index: true
-      t.belongs_to  :system, index: true
-      t.belongs_to  :pool, index: true
-      t.belongs_to  :ose, index: true
-      t.belongs_to  :image_status, index: true
-      t.belongs_to  :clonezilla_version, index: true
-      t.belongs_to  :image_type, index: true
+      t.references  :note, index: true
+      t.references  :user, index: true
+      t.references  :system, index: true
+      t.references  :pool, index: true
+      t.references  :ose, index: true
+      t.references  :image_status, index: true
+      t.references  :clonezilla_version, index: true
+      t.references  :image_type, index: true
       t.string      :autoboot
       t.integer     :current
-      t.integer     :grub_upload_id
-      t.integer     :grub_download_id
-      t.integer     :syslinux_upload_id
-      t.integer     :syslinux_download_id
+      t.references  :grub_upload_id, index: true
+      t.references  :grub_download_id, index: true
+      t.references  :syslinux_upload_id, index: true
+      t.references  :syslinux_download_id, index: true
 
       t.timestamps
     end

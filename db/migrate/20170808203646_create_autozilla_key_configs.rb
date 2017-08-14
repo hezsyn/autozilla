@@ -1,6 +1,7 @@
 class CreateAutozillaKeyConfigs < ActiveRecord::Migration[5.1]
   def change
     create_table :autozilla_key_configs do |t|
+      t.string        :btldr
       t.string        :purpose
       t.string        :kernal
       t.string        :boot
