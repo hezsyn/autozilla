@@ -30,6 +30,7 @@ class ImagesController < ApplicationController
     @images = @system.images.all
     @notes = @image.notes.all
 
+    @image_types = ImageType.all
     @image_statuses = ImageStatus.all
     @clonezillas = ClonezillaVersion.all
     @oss = Ose.where(:is_enabled => 1)
