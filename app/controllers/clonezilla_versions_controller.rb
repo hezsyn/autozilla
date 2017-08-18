@@ -22,18 +22,15 @@ class ClonezillaVersionsController < ApplicationController
   end
 
   def edit
-    @cvs = ClonezillaVersion.all.order(name: :desc)
-    @cv = ClonezillaVersion.find(params[:id])
+    @czs = ClonezillaVersion.all.order(name: :desc)
+    @cz = ClonezillaVersion.find(params[:id])
     @czParam = AutozillaKeyConfig.all
     @azk = AutozillaKeyConfig.all
-    @grubUpload = @cv.grub_upload
-    @grubDownload = @cv.grub_download
-    @syslinxUpload = @cv.syslinux_upload
-    @syslinuxDownload = @cv.syslinux_download
   end
 
   def update
     @cv = ClonezillaVersion.find(params[:id])
+    @cv.update(czv_params)
   end
 
   def destroy
@@ -43,6 +40,7 @@ class ClonezillaVersionsController < ApplicationController
       else
         @cv.update(:is_enabled => 0)
       end
+
     redirect_to clonezilla_versions_path
   end
 

@@ -19,10 +19,10 @@ class CreateImages < ActiveRecord::Migration[5.1]
       t.references  :image_type, index: true
       t.string      :autoboot
       t.integer     :current
-      t.references  :grub_upload_id, index: true
-      t.references  :grub_download_id, index: true
-      t.references  :syslinux_upload_id, index: true
-      t.references  :syslinux_download_id, index: true
+      t.references  :grub_upload, index: true
+      t.references  :grub_download, index: true
+      t.references  :syslinux_upload, index: true
+      t.references  :syslinux_download, index: true
 
       t.timestamps
     end

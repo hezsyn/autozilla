@@ -13,7 +13,6 @@
 
   <%= form_for [@category, @system, @image] do |f| %>
 
-
       <div class="form_group">
         <label>Image Status -</label>
         <%= f.collection_select(:image_status_id, @image_statuses, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"})  %>
@@ -53,8 +52,6 @@
               <% c += 1 %>
             <% end %>
 
-
-
            <% ["path", "loader_string"].each do |para| %>
               <div class="input-group">
                 <span class="input-group-addon">
@@ -69,7 +66,28 @@
               <%= f.submit "tabindex" => c %>
           <% end %>
 
+        <div class="row">
 
+          <div class="row">
+            <div class="col-md-2">
+              <%= button_tag class: "btn btn-warning", "data-toggle" => "collapse", "data-target" => "#advanced" do %>
+                <span class="glyphicon glyphicon-plus"></span>
+              <% end %>
+            </div>
+
+            <div class="col-md-2">
+              <h3>Advanced</h3>
+            </div>
+
+            <hr>
+
+          </div>
+
+          <div id="advanced" class="row collapse">
+            <%= render 'clonezilla_versions/assets/paraForm', locals: {junBug: @image.grub_upload, item_id: @image.id} %>
+          </div>
+
+        </div>
 
 
 </div><!-- End of Overall Column -->

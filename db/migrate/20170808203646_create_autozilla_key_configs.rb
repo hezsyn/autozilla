@@ -20,6 +20,12 @@ class CreateAutozillaKeyConfigs < ActiveRecord::Migration[5.1]
       t.string        :ocs_live_keymap
       t.string        :ocs_live_param
       t.string        :ocs_live_batch
+      t.string        :ocs_repository
+      t.string        :ocs_postrun0
+      t.string        :ocs_postrun1
+      t.string        :ocs_postrun2
+      t.string        :ocs_postrun3
+      t.string        :ocs_postrun4
       t.string        :locales
       t.string        :vga
       t.string        :ifname
