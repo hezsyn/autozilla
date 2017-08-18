@@ -12,6 +12,7 @@ class Image < ApplicationRecord
   belongs_to :syslinux_download, class_name: "AutozillaKeyConfig", foreign_key: "id"
 
   def azkName
-
+    pool.name + " - " + image_type.name + " - " + ose.name + " - bheinrix - " + updated_at.strftime("%m%b%Y")
   end
+
 end
