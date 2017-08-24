@@ -26,12 +26,15 @@ class CategoriesController < ApplicationController
   def create
     @categories = Category.all
 
-    if :category_id.nil?
+  if :category_id.nil?
       @category = Category.new(category_params)
     else
       @category = Category.new(sub_category_params)
     end
     @category.file_location = @category.objectLocation
+    @category.slug = @category.name
+    @category.makeSlug
+    @category.makeMenuEntry
     @category.is_enabled = 1
 
     @category.save

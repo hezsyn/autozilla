@@ -1,8 +1,6 @@
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 
-
-
     def objectLocation
       x = self
       # Setting / Resetting fileLocation for each cycle
@@ -33,6 +31,16 @@ class ApplicationRecord < ActiveRecord::Base
         end
       end
       @fileLocation
+  end
+
+  def makeSlug
+    slug.chomp
+    slug.gsub!(" ", "_")
+    slug.downcase!
+    c = System.where(name: name).count
+    c += Category.where(name: name).count
+    c += 1
+    slug << "#{c}"
   end
 
 end

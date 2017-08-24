@@ -20,6 +20,7 @@
           <th></th>
           <th>#</th>
           <th>Name</th>
+          <th>Slug</th>
           <th>File Path</th>
           <th>Created</th>
           <th>Last Modified</th>
@@ -31,6 +32,7 @@
               <td><%= link_to 'View', category_path(t.id) %></td>
               <td><%= n %></td>
               <td><%= t.name %></td>
+              <td><%= t.slug %></td>
               <td><%= t.file_location %></td>
               <td><%= t.created_at %></td>
               <td><%= t.updated_at %></td>
@@ -50,6 +52,7 @@
             <th></th>
             <th>#</th>
             <th>Name</th>
+            <th>Slug</th>
             <th>File Location</th>
             <th>Description</th>
             <th>Edit</th>
@@ -61,6 +64,7 @@
                 <td><%= link_to 'View', category_system_path(@category, sys) %></td>
                 <td><%= n %></td>
                 <td><%= sys.name %></td>
+                <td><%= sys.slug %></td>
                 <td><%= sys.file_location %></td>
                 <td><%= sys.description %></td>
                 <td><%= link_to 'Edit', edit_category_system_path(@category, sys) %></td>
@@ -100,6 +104,8 @@
             <%= f.text_area :description, class: "form-control" %>
           </div>
       </div>
+
+      <%= f.hidden_field :entry, value: "system" %>
 
       <div class="modal-footer">
         <%= f.submit 'Create Category', class: "btn btn-warning" %>

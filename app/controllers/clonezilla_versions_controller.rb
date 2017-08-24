@@ -15,6 +15,10 @@ class ClonezillaVersionsController < ApplicationController
 
   def create
     @cv = ClonezillaVersion.create(czv_params)
+    @cv.grub_upload = AutozillaKeyConfig.create(btldr: "Grub", purpose: "Upload")
+    @cv.grub_download = AutozillaKeyConfig.create(btldr: "Grub", purpose: "Download")
+    @cv.syslinux_upload = AutozillaKeyConfig.create(btldr: "Syslinux", purpose: "Upload")
+    @cv.syslinux_download = AutozillaKeyConfig.create(btldr: "Syslinux", purpose: "Download")
     @cv.is_enabled = 1
     @cv.save
 

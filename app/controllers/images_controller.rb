@@ -18,6 +18,7 @@ class ImagesController < ApplicationController
     @image.grub_download_id = @cz.grub_download_id
     @image.syslinux_upload_id = @cz.syslinux_upload_id
     @image.syslinux_download_id = @cz.syslinux_download_id
+    @image.makeEntry
 
     @image.save
     redirect_to category_system_path(@category, @system)

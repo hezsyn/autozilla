@@ -20,6 +20,9 @@ class SystemsController < ApplicationController
     @category = Category.find(params[:category_id])
     @system = @category.systems.new(system_params)
     @system.file_location = @system.objectLocation
+    @system.slug = @system.name
+    @system.makeSlug
+    @system.makeEntry
     @system.is_enabled = 1
     @system.save
 
@@ -43,7 +46,7 @@ class SystemsController < ApplicationController
 
   private
     def system_params
-      params.require(:system).permit(:name, :description, :is_enabled, :category_id)
+      params.require(:system).permit(:name, :slug, :description, :is_enabled, :category_id)
     end
 
 end
