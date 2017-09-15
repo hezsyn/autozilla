@@ -5,6 +5,7 @@
       <div class="row">
         <div class="jumbotron">
           <h1><%= @category.name %></h1>
+          <h4><%= @category.file_location %></h4>
         <%= button_tag 'New SubCategory', class: "btn btn-sm btn-warning", "data-toggle" => "modal", "data-target" => "#newSubCat" %>
         <%= button_tag 'New System', class: "btn btn-sm btn-warning", "data-toggle" => "modal", "data-target" => "#newSystem" %>
         </div>
@@ -13,38 +14,36 @@
     <div class="row">
 
     <% if @subcategories.present? %>
+    <% if @systems.present? %>
+      <div class="col-xs-6">
+    <% end %>
       <h2 class="text-center">Sub-Categories</h2>
       <hr>
       <table class="table table-hover table-responsive table-striped">
         <thead>
-          <th></th>
           <th>#</th>
           <th>Name</th>
-          <th>Slug</th>
-          <th>File Path</th>
-          <th>Created</th>
-          <th>Last Modified</th>
         </thead>
         <tbody>
           <%  n = 1 %>
           <% @subcategories.each do |t| %>
             <tr>
-              <td><%= link_to 'View', category_path(t.id) %></td>
+              <%= link_to category_path(t.id) do %>
               <td><%= n %></td>
               <td><%= t.name %></td>
-              <td><%= t.slug %></td>
-              <td><%= t.file_location %></td>
-              <td><%= t.created_at %></td>
-              <td><%= t.updated_at %></td>
-              <td><%= link_to 'Edit', edit_category_path(t.id) %></td>
+              <% end %>
             </tr>
             <% n += 1 %>
           <% end %>
         </tbody>
       </table>
+    <% if @systems.present? %>
+      </div>
+    <% end %>
       <% end %>
 
       <% if @systems.present? %>
+        <div class="col-xs-6">
         <h2 class="text-center">Systems</h2>
         <hr>
         <table class="table table-hover table-striped">
@@ -52,10 +51,6 @@
             <th></th>
             <th>#</th>
             <th>Name</th>
-            <th>Slug</th>
-            <th>File Location</th>
-            <th>Description</th>
-            <th>Edit</th>
           </thead>
           <tbody>
         <% n = 1 %>
@@ -64,16 +59,13 @@
                 <td><%= link_to 'View', category_system_path(@category, sys) %></td>
                 <td><%= n %></td>
                 <td><%= sys.name %></td>
-                <td><%= sys.slug %></td>
-                <td><%= sys.file_location %></td>
-                <td><%= sys.description %></td>
-                <td><%= link_to 'Edit', edit_category_system_path(@category, sys) %></td>
               </tr>
               <% n += 1 %>
             <% end %>
           </tbody>
         </table>
       <% end %>
+    </div>
     </div><!-- End of Row -->
 
   </div> <!-- End of Column -->
@@ -105,8 +97,6 @@
           </div>
       </div>
 
-      <%= f.hidden_field :entry, value: "system" %>
-
       <div class="modal-footer">
         <%= f.submit 'Create Category', class: "btn btn-warning" %>
         <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal", "aria-label" => "Close" %>
@@ -133,6 +123,11 @@
           <div class="input-group">
           <span class="input-group-addon"><%= f.label :name %></span>
             <%= f.text_field :name, class: "form-control" %>
+          </div>
+          <br>
+          <div class="input-group">
+              <span class="input-group-addon"><%= f.label :default_disk %></span>
+              <%= f.text_area :default_disk, class: "form-control" %>
           </div>
           <br>
           <div class="input-group">

@@ -3,36 +3,27 @@ class CreateAutozillaKeyConfigs < ActiveRecord::Migration[5.1]
     create_table :autozilla_key_configs do |t|
       t.string        :btldr
       t.string        :purpose
-      t.string        :kernal
-      t.string        :boot
-      t.string        :user_name
-      t.string        :union
-      t.string        :parameters_set1
+      t.string        :params_set
       t.string        :edd
-      t.string        :parameters_set2
-      t.string        :keyboardLayout
-      t.string        :ocs_prerun0
-      t.string        :ocs_prerun1
-      t.string        :ocs_prerun2
-      t.string        :ocs_prerun3
-      t.string        :ocs_prerun4
-      t.string        :ocs_live_run
-      t.string        :ocs_live_keymap
-      t.string        :ocs_live_param
-      t.string        :ocs_live_batch
-      t.string        :ocs_repository
-      t.string        :ocs_postrun0
-      t.string        :ocs_postrun1
-      t.string        :ocs_postrun2
-      t.string        :ocs_postrun3
-      t.string        :ocs_postrun4
+      t.string        :prerun0
+      t.string        :prerun1
+      t.string        :prerun2
+      t.string        :prerun3
+      t.string        :prerun4
+      t.string        :live_run
+      t.string        :live_keymap
+      t.string        :live_param
+      t.string        :live_batch
+      t.string        :repository
+      t.string        :postrun0
+      t.string        :postrun1
+      t.string        :postrun2
+      t.string        :postrun3
+      t.string        :postrun4
       t.string        :locales
-      t.string        :vga
-      t.string        :ifname
-      t.string        :parameters_set3
-      t.string        :fetch
-      t.string        :toram
-      t.string        :live_media_path
+      t.string        :flags_download
+      t.string        :flags_upload
+      t.string        :loader_string
 
       t.timestamps
     end

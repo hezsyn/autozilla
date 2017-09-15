@@ -1,3 +1,8 @@
 .upperRow {
   background: #003f72;
 }
+
+.imgTitle {
+  font-size: 3em;
+  left: 5px;
+}

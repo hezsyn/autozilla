@@ -8,6 +8,7 @@ class CreateSystems < ActiveRecord::Migration[5.0]
       t.string        :file_location
       t.string        :default_disk
       t.references    :category, foregin_key: true
+      t.references    :note, index: true
 
       t.timestamps
     end

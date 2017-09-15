@@ -22,9 +22,10 @@ class SystemsController < ApplicationController
     @system.file_location = @system.objectLocation
     @system.slug = @system.name
     @system.makeSlug
-    @system.makeEntry
     @system.is_enabled = 1
     @system.save
+
+    @system.createAZKCategoryFiles
 
     redirect_to category_path(@category)
   end
@@ -36,6 +37,7 @@ class SystemsController < ApplicationController
   def update
     @category = Category.find(:category_id)
     @system = System.update(system_params)
+    @system.createAZKCategoryFiles
 
     redirect_to category_path(@category)
   end
@@ -46,7 +48,7 @@ class SystemsController < ApplicationController
 
   private
     def system_params
-      params.require(:system).permit(:name, :slug, :description, :is_enabled, :category_id)
+      params.require(:system).permit(:name, :slug, :description, :is_enabled, :category_id, :default_disk)
     end
 
 end

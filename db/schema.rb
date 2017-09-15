@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170808203646) do
+ActiveRecord::Schema.define(version: 20170830160741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,36 +18,27 @@ ActiveRecord::Schema.define(version: 20170808203646) do
   create_table "autozilla_key_configs", force: :cascade do |t|
     t.string "btldr"
     t.string "purpose"
-    t.string "kernal"
-    t.string "boot"
-    t.string "user_name"
-    t.string "union"
-    t.string "parameters_set1"
+    t.string "params_set"
     t.string "edd"
-    t.string "parameters_set2"
-    t.string "keyboardLayout"
-    t.string "ocs_prerun0"
-    t.string "ocs_prerun1"
-    t.string "ocs_prerun2"
-    t.string "ocs_prerun3"
-    t.string "ocs_prerun4"
-    t.string "ocs_live_run"
-    t.string "ocs_live_keymap"
-    t.string "ocs_live_param"
-    t.string "ocs_live_batch"
-    t.string "ocs_repository"
-    t.string "ocs_postrun0"
-    t.string "ocs_postrun1"
-    t.string "ocs_postrun2"
-    t.string "ocs_postrun3"
-    t.string "ocs_postrun4"
+    t.string "prerun0"
+    t.string "prerun1"
+    t.string "prerun2"
+    t.string "prerun3"
+    t.string "prerun4"
+    t.string "live_run"
+    t.string "live_keymap"
+    t.string "live_param"
+    t.string "live_batch"
+    t.string "repository"
+    t.string "postrun0"
+    t.string "postrun1"
+    t.string "postrun2"
+    t.string "postrun3"
+    t.string "postrun4"
     t.string "locales"
-    t.string "vga"
-    t.string "ifname"
-    t.string "parameters_set3"
-    t.string "fetch"
-    t.string "toram"
-    t.string "live_media_path"
+    t.string "flags_download"
+    t.string "flags_upload"
+    t.string "loader_string"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -82,14 +73,6 @@ ActiveRecord::Schema.define(version: 20170808203646) do
     t.index ["syslinux_upload_id"], name: "index_clonezilla_versions_on_syslinux_upload_id"
   end
 
-  create_table "configurations", id: :serial, force: :cascade do |t|
-    t.string "name"
-    t.text "value"
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "image_statuses", id: :serial, force: :cascade do |t|
     t.string "name"
     t.integer "is_visible"
@@ -107,13 +90,10 @@ ActiveRecord::Schema.define(version: 20170808203646) do
 
   create_table "images", force: :cascade do |t|
     t.string "name"
+    t.string "azkName"
     t.text "description"
-    t.string "disk"
-    t.string "flags"
-    t.string "flags_upload"
-    t.string "path"
-    t.string "loader_string"
     t.string "file_location"
+    t.string "disk"
     t.bigint "note_id"
     t.bigint "user_id"
     t.bigint "system_id"
@@ -178,6 +158,14 @@ ActiveRecord::Schema.define(version: 20170808203646) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "support_stuffs", force: :cascade do |t|
+    t.string "name"
+    t.text "value"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "systems", id: :serial, force: :cascade do |t|
     t.string "name"
     t.string "slug"
@@ -186,9 +174,11 @@ ActiveRecord::Schema.define(version: 20170808203646) do
     t.string "file_location"
     t.string "default_disk"
     t.integer "category_id"
+    t.integer "note_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_systems_on_category_id"
+    t.index ["note_id"], name: "index_systems_on_note_id"
   end
 
   create_table "templates", id: :serial, force: :cascade do |t|

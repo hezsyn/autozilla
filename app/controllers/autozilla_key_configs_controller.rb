@@ -14,11 +14,11 @@ class AutozillaKeyConfigsController < ApplicationController
   end
 
   def update
-    @cv = ClonezillaVersion.find(params[:clonezilla_version])
+
     @azk = AutozillaKeyConfig.find(params[:id])
 
     @azk.update(azk_params)
-    redirect_to edit_clonezilla_version_path(@cv)
+    redirect_to
   end
 
   private

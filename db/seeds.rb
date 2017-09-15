@@ -1,3 +1,4 @@
+include Azk::Key
 # Default Categories!
 Category.create(is_enabled: 1, name: '2 in 1', slug: '2_in_1')
 Category.create(is_enabled: 1, name: 'All in One', slug: 'all_in_one')
@@ -16,6 +17,13 @@ Category.create(is_enabled: 1, name: 'Special Approval Pool', slug: 'special_app
 Category.create(is_enabled: 1, name: 'Tablet', slug: 'tablet')
 Category.create(is_enabled: 1, name: 'TME Work Space', slug: 'tme_work_space')
 Category.create(is_enabled: 1, name: 'Ultrabook', slug: 'ultrabook')
+# Creates File Locations for top initial entries
+Category.all.each do |cat|
+  cat.file_location = cat.objectLocation
+  cat.save
+end
+# Creates the top.menu
+createTopLevel
 
 Pool.create(is_enabled: 1, name: "USDD" )
 Pool.create(is_enabled: 1, name: "APAC" )
@@ -73,61 +81,50 @@ Ose.create(is_enabled: 1, name: "Win 10 Ent | 32-Bit | KMS" )
 Ose.create(is_enabled: 1, name: "Win 10 Ent LTSB | 64-Bit | OEM" )
 Ose.create(is_enabled: 1, name: "Other | Customer OS" )
 
-ImageStatus.create(is_visible: 1, name: "Ship Image" )
+ImageStatus.create(is_visible: 1, name: "Production" )
 ImageStatus.create(is_visible: 1, name: "Obsolete" )
 ImageStatus.create(is_visible: 1, name: "Gold Image" )
 ImageStatus.create(is_visible: 1, name: "Development" )
 ImageStatus.create(is_visible: 1, name: "Test Image" )
 
-Configuration.create(name: 'appTitle', value: 'Demo Depot - AutoZilla', description: 'This is the title that is displayed throughout the application.\r\n\r\nDefault: AutoZilla, The Rapid Clonezilla Image Deployment Framework')
-Configuration.create(name: 'ldapBaseDn', value: 'OU=Workers,DC=amr,DC=corp,DC=intel,DC=com', description: 'This is the base DN for LDAP (Active Directory)\r\n\r\nDefault: OU=Workers,DC=amr,DC=corp,DC=intel,DC=com')
-Configuration.create(name: 'ldapServer', value: 'amr.corp.intel.com', description: 'This is the LDAP (Active Directory) server address.\r\n\r\nDefault: amr.glb.intel.com')
-Configuration.create(name: 'ldapMemberOfQuery', value: '(memberof=CN=IDD-TMEs,OU=Delegated,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com)', description: 'This query dictates who can log-in. By default it only allows Intel Demo Depot TME''s (IDD-TMEs)\r\n\r\nDefault: (memberof=CN=IDD-TMEs,OU=Delegated,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com)')
-Configuration.create(name: 'clonezillaDefaultVersion', value: 'clonezilla-live-2.4.2-32-amd64', description: 'This is the default Clonezilla version.\n\nDefault: clonezilla-live-2.3.0-1-amd64-TESTING')
-Configuration.create(name: 'imageBasePath', value: '/idd/Infrastructure/CloneZilla/NAMO.OR.Loan/Images/automation', description: 'This is the base image path on the file server (Samba/Windows share).\r\n\r\nDefault: /LCGhost/Clonezilla-images')
-Configuration.create(name: 'imageServer', value: '10.23.79.74', description: 'This is the IP, Hostname or FQDN (Fully Qualified Domain Name) of the image server (Samba/Windows share).\r\n\r\nDefault: 10.23.88.13')
-Configuration.create(name: 'squashfsFtpServer', value: '10.23.79.70',description: 'This is the IP, Hostname or FQDN (Fully Qualified Domain Name) of the FTP server hosting the Clonezilla live versions.\r\n\r\nIMPORTANT: Root path needs to follow this convention: /boot/grub/CloneZilla/\r\n\r\nDefault: 10.23.88.19')
-Configuration.create(name: 'defaultCloneFlags', value: '-e2 -j2 -p choose',description: 'These are the default clone flags for Clonezilla that will appear in the text input when creating new images.\r\n\r\nDefault: -e2 -j2 -p')
-Configuration.create(name: 'grubMenuPathPrefix', value: '\\\\boot\\\\grub',description: 'The menu path prefix for the Grub configuration files.\r\n\r\nDefault: \\\\boot\\\\grub')
-Configuration.create(name: 'grubDownloadMenuSubdirectory', value: 'download/grub',description: 'This is the sub-directory under the grub configuration directory (defined in grubMenuPathPrefix) where all of the automation menu files will be stored when generated.Default: automation')
-Configuration.create(name: 'imageServerUser', value: 'sys_iddclonezilla',description: 'This is the user account that has access to the images stored on the image server file share.\r\n\r\nDefault: iuser')
-Configuration.create(name: 'imageServerPassword', value: '/root/.cifs.sys_iddclonezilla',description: 'This is the user account password that correlates to the imageServerUser account that has access to the images stored on the image server file share.\r\n\r\nDefault: Demo2000')
-Configuration.create(name: 'grubAbsolutePath', value: '\\\\amr.corp.intel.com\\idd\\Infrastructure\\ADS3\\Boot\\OR.Grub',description: 'Absolute path to where the config files need to be saved.\n\nDefault: \\\\amr.corp.intel.com\\idd\\Infrastructure\\ADS3\\Boot\\OR.Grub')
-Configuration.create(name: 'clonezillaVersionsSubdirectory', value: 'CloneZilla',description: 'The sub-directory under the Grub directory in which the different versions of Clonezilla are stored.Default: CloneZilla')
-Configuration.create(name: 'AZKgrubAbsolutePath', value: 'D:\\AutoZillaKey\\live\\',description: 'This is the absolute path for the grub configuration files used by the AutoZillaKey')
-Configuration.create(name: 'AZKclonezillaVersionsSubdirectory', value: 'CloneZilla',description: 'The sub-directory under the Grub directory in which the different versions of Clonezilla are stored. ')
-Configuration.create(name: 'grubUploadMenuSubdirectory', value: 'upload/grub',description: 'This is the sub-directory under the grub configuration directory (defined in grubMenuPathPrefix) where all of the grub upload menu files will be stored when generated.Default: upload/grub')
-Configuration.create(name: 'AZKgrubMenuPathPrefix', value: '/live/',description: '')
-Configuration.create(name: 'AZKimageServer', value: 'amr.corp.intel.com',description: 'This is the IP, Hostname or FQDN (Fully Qualified Domain Name) of the image server (Samba/Windows share).\r\n\r\nDefault: 10.23.88.13')
-Configuration.create(name: 'syslinuxDownloadMenuSubdirectory', value: 'download/syslinux',description: 'This is the sub-directory under the grub configuration directory (defined in grubMenuPathPrefix) where all of the automation menu files will be stored when generated.Default: automation')
-Configuration.create(name: 'syslinuxUploadMenuSubdirectory', value: 'upload/syslinux',description: 'This is the sub-directory under the grub configuration directory (defined in grubMenuPathPrefix) where all of the grub upload menu files will be stored when generated.Default: upload/grub')
-Configuration.create(name: 'AZKsyslinuxPath', value: '/syslinux/',description: '')
-Configuration.create(name: 'AZKsyslinuxIncludeFile', value: 'graphics.conf',description: '')
-Configuration.create(name: 'AZKsyslinuxUploadIncludeFile', value: 'graphics_upload.conf',description: '')
-Configuration.create(name: 'AZKgrubUploadIncludeFile', value: 'graphics_upload.cfg',description: '')
-Configuration.create(name: 'AZKgrubPath', value: '/EFI/boot/',description: '')
-Configuration.create(name: 'AZKgrubIncludeFile', value: 'graphics.cfg',description: '')
-Configuration.create(name: 'grubIncludeFile', value: 'graphics.cfg',description: '')
-Configuration.create(name: 'grubUploadIncludeFile', value: 'graphics_upload.cfg',description: '')
-Configuration.create(name: 'defaultCloneFlagsUpload', value: '-q2 -j2 -z1p -sc -p choose', description: 'These are the default upload clone flags for Clonezilla that will appear in the text input when creating new images.\r\n\r\nDefault: -q2 -j2 -z1p -sc -p true')
-Configuration.create(name: 'originalKey', value: 'C:\\Staging', description: 'Location of the default version of the key')
+SupportStuff.create(name: 'appTitle', value: 'Demo Depot - AutoZilla', description: 'This is the title that is displayed throughout the application.\r\n\r\nDefault: AutoZilla, The Rapid Clonezilla Image Deployment Framework')
+#SupportStuff.create(name: 'ldapBaseDn', value: 'OU=Workers,DC=amr,DC=corp,DC=intel,DC=com', description: 'This is the base DN for LDAP (Active Directory)\r\n\r\nDefault: OU=Workers,DC=amr,DC=corp,DC=intel,DC=com')
+#SupportStuff.create(name: 'ldapServer', value: 'amr.corp.intel.com', description: 'This is the LDAP (Active Directory) server address.\r\n\r\nDefault: amr.glb.intel.com')
+#SupportStuff.create(name: 'ldapMemberOfQuery', value: '(memberof=CN=IDD-TMEs,OU=Delegated,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com)', description: 'This query dictates who can log-in. By default it only allows Intel Demo Depot TME''s (IDD-TMEs)\r\n\r\nDefault: (memberof=CN=IDD-TMEs,OU=Delegated,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com)')
+SupportStuff.create(name: 'clonezillaDefaultVersion', value: 'clonezilla-live-2.5.0-25-amd64', description: 'This is the default Clonezilla version.\n\nDefault: clonezilla-live-2.3.0-1-amd64-TESTING')
+SupportStuff.create(name: 'imageBasePath', value: '//amr.corp.intel.com/idd/Infrastructure/CloneZilla/NAMO.OR.Loan/Images/automation', description: 'This is the base image path on the file server (Samba/Windows share).\r\n\r\nDefault: /LCGhost/Clonezilla-images')
+SupportStuff.create(name: 'imageServer', value: '10.23.79.74', description: 'This is the IP, Hostname or FQDN (Fully Qualified Domain Name) of the image server (Samba/Windows share).\r\n\r\nDefault: 10.23.88.13')
+SupportStuff.create(name: 'squashfsFtpServer', value: '10.23.79.70',description: 'This is the IP, Hostname or FQDN (Fully Qualified Domain Name) of the FTP server hosting the Clonezilla live versions.\r\n\r\nIMPORTANT: Root path needs to follow this convention: /boot/grub/CloneZilla/\r\n\r\nDefault: 10.23.88.19')
+SupportStuff.create(name: 'defaultCloneFlagsDownload', value: '-e2 -j2 -p choose',description: 'These are the default clone flags for Clonezilla that will appear in the text input when creating new images.\r\n\r\nDefault: -e2 -j2 -p')
+SupportStuff.create(name: 'AZKimageServer', value: 'amr.corp.intel.com',description: 'This is the IP, Hostname or FQDN (Fully Qualified Domain Name) of the image server (Samba/Windows share).\r\n\r\nDefault: 10.23.88.13')
+SupportStuff.create(name: 'defaultCloneFlagsUpload', value: '-q2 -j2 -z1p -sc -p choose', description: 'These are the default upload clone flags for Clonezilla that will appear in the text input when creating new images.\r\n\r\nDefault: -q2 -j2 -z1p -sc -p true')
+SupportStuff.create(name: 'originalKey', value: 'C:\\Staging', description: 'Location of the default version of the key')
 
-AutozillaKeyConfig.create(btldr: 'Grub', purpose: 'Upload', kernal: 'linux', boot: 'live', user_name: 'user', union: 'overlay', parameters_set1: 'components config noswap nolocales', edd: 'onnodmraid', parameters_set2: 'nomodeset nointremap', keyboardLayout: 'NONE', ocs_prerun0: 'dhclient -v eth0', ocs_prerun1: 'sleep 2', ocs_prerun2: 'sudo mount -t cifs //%s%s%s /home/partimag -o user=%s,credentials=%s,sec=ntlm', ocs_live_run: 'ocs-sr %s -scr restoredisk %s %s', ocs_live_batch: 'no', locales: 'en_US.UTF-8', vga: '788', ifname: '0', parameters_set3: 'nosplash noprompt', toram: 'filesystem.squashfs')
-AutozillaKeyConfig.create(btldr: 'Grub', purpose: 'Download', kernal: 'linux', boot: 'live', user_name: 'user', union: 'overlay', parameters_set1: 'components config noswap nolocales', edd: 'onnodmraid', parameters_set2: 'nomodeset nointremap', keyboardLayout: 'NONE', ocs_prerun0: 'dhclient -v eth0', ocs_prerun1: 'sleep 2', ocs_prerun2: 'sudo mount -t cifs //%s%s%s /home/partimag -o user=%s,credentials=%s,sec=ntlm', ocs_live_run: 'ocs-sr %s -scr restoredisk %s %s', ocs_live_batch: 'no', locales: 'en_US.UTF-8', vga: '788', ifname: '0', parameters_set3: 'nosplash noprompt', toram: 'filesystem.squashfs')
-AutozillaKeyConfig.create(btldr: 'syslinux', purpose: 'Upload', kernal: 'linux', boot: 'live', user_name: 'user', union: 'overlay', parameters_set1: 'components config noswap nolocales', edd: 'onnodmraid', parameters_set2: 'nomodeset nointremap', keyboardLayout: 'NONE', ocs_prerun0: 'dhclient -v eth0', ocs_prerun1: 'sleep 2', ocs_prerun2: 'sudo mount -t cifs //%s%s%s /home/partimag -o user=%s,credentials=%s,sec=ntlm', ocs_live_run: 'ocs-sr %s -scr restoredisk %s %s', ocs_live_batch: 'no', locales: 'en_US.UTF-8', vga: '788', ifname: '0', parameters_set3: 'nosplash noprompt', toram: 'filesystem.squashfs')
-AutozillaKeyConfig.create(btldr: 'syslinux', purpose: 'Download', kernal: 'linux', boot: 'live', user_name: 'user', union: 'overlay', parameters_set1: 'components config noswap nolocales', edd: 'onnodmraid', parameters_set2: 'nomodeset nointremap', keyboardLayout: 'NONE', ocs_prerun0: 'dhclient -v eth0', ocs_prerun1: 'sleep 2', ocs_prerun2: 'sudo mount -t cifs //%s%s%s /home/partimag -o user=%s,credentials=%s,sec=ntlm', ocs_live_run: 'ocs-sr %s -scr restoredisk %s %s', ocs_live_batch: 'no', locales: 'en_US.UTF-8', vga: '788', ifname: '0', parameters_set3: 'nosplash noprompt', toram: 'filesystem.squashfs')
+6.times do
+  ["upload", "download"].each do |direction|
+    ["grub", "syslinux"].each do |tool|
+      AutozillaKeyConfig.create(btldr: tool,
+                            purpose: direction,
+                            params_set: 'components config noswap nolocales nodmraid nomodeset nointremap nosplash noprompt',
+                            edd: 'on',
+                            flags_upload: SupportStuff.find_by(name: "defaultCloneFlagsUpload").value,
+                            flags_download: SupportStuff.find_by(name: "defaultCloneFlagsDownload").value
+                            )
+    end
+  end
+end
 
-ClonezillaVersion.create(name: 'clonezilla-live-2.5.0-25-amd64', description: '', is_enabled: 1, grub_upload_id: 1, grub_download_id: 2, syslinux_upload_id: 3, syslinux_download_id: 4)
-ClonezillaVersion.create(name: 'clonezilla-live-2.4.7-8-amd64', description: '', is_enabled: 1, grub_upload_id: 1, grub_download_id: 2, syslinux_upload_id: 3, syslinux_download_id: 4)
-ClonezillaVersion.create(name: 'clonezilla-live-2.4.2-61-amd64', description: '', is_enabled: 1,  grub_upload_id: 1, grub_download_id: 2, syslinux_upload_id:  3, syslinux_download_id: 4)
-ClonezillaVersion.create(name: 'clonezilla-live-2.4.2-32-amd64', description: '', is_enabled: 1,  grub_upload_id: 1, grub_download_id: 2, syslinux_upload_id:  3, syslinux_download_id: 4)
-ClonezillaVersion.create(name: 'clonezilla-live-2.3.2-22-amd64', description: '', is_enabled: 1,  grub_upload_id: 1, grub_download_id: 2, syslinux_upload_id:  3, syslinux_download_id: 4)
-ClonezillaVersion.create(name: 'clonezilla-live-2.3.2-22-i686-pae', description: '', is_enabled: 1, grub_upload_id: 1, grub_download_id: 2, syslinux_upload_id: 3, syslinux_download_id: 4)
+ClonezillaVersion.create(name: 'clonezilla-live-2.5.0-25-amd64',    description: '', is_enabled: 1, grub_upload_id: 1,  grub_download_id: 2,  syslinux_upload_id: 3,  syslinux_download_id: 4)
+ClonezillaVersion.create(name: 'clonezilla-live-2.4.7-8-amd64',     description: '', is_enabled: 1, grub_upload_id: 5,  grub_download_id: 6,  syslinux_upload_id: 7,  syslinux_download_id: 8)
+ClonezillaVersion.create(name: 'clonezilla-live-2.4.2-61-amd64',    description: '', is_enabled: 1, grub_upload_id: 9,  grub_download_id: 10, syslinux_upload_id: 11, syslinux_download_id: 12)
+ClonezillaVersion.create(name: 'clonezilla-live-2.4.2-32-amd64',    description: '', is_enabled: 1, grub_upload_id: 13, grub_download_id: 14, syslinux_upload_id: 15, syslinux_download_id: 16)
+ClonezillaVersion.create(name: 'clonezilla-live-2.3.2-22-amd64',    description: '', is_enabled: 1, grub_upload_id: 17, grub_download_id: 18, syslinux_upload_id: 19, syslinux_download_id: 20)
+ClonezillaVersion.create(name: 'clonezilla-live-2.3.2-22-i686-pae', description: '', is_enabled: 1, grub_upload_id: 21, grub_download_id: 22, syslinux_upload_id: 23, syslinux_download_id: 24)
 
-ImageType.create(is_enabled: 1, name: 'USDD')
+ImageType.create(is_enabled: 1, name: 'DDLC-Ship')
+ImageType.create(is_enabled: 1, name: 'iDDR')
 ImageType.create(is_enabled: 1, name: 'OOBE')
 ImageType.create(is_enabled: 1, name: 'Test')
 ImageType.create(is_enabled: 1, name: 'Gold')
 ImageType.create(is_enabled: 1, name: 'Custom_OS')
 ImageType.create(is_enabled: 1, name: 'Event')
-ImageType.create(is_enabled: 1, name: 'iDDR')

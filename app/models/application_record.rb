@@ -3,13 +3,10 @@ class ApplicationRecord < ActiveRecord::Base
 
     def objectLocation
       x = self
-      # Setting / Resetting fileLocation for each cycle
-      @fileLocation = "C:\\"
       # Setting / Resetting fileArray for creating file path
       @fileArray = Array.new
 
       # Image Path, checks if it is an image
-
         if x.try(:system_id).present?
           @fileArray.push(x.name)
           x = System.find(x.system_id)
@@ -27,10 +24,10 @@ class ApplicationRecord < ActiveRecord::Base
         # Spills out the array to create the fileLocation path
         @fileArray.push(x.name)
         @fileArray.reverse.each do |coo|
-          @fileLocation = "#{@fileLocation}#{coo}\\"
+          @fileLocation = "#{@fileLocation}/#{coo}"
         end
       end
-      @fileLocation
+      @fileLocation.gsub!(" ","_")
   end
 
   def makeSlug

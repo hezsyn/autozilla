@@ -1,4 +1,6 @@
 class Image < ApplicationRecord
+  include Azk::Key
+
   has_many   :notes
   belongs_to :pool
   belongs_to :system
@@ -12,21 +14,12 @@ class Image < ApplicationRecord
   belongs_to :syslinux_download, class_name: "AutozillaKeyConfig"
 
   def azkName
-    pool.name + " - " + image_type.name + " - " + ose.name + " - bheinrix - " + updated_at.strftime("%m%b%Y")
+    self.current == 1 ? cur = "Current - " : cur = nil
+    "#{cur}" + pool.name + " - " + image_type.name + " - " + ose.name + " - bheinrix - " + updated_at.strftime("%m%b%Y")
   end
 
-  def makeEntry
-    prefix = "/mnt/c/Users/hezsy/Development/KeyGen"
-    grubLoc = prefix + "/grub"
-    sysLoc = prefix + "/syslinux"
-
-    [grubLoc, sysLoc].each do |loc|
-      File.directory?(loc) ? "moo" : Dir.mkdir(loc)
-      Dir.chdir(loc)
-
-      menuEntry = File.new("system_#{System.find(system_id).slug}.menu", "w+")
-      menuEntry.close
-    end
+  def img_file_location
+    self.system.file_location + "/#{self.pool.name}"
   end
 
 end

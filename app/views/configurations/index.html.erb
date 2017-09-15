@@ -1,7 +1,6 @@
-<% @cfg.each do |cfg| %>
+<%= @cfg.each do |cfg| %>
   <div class="input-group">
     <span class="input-group-addon"><%= cfg.name %></span>
-    <%= text_field_tag cfg.name, cfg.value, class: "form-control" %>
+    <%= input_tag id: cfg.name, class: "form-control", value: cfg.value %>
   </div>
-  <br>
 <% end %>

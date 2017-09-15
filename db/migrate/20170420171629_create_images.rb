@@ -2,13 +2,10 @@ class CreateImages < ActiveRecord::Migration[5.1]
   def change
     create_table :images do |t|
       t.string      :name
+      t.string      :azkName
       t.text        :description
-      t.string      :disk
-      t.string      :flags
-      t.string      :flags_upload
-      t.string      :path
-      t.string      :loader_string
       t.string      :file_location
+      t.string      :disk
       t.references  :note, index: true
       t.references  :user, index: true
       t.references  :system, index: true
