@@ -3,8 +3,8 @@ module Azk
     require 'fileutils'
 
     @@fut = FileUtils
-    @@rootDir = "/mnt/c/Users/hezsy/Desktop/Staging/AZK"
-    @@sourceDir = "/mnt/c/Users/hezsy/Desktop/Staging/AZK/source"
+    @@rootDir = SupportStuff.find_by(name: "rootDir")
+    @@sourceDir = SupportStuff.find_by(name: "sourceDir")
 
     @@default = "\"0\""
     @@prefix = "/live"

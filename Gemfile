@@ -53,7 +53,6 @@ group :development do
   gem 'populator'
   gem 'faker'
 end
-
 gem 'pg', '~> 0.21.0'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
