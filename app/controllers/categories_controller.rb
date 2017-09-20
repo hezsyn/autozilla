@@ -1,12 +1,12 @@
 class CategoriesController < ApplicationController
 
   def index
-    @categories = Category.where(category_id: NIL, is_enabled: 1).order(:name)
+    @categories = Category.where(category_id: nil, is_enabled: 1).order(:name)
     @newCategory = Category.new
   end
 
   def show
-    @categories = Category.where(category_id: NIL, is_enabled: 1).order(:name)
+    @categories = Category.where(category_id: nil, is_enabled: 1).order(:name)
     @category = Category.find(params[:id])
     if @category.category_id?
       @parentCategory = Category.find(@category.category_id)
@@ -56,7 +56,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
 
-      if @category.category_id != NIL
+      if @category.category_id != nil
         @category.update(sub_category_params)
       else
         @category.update(category_params)
