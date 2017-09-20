@@ -41,7 +41,7 @@ Category.all.each do |cat|
   cat.save
 end
 # Creates the top.menu
-createTopLevel
+# createTopLevel
 
 Pool.create(is_enabled: 1, name: "USDD" )
 Pool.create(is_enabled: 1, name: "APAC" )
