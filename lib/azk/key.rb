@@ -3,8 +3,9 @@ module Azk
     require 'fileutils'
 
     @@fut = FileUtils
-    @@rootDir = SupportStuff.find_by(name: "rootDir")
-    @@sourceDir = SupportStuff.find_by(name: "sourceDir")
+    @@rootDir = SupportStuff.find_by(name: "rootDir").value
+    @@sourceDir = SupportStuff.find_by(name: "sourceDir").value
+    @@prodKey = SupportStuff.find_by(name: "productionKey").value
 
     @@default = "\"0\""
     @@prefix = "/live"
@@ -103,7 +104,7 @@ module Azk
 
         ["upload", "download"].each do |direction|
           ["grub", "syslinux"].each do |tool|
-            @@fut.cd("#{@@rootDir}/keygen/live/#{direction}/#{tool}")
+            @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
             @@menuEntry = File.new("category_#{category.slug}.menu", "w+")
 
               tool == "grub" ? category.grubDefault : category.sysLinuxDefault
@@ -129,7 +130,7 @@ module Azk
 
       ["upload", "download"].each do |direction|
         ["grub", "syslinux"].each do |tool|
-          @@fut.cd("#{@@rootDir}/keygen/live/#{direction}/#{tool}")
+          @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
 
           @@menuEntry = File.new("system_#{system.slug}.menu", "w+")
             tool == "grub" ? self.grubDefault : self.sysLinuxDefault

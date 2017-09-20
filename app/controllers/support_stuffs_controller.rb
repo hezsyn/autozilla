@@ -9,7 +9,7 @@ class SupportStuffsController < ApplicationController
   end
 
   def create
-    @newCFG = SupportStuff.new(params_cfg)
+    @newCFG = SupportStuff.new(cfg_params)
     @newCFG.save
   end
 
@@ -18,7 +18,10 @@ class SupportStuffsController < ApplicationController
   end
 
   def update
+    @cfg = SupportStuff.find(params[:id])
+    @cfg.update(cfg_params)
 
+    redirect_to support_stuffs_path
   end
 
   def destroy
@@ -26,7 +29,7 @@ class SupportStuffsController < ApplicationController
   end
 
   private
-    def params_cfg
+    def cfg_params
       params.require(:support_stuff).permit(:name, :value, :description)
     end
 

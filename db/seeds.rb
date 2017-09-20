@@ -1,5 +1,3 @@
-include Azk::Key
-
 # Setting some defaults
 SupportStuff.create(name: 'appTitle', value: 'Demo Depot - AutoZilla', description: 'This is the title that is displayed throughout the application.\r\n\r\nDefault: AutoZilla, The Rapid Clonezilla Image Deployment Framework')
 #SupportStuff.create(name: 'ldapBaseDn', value: 'OU=Workers,DC=amr,DC=corp,DC=intel,DC=com', description: 'This is the base DN for LDAP (Active Directory)\r\n\r\nDefault: OU=Workers,DC=amr,DC=corp,DC=intel,DC=com')
@@ -15,7 +13,7 @@ SupportStuff.create(name: 'defaultCloneFlagsUpload', value: '-q2 -j2 -z1p -sc -p
 SupportStuff.create(name: 'originalKey', value: 'C:\\Staging', description: 'Location of the default version of the key')
 SupportStuff.create(name: 'rootDir', value: '/mnt/c/Users/hezsy/Desktop/Staging/AZK', description: "Default location of everything")
 SupportStuff.create(name: 'sourceDir', value: '/mnt/c/Users/hezsy/Desktop/Staging/AZK/source', description: "Source directory for setting up key")
-
+SupportStuff.create(name: 'productionKey', value: '/mnt/autozilla/key/production', description: 'Where the key for production is stored')
 
 # Default Categories!
 Category.create(is_enabled: 1, name: '2 in 1', slug: '2_in_1')
@@ -36,12 +34,6 @@ Category.create(is_enabled: 1, name: 'Tablet', slug: 'tablet')
 Category.create(is_enabled: 1, name: 'TME Work Space', slug: 'tme_work_space')
 Category.create(is_enabled: 1, name: 'Ultrabook', slug: 'ultrabook')
 # Creates File Locations for top initial entries
-Category.all.each do |cat|
-  cat.file_location = cat.objectLocation
-  cat.save
-end
-# Creates the top.menu
-# createTopLevel
 
 Pool.create(is_enabled: 1, name: "USDD" )
 Pool.create(is_enabled: 1, name: "APAC" )
