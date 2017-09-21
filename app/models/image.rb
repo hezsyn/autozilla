@@ -19,7 +19,7 @@ class Image < ApplicationRecord
   end
 
   def img_file_location
-    self.system.file_location + "/#{self.pool.name}"
+    "#{self.system.file_location}/#{self.pool.name}"
   end
 
 end
