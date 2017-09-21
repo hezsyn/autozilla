@@ -17,7 +17,7 @@ module Azk
     end
 
     def grubDefault
-      @@menuEntry.puts "set default=\"#{@@default}\""
+      @@menuEntry.puts "set default=#{@@default}"
       @@menuEntry.puts "configfile /EFI/boot/graphics.cfg\n\n"
     end
 
@@ -180,6 +180,9 @@ module Azk
 
     def createTopLevel
       setSettings
+      if File.exist?("#{@@rootDir}#{@@prodKey}/live/download/grub/top.menu")
+        nil
+      else
       #Gathers all of the top level categories
       topLevel = Category.where(is_enabled: 1, category_id: nil)
 
@@ -193,7 +196,7 @@ module Azk
           @@menuEntry = File.new("top.menu", "w+")
 
           # This line is only added once to the file, it is the default data for the file
-          tool == "grub" ? topLevel.grubDefault : topLevel.sysLinuxDefault
+          tool == "grub" ? grubDefault : sysLinuxDefault
           # Loops and adds all top level entries to the file
           topLevel.each do |cat|
             tool == "grub" ? cat.grubCatMenuEntry(direction, "category") : cat.sysCatMenuEntry(direction, "category")
@@ -204,6 +207,7 @@ module Azk
         end
       end
     end
+  end
 
   end # End of Key Module
 end # End of the AZK Module

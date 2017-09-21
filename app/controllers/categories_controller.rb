@@ -3,6 +3,8 @@ class CategoriesController < ApplicationController
   def index
     @categories = Category.where(category_id: nil, is_enabled: 1).order(:name)
     @newCategory = Category.new
+    @category = Category.first
+    @category.createTopLevel
   end
 
   def show
