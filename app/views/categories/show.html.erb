@@ -27,11 +27,10 @@
         <tbody>
           <%  n = 1 %>
           <% @subcategories.each do |t| %>
-            <tr>
-              <%= link_to category_path(t.id) do %>
+            <tr data-link="<%=category_path(t.id)%>">
+              <td><%= link_to 'View', category_path(t.id) %></td>
               <td><%= n %></td>
               <td><%= t.name %></td>
-              <% end %>
             </tr>
             <% n += 1 %>
           <% end %>

@@ -2,13 +2,15 @@ module Azk
   module Key
     require 'fileutils'
 
-    @@fut = FileUtils
-    @@rootDir = SupportStuff.find_by(name: "rootDir").value
-    @@sourceDir = SupportStuff.find_by(name: "sourceDir").value
-    @@prodKey = SupportStuff.find_by(name: "productionKey").value
+    def setSettings
+      @@fut = FileUtils
+      @@rootDir = SupportStuff.find_by(name: "rootDir").value
+      @@sourceDir = SupportStuff.find_by(name: "sourceDir").value
+      @@prodKey = SupportStuff.find_by(name: "productionKey").value
 
-    @@default = "\"0\""
-    @@prefix = "/live"
+      @@default = "\"0\""
+      @@prefix = "/live"
+    end
 
     def breakEntry
       @@menuEntry.puts "*=======================================================================*\n\n"
@@ -100,6 +102,7 @@ module Azk
     end
 
     def createAZKCategoryFiles
+      setSettings
         self.try(:category_id).nil? ? category = self : category = Category.find(self.category_id)
 
         ["upload", "download"].each do |direction|
@@ -126,6 +129,7 @@ module Azk
     end
 
     def createAZKSystemFiles
+      setSettings
       self.try(:category_id).nil? ?  system = System.find(self.system_id) : system = System.find(self.id)
 
       ["upload", "download"].each do |direction|
@@ -159,11 +163,13 @@ module Azk
     end
 
     def removeAZK
+      setSettings
       FileUtils.ch(@@rootDir)
       FileUtils.rm_r("keygen")
     end
 
     def createAZKDefault
+      setSettings
       FileUtils.cd(@@rootDir)
       Dir.exist?("keygen") ? FileUtils.rm_r("keygen") : nil
 
@@ -173,6 +179,7 @@ module Azk
     end
 
     def createTopLevel
+      setSettings
       #Gathers all of the top level categories
       topLevel = Category.where(is_enabled: 1, category_id: nil)
 
@@ -181,7 +188,7 @@ module Azk
         ["grub", "syslinux"].each do |tool|
 
           # Changing directory to file path for file
-          @@fut.cd("#{@@rootDir}/keygen/live/#{direction}/#{tool}")
+          @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
           # Starting the file creation
           @@menuEntry = File.new("top.menu", "w+")
 

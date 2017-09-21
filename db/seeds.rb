@@ -10,7 +10,6 @@ SupportStuff.create(name: 'squashfsFtpServer', value: '10.23.79.70',description:
 SupportStuff.create(name: 'defaultCloneFlagsDownload', value: '-e2 -j2 -p choose',description: 'These are the default clone flags for Clonezilla that will appear in the text input when creating new images.\r\n\r\nDefault: -e2 -j2 -p')
 SupportStuff.create(name: 'AZKimageServer', value: 'amr.corp.intel.com',description: 'This is the IP, Hostname or FQDN (Fully Qualified Domain Name) of the image server (Samba/Windows share).\r\n\r\nDefault: 10.23.88.13')
 SupportStuff.create(name: 'defaultCloneFlagsUpload', value: '-q2 -j2 -z1p -sc -p choose', description: 'These are the default upload clone flags for Clonezilla that will appear in the text input when creating new images.\r\n\r\nDefault: -q2 -j2 -z1p -sc -p true')
-SupportStuff.create(name: 'originalKey', value: 'C:\\Staging', description: 'Location of the default version of the key')
 SupportStuff.create(name: 'rootDir', value: '/mnt/c/Users/hezsy/Desktop/Staging/AZK', description: "Default location of everything")
 SupportStuff.create(name: 'sourceDir', value: '/mnt/c/Users/hezsy/Desktop/Staging/AZK/source', description: "Source directory for setting up key")
 SupportStuff.create(name: 'productionKey', value: '/mnt/autozilla/key/production', description: 'Where the key for production is stored')
