@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20170830160741) do
     t.string "flags_download"
     t.string "flags_upload"
     t.string "loader_string"
+    t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170830160741) do
     t.string "name"
     t.text "description"
     t.integer "is_enabled"
+    t.integer "default"
     t.bigint "grub_upload_id"
     t.bigint "grub_download_id"
     t.bigint "syslinux_upload_id"

@@ -3,16 +3,15 @@ SupportStuff.create(name: 'appTitle', value: 'Demo Depot - AutoZilla', descripti
 #SupportStuff.create(name: 'ldapBaseDn', value: 'OU=Workers,DC=amr,DC=corp,DC=intel,DC=com', description: 'This is the base DN for LDAP (Active Directory)\r\n\r\nDefault: OU=Workers,DC=amr,DC=corp,DC=intel,DC=com')
 #SupportStuff.create(name: 'ldapServer', value: 'amr.corp.intel.com', description: 'This is the LDAP (Active Directory) server address.\r\n\r\nDefault: amr.glb.intel.com')
 #SupportStuff.create(name: 'ldapMemberOfQuery', value: '(memberof=CN=IDD-TMEs,OU=Delegated,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com)', description: 'This query dictates who can log-in. By default it only allows Intel Demo Depot TME''s (IDD-TMEs)\r\n\r\nDefault: (memberof=CN=IDD-TMEs,OU=Delegated,OU=Groups,DC=amr,DC=corp,DC=intel,DC=com)')
-SupportStuff.create(name: 'clonezillaDefaultVersion', value: 'clonezilla-live-2.5.0-25-amd64', description: 'This is the default Clonezilla version.\n\nDefault: clonezilla-live-2.3.0-1-amd64-TESTING')
-SupportStuff.create(name: 'imageBasePath', value: '//amr.corp.intel.com/idd/Infrastructure/CloneZilla/NAMO.OR.Loan/Images/automation', description: 'This is the base image path on the file server (Samba/Windows share).\r\n\r\nDefault: /LCGhost/Clonezilla-images')
+SupportStuff.create(name: 'clonezillaDefaultVersion', value: 'clonezilla-live-2.5.2-17-amd64', description: 'This is the default Clonezilla version.\n\nDefault: clonezilla-live-2.3.0-1-amd64-TESTING')
 SupportStuff.create(name: 'imageServer', value: '10.23.79.74', description: 'This is the IP, Hostname or FQDN (Fully Qualified Domain Name) of the image server (Samba/Windows share).\r\n\r\nDefault: 10.23.88.13')
 SupportStuff.create(name: 'squashfsFtpServer', value: '10.23.79.70',description: 'This is the IP, Hostname or FQDN (Fully Qualified Domain Name) of the FTP server hosting the Clonezilla live versions.\r\n\r\nIMPORTANT: Root path needs to follow this convention: /boot/grub/CloneZilla/\r\n\r\nDefault: 10.23.88.19')
 SupportStuff.create(name: 'defaultCloneFlagsDownload', value: '-e2 -j2 -p choose',description: 'These are the default clone flags for Clonezilla that will appear in the text input when creating new images.\r\n\r\nDefault: -e2 -j2 -p')
 SupportStuff.create(name: 'AZKimageServer', value: 'amr.corp.intel.com',description: 'This is the IP, Hostname or FQDN (Fully Qualified Domain Name) of the image server (Samba/Windows share).\r\n\r\nDefault: 10.23.88.13')
 SupportStuff.create(name: 'defaultCloneFlagsUpload', value: '-q2 -j2 -z1p -sc -p choose', description: 'These are the default upload clone flags for Clonezilla that will appear in the text input when creating new images.\r\n\r\nDefault: -q2 -j2 -z1p -sc -p true')
-SupportStuff.create(name: 'rootDir', value: '/mnt/c/Users/hezsy/Desktop/Staging/AZK', description: "Default location of everything")
-SupportStuff.create(name: 'sourceDir', value: '/mnt/c/Users/hezsy/Desktop/Staging/AZK/source', description: "Source directory for setting up key")
-SupportStuff.create(name: 'productionKey', value: '/mnt/autozilla/key/production', description: 'Where the key for production is stored')
+SupportStuff.create(name: 'rootKeyDir', value: '/mnt/c/Users/hezsy/Desktop/Staging/AZK/', description: "Default location of everything")
+SupportStuff.create(name: 'sourceKey', value: 'source', description: "Source directory for setting up key")
+SupportStuff.create(name: 'productionKey', value: 'production', description: 'Where the key for production is stored')
 
 # Default Categories!
 Category.create(is_enabled: 1, name: '2 in 1', slug: '2_in_1')
@@ -97,7 +96,7 @@ ImageStatus.create(is_visible: 1, name: "Development" )
 ImageStatus.create(is_visible: 1, name: "Test Image" )
 
 
-6.times do
+7.times do
   ["upload", "download"].each do |direction|
     ["grub", "syslinux"].each do |tool|
       AutozillaKeyConfig.create(btldr: tool,
@@ -105,19 +104,22 @@ ImageStatus.create(is_visible: 1, name: "Test Image" )
                             params_set: 'components config noswap nolocales nodmraid nomodeset nointremap nosplash noprompt',
                             edd: 'on',
                             flags_upload: SupportStuff.find_by(name: "defaultCloneFlagsUpload").value,
-                            flags_download: SupportStuff.find_by(name: "defaultCloneFlagsDownload").value
+                            flags_download: SupportStuff.find_by(name: "defaultCloneFlagsDownload").value,
+                            location: "//amr.corp.intel.com/idd/Infrastructure/CloneZilla/NAMO.OR.Loan/Images/automation"
                             )
     end
   end
 end
 
-ClonezillaVersion.create(name: 'clonezilla-live-2.5.2-17-amd64',    description: '', is_enabled: 1, grub_upload_id: 1,  grub_download_id: 2,  syslinux_upload_id: 3,  syslinux_download_id: 4)
-ClonezillaVersion.create(name: 'clonezilla-live-2.5.0-25-amd64',    description: '', is_enabled: 1, grub_upload_id: 1,  grub_download_id: 2,  syslinux_upload_id: 3,  syslinux_download_id: 4)
-ClonezillaVersion.create(name: 'clonezilla-live-2.4.7-8-amd64',     description: '', is_enabled: 1, grub_upload_id: 5,  grub_download_id: 6,  syslinux_upload_id: 7,  syslinux_download_id: 8)
-ClonezillaVersion.create(name: 'clonezilla-live-2.4.2-61-amd64',    description: '', is_enabled: 1, grub_upload_id: 9,  grub_download_id: 10, syslinux_upload_id: 11, syslinux_download_id: 12)
-ClonezillaVersion.create(name: 'clonezilla-live-2.4.2-32-amd64',    description: '', is_enabled: 1, grub_upload_id: 13, grub_download_id: 14, syslinux_upload_id: 15, syslinux_download_id: 16)
-ClonezillaVersion.create(name: 'clonezilla-live-2.3.2-22-amd64',    description: '', is_enabled: 1, grub_upload_id: 17, grub_download_id: 18, syslinux_upload_id: 19, syslinux_download_id: 20)
-ClonezillaVersion.create(name: 'clonezilla-live-2.3.2-22-i686-pae', description: '', is_enabled: 1, grub_upload_id: 21, grub_download_id: 22, syslinux_upload_id: 23, syslinux_download_id: 24)
+czCount = 1
+["clonezilla-live-2.5.2-17-amd64", "clonezilla-live-2.5.0-25-amd64", "clonezilla-live-2.4.7-8-amd64", "clonezilla-live-2.4.2-61-amd64", "clonezilla-live-2.4.2-32-amd64", "clonezilla-live-2.3.2-22-amd64", "clonezilla-live-2.3.2-22-i686-pae"].each do |cz|
+  ClonezillaVersion.create(name: cz,
+                           is_enabled: 1,
+                           grub_upload_id: czCount += 1,
+                           grub_download_id: czCount += 1,
+                           syslinux_upload_id: czCount += 1,
+                           syslinux_download_id: czCount += 1)
+end
 
 ImageType.create(is_enabled: 1, name: 'DDLC-Ship')
 ImageType.create(is_enabled: 1, name: 'iDDR')

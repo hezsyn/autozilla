@@ -1,9 +1,5 @@
 class ImagesController < ApplicationController
 
-  def show
-
-  end
-
   def new
     @image = Image.find(params[:id])
   end
@@ -25,10 +21,10 @@ class ImagesController < ApplicationController
   end
 
   def edit
-    @netPath = SupportStuff.find_by(name: "imageBasePath").value
     @category = Category.find(params[:category_id])
     @system = System.find(params[:system_id])
     @image = Image.find(params[:id])
+    @netPath = @image.grub_upload.location
     @images = @system.images.all
     @notes = @image.notes.all
 

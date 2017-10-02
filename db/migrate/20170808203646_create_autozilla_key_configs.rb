@@ -24,6 +24,7 @@ class CreateAutozillaKeyConfigs < ActiveRecord::Migration[5.1]
       t.string        :flags_download
       t.string        :flags_upload
       t.string        :loader_string
+      t.string        :location
 
       t.timestamps
     end

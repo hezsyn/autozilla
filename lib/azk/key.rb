@@ -4,8 +4,8 @@ module Azk
 
     def setSettings
       @@fut = FileUtils
-      @@rootDir = SupportStuff.find_by(name: "rootDir").value
-      @@sourceDir = SupportStuff.find_by(name: "sourceDir").value
+      @@rootDir = SupportStuff.find_by(name: "rootKeyDir").value
+      @@sourceDir = SupportStuff.find_by(name: "sourceKey").value
       @@prodKey = SupportStuff.find_by(name: "productionKey").value
 
       @@default = "\"0\""
@@ -30,7 +30,7 @@ module Azk
       cz = self.clonezilla_version
       pool = self.pool.name
       filePath = self.file_location
-      netPath = SupportStuff.find_by(name: "imageBasePath").value
+      netPath = surCom.location
       czPath = "#{@@prefix}/CloneZilla/#{cz.name}"
 
       # Default starting point, that changes depending on tool
@@ -165,13 +165,13 @@ module Azk
     def removeAZK
       setSettings
       FileUtils.ch(@@rootDir)
-      FileUtils.rm_r("keygen")
+      FileUtils.rm_r("production")
     end
 
     def createAZKDefault
       setSettings
       FileUtils.cd(@@rootDir)
-      Dir.exist?("keygen") ? FileUtils.rm_r("keygen") : nil
+      Dir.exist?("production") ? FileUtils.rm_r("production") : nil
 
       ["boot", "EFI", "home", "live", "syslinux", "utils"].each do |src|
         FileUtils.cp_r("#{@@sourceDir}/#{src}", "keygen")
