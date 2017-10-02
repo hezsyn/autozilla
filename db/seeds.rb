@@ -111,6 +111,7 @@ ImageStatus.create(is_visible: 1, name: "Test Image" )
   end
 end
 
+ClonezillaVersion.create(name: 'clonezilla-live-2.5.2-17-amd64',    description: '', is_enabled: 1, grub_upload_id: 1,  grub_download_id: 2,  syslinux_upload_id: 3,  syslinux_download_id: 4)
 ClonezillaVersion.create(name: 'clonezilla-live-2.5.0-25-amd64',    description: '', is_enabled: 1, grub_upload_id: 1,  grub_download_id: 2,  syslinux_upload_id: 3,  syslinux_download_id: 4)
 ClonezillaVersion.create(name: 'clonezilla-live-2.4.7-8-amd64',     description: '', is_enabled: 1, grub_upload_id: 5,  grub_download_id: 6,  syslinux_upload_id: 7,  syslinux_download_id: 8)
 ClonezillaVersion.create(name: 'clonezilla-live-2.4.2-61-amd64',    description: '', is_enabled: 1, grub_upload_id: 9,  grub_download_id: 10, syslinux_upload_id: 11, syslinux_download_id: 12)

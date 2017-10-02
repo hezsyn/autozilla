@@ -1,10 +1,5 @@
-<div class="row">
+<%= render 'systems/list' %>
 
-<div class="col-md-3">
-
-  <%= render 'systems/list' %>
-
-</div>
 
 <div class="col-xs-8">
 
@@ -34,7 +29,7 @@
           <td><%= t.image_type.name %></td>
           <td><%= t.ose.name %></td>
           <td><%= t.clonezilla_version.name %></td>
-          <td><%= t.updated_at.strftime("%m%b%Y") %></td>
+          <td><%= t.updated_at.strftime("%d%b%Y") %></td>
         </tr>
         <% n += 1 %>
       <% end %>

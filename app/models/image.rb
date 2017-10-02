@@ -15,7 +15,7 @@ class Image < ApplicationRecord
 
   def azkName
     self.current == 1 ? cur = "Current - " : cur = nil
-    "#{cur}" + pool.name + " - " + image_type.name + " - " + ose.name + " - bheinrix - " + updated_at.strftime("%m%b%Y")
+    "#{cur}" + pool.name + " - " + image_type.name + " - " + ose.name + " - bheinrix - " + updated_at.strftime("%d%b%Y")
   end
 
   def img_file_location
