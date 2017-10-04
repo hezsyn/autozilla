@@ -5,7 +5,7 @@
       <br><br>
         <%= hidden_field_tag locals[:item_id] %>
 
-      <% ["params_set", "edd", "locales", "flags"].each do |czp| %>
+      <% ["params_set", "edd", "locales", "flags", "location"].each do |czp| %>
         <div class="form-group col-md-2">
           <%= f.label czp.to_sym %>
           <%= f.text_area czp.to_sym, class: "form-control" %>

@@ -9,24 +9,24 @@
   </div>
 
 
-<% ["upload", "download"].each do |bt| %>
+<% ["upload", "download"].each do |direction| %>
 
   <div class="row">
     <div class="col-md-1">
-      <%= button_tag class: "btn btn-info", "data-toggle" => "collapse", "data-target" => "#" + bt do %>
+      <%= button_tag class: "btn btn-info", "data-toggle" => "collapse", "data-target" => "#" + direction do %>
         <span class="glyphicon glyphicon-plus"></span>
       <% end %>
     </div>
 
     <div class="text-left">
-      <h2><%= @cz.send("#{bt}").purpose %></h2>
+      <h2><%= @cz.send("#{direction}").purpose %></h2>
     </div>
 
   </div>
 
   <div class="row">
-    <div id="<%= bt %>" class="row collapse">
-      <%= render 'clonezilla_versions/assets/paraForm', locals: {junBug: @cz.send("#{bt}"), item_id: @cz.id} %>
+    <div id="<%= direction %>" class="row collapse">
+      <%= render 'clonezilla_versions/assets/paraForm', locals: {junBug: @cz.send("#{direction}"), item_id: @cz.id} %>
     </div><!-- End of row that is collapsed with Grub Upload -->
   </div>
 
