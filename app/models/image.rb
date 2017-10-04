@@ -8,10 +8,8 @@ class Image < ApplicationRecord
   belongs_to :image_status
   belongs_to :clonezilla_version
   belongs_to :image_type
-  belongs_to :grub_upload, class_name: "AutozillaKeyConfig"
-  belongs_to :grub_download, class_name: "AutozillaKeyConfig"
-  belongs_to :syslinux_upload, class_name: "AutozillaKeyConfig"
-  belongs_to :syslinux_download, class_name: "AutozillaKeyConfig"
+  belongs_to :upload, class_name: "AutozillaKeyConfig"
+  belongs_to :download, class_name: "AutozillaKeyConfig"
 
   def azkName
     self.current == 1 ? cur = "Current - " : cur = nil

@@ -15,10 +15,10 @@ class ClonezillaVersionsController < ApplicationController
 
   def create
     @cv = ClonezillaVersion.create(czv_params)
-    @cv.grub_upload = AutozillaKeyConfig.create(btldr: "Grub", purpose: "Upload")
-    @cv.grub_download = AutozillaKeyConfig.create(btldr: "Grub", purpose: "Download")
-    @cv.syslinux_upload = AutozillaKeyConfig.create(btldr: "Syslinux", purpose: "Upload")
-    @cv.syslinux_download = AutozillaKeyConfig.create(btldr: "Syslinux", purpose: "Download")
+    @cv.upload = AutozillaKeyConfig.new(purpose: "Upload")
+    @cv.upload.czAZKConfig("upload")
+    @cv.download = AutozillaKeyConfig.new(purpose: "Download")
+    @cv.download.czAZKConfig("download")
     @cv.is_enabled = 1
     @cv.save
 
@@ -35,6 +35,8 @@ class ClonezillaVersionsController < ApplicationController
   def update
     @cv = ClonezillaVersion.find(params[:id])
     @cv.update(czv_params)
+
+    redirect_to edit_clonezilla_verion_path(@cv)
   end
 
   def destroy

@@ -34,46 +34,48 @@ module Azk
       czPath = "#{@@prefix}/CloneZilla/#{cz.name}"
 
       # Default starting point, that changes depending on tool
-      tool == "grub" ? @@azkCom = "#{czPath}/vmlinuz" : @@azkCom = "#{czPath}/initrd.img"
-      @@azkCom += " boot=live username=user union=overlay #{surCom.params_set} edd=#{surCom.edd} keyboard-layouts=NONE "
-
-      # Customization based on upload or download.  If true, it will configure for upload, false for download.
-      if direction == "upload"
-        surCom.prerun0.present?     ? @@azkCom += "ocs_prerun=\"#{surCom.prerun0}\" "             : @@azkCom += "ocs_prerun=\"dhclient -v eth0\" "
-        surCom.prerun1.present?     ? @@azkCom += "ocs_prerun1=\"#{surCom.prerun1}\" "            : @@azkCom += "ocs_prerun2=\"sleep 2\" "
-        surCom.prerun2.present?     ? @@azkCom += "ocs_prerun2=\"#{surCom.prerun2}\" "            : @@azkCom += "ocs_prerun2=\"sudo mount -t cifs #{netPath} /mnt -o user=sys_iddclonezilla,credentials=/root/.cifs.sys_iddclonezilla,sec=ntlm\" "
-        surCom.prerun3.present?     ? @@azkCom += "ocs_prerun3=\"#{surCom.prerun3}\" "            : @@azkCom += "ocs_prerun3=\"sudo mkdir -p /mnt#{filePath}\" "
-        surCom.prerun4.present?     ? @@azkCom += "ocs_prerun4=\"#{surCom.prerun4}\" "            : @@azkCom += "ocs_prerun4=\"sudo mount --bind /mnt#{filePath} /home/partimag/\" "
-        surCom.live_run.present?    ? @@azkCom += "ocs_live_run=\"#{surCom.live_run}\""           : @@azkCom += "ocs_live_run=\"ocs-sr #{surCom.flags_upload} -scs savedisk ask_user #{self.disk}\" "
-        surCom.live_keymap.present? ? @@azkCom += "ocs_live_keymap=\"#{surCom.live_keymap}\""     : @@azkCom += "ocs_live_keymap=\"NONE\""
-        surCom.live_param.present?  ? @@azkCom += "ocs_live_param=\"#{surCom.live_param}\""       : nil
-        surCom.live_batch.present?  ? @@azkCom += "ocs_live_batch=\"#{surCom.live_batch}\""       : @@azkCom += "ocs_live_batch=\"no\""
-        surCom.postrun0.present?    ? @@azkCom += "ocs_postrun=\"#{surCom.postrun0}\""            : nil
-        surCom.postrun1.present?    ? @@azkCom += "ocs_postrun1=\"#{surCom.postrun1}\""           : nil
-        surCom.postrun2.present?    ? @@azkCom += "ocs_postrun2=\"#{surCom.postrun2}\""           : nil
-        surCom.postrun3.present?    ? @@azkCom += "ocs_postrun3=\"#{surCom.postrun3}\""           : nil
-        surCom.postrun4.present?    ? @@azkCom += "ocs_postrun4=\"#{surCom.postrun4}\""           : nil
+      tool == "grub" ? @@azkCom = "#{czPath}/vmlinuz " : @@azkCom = "#{czPath}/initrd.img "
+      @@azkCom.concat("boot=live username=user union=overlay ")
+      @@azkCom.concat(surCom.params_set.present? ? "#{surCom.params_set} "     : "#{cz.params_set} ")
+      @@azkCom.concat("edd=", surCom.edd.present? ? "#{surCom.edd} "             : "#{cz.edd} ")
+      @@azkCom.concat("keyboard-layouts=NONE ")
+      if direction == "grub"
+        surCom.prerun0.present? ?       @@azkCom +=  "ocs_prerun=\"#{surCom.prerun0}\" "            : @@azkCom += "ocs_prerun=\"#{cz.upload.prerun0}\" "
+        surCom.prerun1.present? ?       @@azkCom +=  "ocs_prerun1=\"#{surCom.prerun1}\" "           : @@azkCom += "ocs_prerun1=\"#{cz.upload.prerun1}\" "
+        surCom.prerun2.present? ?       @@azkCom +=  "ocs_prerun2=\"#{surCom.prerun2}\" "           : @@azkCom += "ocs_prerun2=\"#{cz.upload.prerun2}\" "
+        surCom.prerun3.present? ?       @@azkCom +=  "ocs_prerun3=\"#{surCom.prerun3}\" "           : @@azkCom += "ocs_prerun3=\"#{cz.upload.prerun3}\" "
+        surCom.prerun4.present? ?       @@azkCom +=  "ocs_prerun4=\"#{surCom.prerun4}\" "           : @@azkCom += "ocs_prerun4=\"#{cz.upload.prerun4}\" "
+        surCom.live_run.present? ?      @@azkCom +=  "ocs_live_run=\"#{surCom.live_run}\" "         : @@azkCom += "ocs_live_run=\"#{cz.upload.live_run}\" "
+        surCom.live_keymap.present? ?   @@azkCom +=  "ocs_live_keymap=\"#{surCom.live_keymap}\" "   : @@azkCom += "ocs_live_keymap=\"#{cz.upload.live_keymap}\" "
+        surCom.live_param.present? ?    @@azkCom +=  "ocs_live_param=\"#{surCom.live_param}\" "     : @@azkCom += "ocs_live_param=\"#{cz.upload.live_param}\" "
+        surCom.live_batch.present? ?    @@azkCom +=  "ocs_live_batch=\"#{surCom.live_batch}\" "     : @@azkCom += "ocs_live_batch=\"#{cz.upload.live_batch}\" "
+        surCom.postrun0.present? ?      @@azkCom +=  "ocs_postrun=\"#{surCom.postrun0}\" "          : @@azkCom += "ocs_postrun0=\"#{cz.upload.postrun0}\" "
+        surCom.postrun1.present? ?      @@azkCom +=  "ocs_postrun1=\"#{surCom.postrun1}\" "         : @@azkCom += "ocs_postrun1=\"#{cz.upload.postrun1}\" "
+        surCom.postrun2.present? ?      @@azkCom +=  "ocs_postrun2=\"#{surCom.postrun2}\" "         : @@azkCom += "ocs_postrun2=\"#{cz.upload.postrun2}\" "
+        surCom.postrun3.present? ?      @@azkCom +=  "ocs_postrun3=\"#{surCom.postrun3}\" "         : @@azkCom += "ocs_postrun3=\"#{cz.upload.postrun3}\" "
+        surCom.postrun4.present? ?      @@azkCom +=  "ocs_postrun4=\"#{surCom.postrun4}\" "         : @@azkCom += "ocs_postrun4=\"#{cz.upload.postrun4}\" "
+        surCom.locales.present? ?       @@azkCom +=  "locales=\"#{surCom.locales}\" "               : "locales=\"#{cz.upload.locales}\" "
       else
-        surCom.prerun0.present?     ? @@azkCom += "ocs_prerun=\"#{surCom.prerun0}\" "             : @@azkCom += "ocs_prerun=\"dhclient -v eth0\" "
-        surCom.prerun1.present?     ? @@azkCom += "ocs_prerun1=\"#{surCom.prerun1}\" "            : @@azkCom += "ocs_prerun2=\"sleep 2\" "
-        surCom.prerun2.present?     ? @@azkCom += "ocs_prerun2=\"#{surCom.prerun2}\" "            : @@azkCom += "ocs_prerun2=\"sudo mount -t cifs #{netPath}#{filePath} /home/partimag -o user=sys_iddclonezilla,credentials=/root/.cifs.sys_iddclonezilla,sec=ntlm\" "
-        surCom.prerun3.present?     ? @@azkCom += "ocs_prerun3=\"#{surCom.prerun3}\" "            : nil
-        surCom.prerun4.present?     ? @@azkCom += "ocs_prerun4=\"#{surCom.prerun4}\" "            : nil
-        surCom.live_run.present?    ? @@azkCom += "ocs_live_run=\"#{surCom.live_run}\""           : @@azkCom += "ocs_live_run=\"ocs-sr #{surCom.flags_download} -scr restoredisk #{self.name} #{self.disk}\" "
-        surCom.live_keymap.present? ? @@azkCom += "ocs_live_keymap=\"#{surCom.live_keymap}\""     : @@azkCom += "ocs_live_keymap=\"NONE\" "
-        surCom.live_param.present?  ? @@azkCom += "ocs_live_param=\"#{surCom.live_param}\""       : nil
-        surCom.live_batch.present?  ? @@azkCom += "ocs_live_batch=\"#{surCom.live_batch}\""       : @@azkCom += "ocs_live_batch=\"no\" "
-        surCom.postrun0.present?    ? @@azkCom += "ocs_postrun=\"#{surCom.postrun0}\""            : nil
-        surCom.postrun1.present?    ? @@azkCom += "ocs_postrun1=\"#{surCom.postrun1}\""           : nil
-        surCom.postrun2.present?    ? @@azkCom += "ocs_postrun2=\"#{surCom.postrun2}\""           : nil
-        surCom.postrun3.present?    ? @@azkCom += "ocs_postrun3=\"#{surCom.postrun3}\""           : nil
-        surCom.postrun4.present?    ? @@azkCom += "ocs_postrun4=\"#{surCom.postrun4}\""           : nil
+        surCom.prerun0.present? ?       @@azkCom +=  "ocs_prerun=\"#{surCom.prerun0}\" "            : @@azkCom += "ocs_prerun=\"#{cz.download.prerun0}\" "
+        surCom.prerun1.present? ?       @@azkCom +=  "ocs_prerun1=\"#{surCom.prerun1}\" "           : @@azkCom += "ocs_prerun1=\"#{cz.download.prerun1}\" "
+        surCom.prerun2.present? ?       @@azkCom +=  "ocs_prerun2=\"#{surCom.prerun2}\" "           : @@azkCom += "ocs_prerun2=\"#{cz.download.prerun2}\" "
+        surCom.prerun3.present? ?       @@azkCom +=  "ocs_prerun3=\"#{surCom.prerun3}\" "           : @@azkCom += "ocs_prerun3=\"#{cz.download.prerun3}\" "
+        surCom.prerun4.present? ?       @@azkCom +=  "ocs_prerun4=\"#{surCom.prerun4}\" "           : @@azkCom += "ocs_prerun4=\"#{cz.download.prerun4}\" "
+        surCom.live_run.present? ?      @@azkCom +=  "ocs_live_run=\"#{surCom.live_run}\" "         : @@azkCom += "ocs_live_run=\"#{cz.download.live_run}\" "
+        surCom.live_keymap.present? ?   @@azkCom +=  "ocs_live_keymap=\"#{surCom.live_keymap}\" "   : @@azkCom += "ocs_live_keymap=\"#{cz.download.live_keymap}\" "
+        surCom.live_param.present? ?    @@azkCom +=  "ocs_live_param=\"#{surCom.live_param}\" "     : @@azkCom += "ocs_live_param=\"#{cz.download.live_param}\" "
+        surCom.live_batch.present? ?    @@azkCom +=  "ocs_live_batch=\"#{surCom.live_batch}\" "     : @@azkCom += "ocs_live_batch=\"#{cz.download.live_batch}\" "
+        surCom.postrun0.present? ?      @@azkCom +=  "ocs_postrun=\"#{surCom.postrun0}\" "          : @@azkCom += "ocs_postrun=\"#{cz.download.postrun0}\" "
+        surCom.postrun1.present? ?      @@azkCom +=  "ocs_postrun1=\"#{surCom.postrun1}\" "         : @@azkCom += "ocs_postrun1=\"#{cz.download.postrun1}\" "
+        surCom.postrun2.present? ?      @@azkCom +=  "ocs_postrun2=\"#{surCom.postrun2}\" "         : @@azkCom += "ocs_postrun2=\"#{cz.download.postrun2}\" "
+        surCom.postrun3.present? ?      @@azkCom +=  "ocs_postrun3=\"#{surCom.postrun3}\" "         : @@azkCom += "ocs_postrun3=\"#{cz.download.postrun3}\" "
+        surCom.postrun4.present? ?      @@azkCom +=  "ocs_postrun4=\"#{surCom.postrun4}\" "         : @@azkCom += "ocs_postrun4=\"#{cz.download.postrun4}\" "
+        surCom.locales.present? ?       @@azkCom +=  "locales=\"#{surCom.locales}\" "               : "locales=\"#{cz.download.locales}\" "
       end
-      # More to the command that is same for upload and download.  Changes a little based on tool (Grub/syslinux)
-      surCom.locales.present?       ? @@azkCom += "locales=\"#{surCom.locales}\""                 : @@azkCom += "locales=\"en_US.UTF-8\" "
-      @@azkCom += "vga=788 net.ifnames=0 toram=filesystem.squashfs live-media-path=#{czPath}"
+      @@azkCom.concat("vga=788 net.ifnames=0 toram=filesystem.squashfs live-media-path=#{czPath} ")
       tool == "grub" ? @@azkCom += "\n\s\sinitrd #{czPath}/initrd.img" : nil
-  end
+      @@azkCom = eval '"' + @@azkCom.gsub('"', '\"') + '"'
+    end
 
     def grubCatMenuEntry(direction, entryType)
       @@menuEntry.puts "menuentry \"#{self.name}\" \{"
@@ -141,15 +143,15 @@ module Azk
             system.images.each do |img|
               if tool == "grub"
                 if direction == "upload"
-                  img.azkCommand(img.grub_upload, direction, tool)
+                  img.azkCommand(img.upload, direction, tool)
                 else
-                  img.azkCommand(img.grub_download, direction, tool)
+                  img.azkCommand(img.download, direction, tool)
                 end
               else
                 if direction == "upload"
-                  img.azkCommand(img.syslinux_upload, direction, tool)
+                  img.azkCommand(img.upload, direction, tool)
                 else
-                  img.azkCommand(img.syslinux_download, direction, tool)
+                  img.azkCommand(img.download, direction, tool)
                 end
               end
 

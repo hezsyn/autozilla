@@ -16,7 +16,6 @@ ActiveRecord::Schema.define(version: 20170830160741) do
   enable_extension "plpgsql"
 
   create_table "autozilla_key_configs", force: :cascade do |t|
-    t.string "btldr"
     t.string "purpose"
     t.string "params_set"
     t.string "edd"
@@ -36,8 +35,7 @@ ActiveRecord::Schema.define(version: 20170830160741) do
     t.string "postrun3"
     t.string "postrun4"
     t.string "locales"
-    t.string "flags_download"
-    t.string "flags_upload"
+    t.string "flags"
     t.string "loader_string"
     t.string "location"
     t.datetime "created_at", null: false
@@ -63,16 +61,12 @@ ActiveRecord::Schema.define(version: 20170830160741) do
     t.text "description"
     t.integer "is_enabled"
     t.integer "default"
-    t.bigint "grub_upload_id"
-    t.bigint "grub_download_id"
-    t.bigint "syslinux_upload_id"
-    t.bigint "syslinux_download_id"
+    t.bigint "upload_id"
+    t.bigint "download_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["grub_download_id"], name: "index_clonezilla_versions_on_grub_download_id"
-    t.index ["grub_upload_id"], name: "index_clonezilla_versions_on_grub_upload_id"
-    t.index ["syslinux_download_id"], name: "index_clonezilla_versions_on_syslinux_download_id"
-    t.index ["syslinux_upload_id"], name: "index_clonezilla_versions_on_syslinux_upload_id"
+    t.index ["download_id"], name: "index_clonezilla_versions_on_download_id"
+    t.index ["upload_id"], name: "index_clonezilla_versions_on_upload_id"
   end
 
   create_table "image_statuses", id: :serial, force: :cascade do |t|
@@ -95,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170830160741) do
     t.string "azkName"
     t.text "description"
     t.string "file_location"
+    t.string "server_location"
     t.string "disk"
     t.bigint "note_id"
     t.bigint "user_id"
@@ -106,23 +101,19 @@ ActiveRecord::Schema.define(version: 20170830160741) do
     t.bigint "image_type_id"
     t.string "autoboot"
     t.integer "current"
-    t.bigint "grub_upload_id"
-    t.bigint "grub_download_id"
-    t.bigint "syslinux_upload_id"
-    t.bigint "syslinux_download_id"
+    t.bigint "upload_id"
+    t.bigint "download_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["clonezilla_version_id"], name: "index_images_on_clonezilla_version_id"
-    t.index ["grub_download_id"], name: "index_images_on_grub_download_id"
-    t.index ["grub_upload_id"], name: "index_images_on_grub_upload_id"
+    t.index ["download_id"], name: "index_images_on_download_id"
     t.index ["image_status_id"], name: "index_images_on_image_status_id"
     t.index ["image_type_id"], name: "index_images_on_image_type_id"
     t.index ["note_id"], name: "index_images_on_note_id"
     t.index ["ose_id"], name: "index_images_on_ose_id"
     t.index ["pool_id"], name: "index_images_on_pool_id"
-    t.index ["syslinux_download_id"], name: "index_images_on_syslinux_download_id"
-    t.index ["syslinux_upload_id"], name: "index_images_on_syslinux_upload_id"
     t.index ["system_id"], name: "index_images_on_system_id"
+    t.index ["upload_id"], name: "index_images_on_upload_id"
     t.index ["user_id"], name: "index_images_on_user_id"
   end
 

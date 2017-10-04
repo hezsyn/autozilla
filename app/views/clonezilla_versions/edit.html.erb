@@ -9,7 +9,7 @@
   </div>
 
 
-<% ["grub_upload", "grub_download", "syslinux_upload", "syslinux_download"].each do |bt| %>
+<% ["upload", "download"].each do |bt| %>
 
   <div class="row">
     <div class="col-md-1">
@@ -19,7 +19,7 @@
     </div>
 
     <div class="text-left">
-      <h2><%= @cz.send("#{bt}").btldr + " " + @cz.send("#{bt}").purpose %></h2>
+      <h2><%= @cz.send("#{bt}").purpose %></h2>
     </div>
 
   </div>

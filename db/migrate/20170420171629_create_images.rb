@@ -5,6 +5,7 @@ class CreateImages < ActiveRecord::Migration[5.1]
       t.string      :azkName
       t.text        :description
       t.string      :file_location
+      t.string      :server_location
       t.string      :disk
       t.references  :note, index: true
       t.references  :user, index: true
@@ -16,10 +17,8 @@ class CreateImages < ActiveRecord::Migration[5.1]
       t.references  :image_type, index: true
       t.string      :autoboot
       t.integer     :current
-      t.references  :grub_upload, index: true
-      t.references  :grub_download, index: true
-      t.references  :syslinux_upload, index: true
-      t.references  :syslinux_download, index: true
+      t.references  :upload, index: true
+      t.references  :download, index: true
 
       t.timestamps
     end

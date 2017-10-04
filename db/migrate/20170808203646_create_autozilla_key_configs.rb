@@ -1,7 +1,6 @@
 class CreateAutozillaKeyConfigs < ActiveRecord::Migration[5.1]
   def change
     create_table :autozilla_key_configs do |t|
-      t.string        :btldr
       t.string        :purpose
       t.string        :params_set
       t.string        :edd
@@ -21,8 +20,7 @@ class CreateAutozillaKeyConfigs < ActiveRecord::Migration[5.1]
       t.string        :postrun3
       t.string        :postrun4
       t.string        :locales
-      t.string        :flags_download
-      t.string        :flags_upload
+      t.string        :flags
       t.string        :loader_string
       t.string        :location
 

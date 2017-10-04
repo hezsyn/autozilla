@@ -10,11 +10,8 @@ class ImagesController < ApplicationController
     @cz = ClonezillaVersion.find(params[:image][:clonezilla_version_id])
     @image = @system.images.new(image_params)
     @image.file_location = @image.img_file_location
-    @image.grub_upload_id = @cz.grub_upload_id
-    @image.grub_download_id = @cz.grub_download_id
-    @image.syslinux_upload_id = @cz.syslinux_upload_id
-    @image.syslinux_download_id = @cz.syslinux_download_id
-
+    @image.upload = @cz.upload
+    @image.download = @cz.download
     @image.save
     @image.createAZKSystemFiles
     redirect_to category_system_path(@category, @system)
@@ -24,7 +21,7 @@ class ImagesController < ApplicationController
     @category = Category.find(params[:category_id])
     @system = System.find(params[:system_id])
     @image = Image.find(params[:id])
-    @netPath = @image.grub_upload.location
+    @netUpPath = @image.upload.location
     @images = @system.images.all
     @notes = @image.notes.all
 

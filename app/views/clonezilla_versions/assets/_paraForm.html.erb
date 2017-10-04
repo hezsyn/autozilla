@@ -5,14 +5,21 @@
       <br><br>
         <%= hidden_field_tag locals[:item_id] %>
 
-      <% ["kernal", "boot", "user_name", "union", "edd", "keyboardLayout", "locales", "vga", "ifname", "fetch", "toram"].each do |czp| %>
+      <% ["params_set", "edd", "locales", "flags"].each do |czp| %>
         <div class="form-group col-md-2">
           <%= f.label czp.to_sym %>
           <%= f.text_area czp.to_sym, class: "form-control" %>
         </div>
       <% end %>
 
-      <% ["parameters_set1", "ocs_prerun0", "parameters_set2",  "ocs_prerun1", "parameters_set3", "ocs_prerun2", "ocs_live_run", "ocs_prerun3",  "ocs_live_keymap", "ocs_prerun4", "ocs_live_batch"].each do |czp| %>
+      <% ["live_run", "live_keymap", "live_param", "live_batch"].each do |czp| %>
+        <div class="form-group col-md-6">
+          <%= f.label czp.to_sym %>
+          <%= f.text_area czp.to_sym, class: "form-control" %>
+        </div>
+      <% end %>
+
+      <% ["prerun0", "postrun0", "prerun1", "postrun1", "prerun2", "postrun2", "prerun3", "postrun3", "prerun4", "postrun4"].each do |czp| %>
         <div class="form-group col-md-6">
           <%= f.label czp.to_sym %>
           <%= f.text_area czp.to_sym, class: "form-control" %>
