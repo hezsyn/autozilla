@@ -35,11 +35,12 @@ class SystemsController < ApplicationController
   end
 
   def update
-    @category = Category.find(:category_id)
-    @system = System.update(system_params)
+    @category = Category.find(params[:category_id])
+    @system = @category.systems.find(params[:id])
+    @system.update(system_params)
     @system.createAZKCategoryFiles
 
-    redirect_to category_path(@category)
+    redirect_to category_system_path(@category, @system)
   end
 
   def destroy

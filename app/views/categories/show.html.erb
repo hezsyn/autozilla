@@ -4,68 +4,71 @@
   <div class="col-md-9">
       <div class="row">
         <div class="jumbotron">
-            <h1><%= @category.name %></h1>
-            <h4><%= @category.file_location %></h4>
-            <%= button_tag 'New SubCategory', class: "btn btn-sm btn-warning", "data-toggle" => "modal", "data-target" => "#newSubCat" %>
-            <%= button_tag 'New System', class: "btn btn-sm btn-warning", "data-toggle" => "modal", "data-target" => "#newSystem" %>
+          <h1><%= @category.name %></h1>
+          <h4><%= @category.file_location %></h4>
+          <%= button_tag 'New SubCategory', class: "btn btn-sm btn-warning", "data-toggle" => "modal", "data-target" => "#newSubCat" %>
+          <%= button_tag 'New System', class: "btn btn-sm btn-warning", "data-toggle" => "modal", "data-target" => "#newSystem" %>
         </div>
       </div>
 
     <div class="row">
 
     <% if @subcategories.present? %>
-    <% if @systems.present? %>
-      <div class="col-xs-6">
-    <% end %>
-      <h2 class="text-center">Sub-Categories</h2>
-      <hr>
-      <table class="table table-hover table-responsive table-striped">
-        <thead>
-          <td></td>
-          <th>#</th>
-          <th>Name</th>
-        </thead>
-        <tbody>
-          <%  n = 1 %>
-          <% @subcategories.each do |t| %>
-            <tr data-link="<%=category_path(t.id)%>">
-              <td><%= link_to 'View', category_path(t.id) %></td>
-              <td><%= n %></td>
-              <td><%= t.name %></td>
-            </tr>
-            <% n += 1 %>
-          <% end %>
-        </tbody>
-      </table>
-    <% if @systems.present? %>
-      </div>
-    <% end %>
-      <% end %>
-
       <% if @systems.present? %>
         <div class="col-xs-6">
+      <% end %>
+
+        <h2 class="text-center">Sub-Categories</h2>
+
+        <hr>
+
+        <table class="table table-hover table-responsive table-striped">
+          <thead>
+            <td></td>
+            <th>Name</th>
+          </thead>
+          <tbody>
+            <% @subcategories.each do |t| %>
+              <tr data-link="<%=category_path(t.id)%>">
+                <td><%= link_to 'View', category_path(t.id) %></td>
+                <td><%= t.name %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      <% if @systems.present? %>
+        </div>
+      <% end %>
+    <% end %>
+
+      <% if @systems.present? %>
+        <% if @subcategories.present? %>
+          <div class="col-xs-6">
+        <% end %>
         <h2 class="text-center">Systems</h2>
         <hr>
         <table class="table table-hover table-striped">
           <thead>
             <th></th>
-            <th>#</th>
             <th>Name</th>
+            <th>Default Disk</th>
           </thead>
           <tbody>
-        <% n = 1 %>
             <% @systems.each do |sys| %>
               <tr>
                 <td><%= link_to 'View', category_system_path(@category, sys) %></td>
-                <td><%= n %></td>
                 <td><%= sys.name %></td>
+                <td><%= sys.default_disk %></td>
               </tr>
-              <% n += 1 %>
             <% end %>
           </tbody>
         </table>
       <% end %>
-    </div>
+
+      <% if @subcategories.present? %>
+        </div>
+      <% end %>
     </div><!-- End of Row -->
 
   </div> <!-- End of Column -->
@@ -116,15 +119,26 @@
       <div class="modal-body">
         <%= form_for([@category, @category.systems.build]) do |f| %>
           <%= f.hidden_field :category_id, value: @category.id %>
+
           <div class="input-group">
-          <span class="input-group-addon"><%= f.label :name %></span>
+            <span class="input-group-addon"><%= f.label :name %></span>
             <%= f.text_field :name, class: "form-control" %>
           </div>
+
           <br>
+
           <div class="input-group">
-              <span class="input-group-addon"><%= f.label :default_disk %></span>
-              <%= f.text_area :default_disk, class: "form-control" %>
+            <span class="input-group-addon"><%= f.label :default_disk %></span>
+            <%= f.text_field :default_disk, class: "form-control" %>
           </div>
+
+          <br>
+
+          <div class="input-group">
+            <span class="input-group-addon"><%= f.label :description %></span>
+            <%= f.text_area :description, class: "form-control" %>
+          </div>
+
       </div>
 
       <div class="modal-footer">

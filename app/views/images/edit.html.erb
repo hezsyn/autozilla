@@ -12,8 +12,8 @@
   </div>
       <div class="row">
         <div class="col-xs-9">
-          <div class="form_group">
-            <label>Image Title</label>
+          <div class="input-group">
+            <span class="input-group-addon">Image Title</span>
             <%= f.text_field :name, class: "form-control input-lg" %>
           </div>
         </div>
@@ -21,38 +21,38 @@
       <h3><%= @image.file_location.gsub!("\ "," ") %></h3>
     <hr>
 
-      <div class="form_group">
-        <label>Image Type -</label>
+      <div class="input-group">
+        <span class="input-group-addon">Image Type -</span>
         <%= f.collection_select(:image_type_id, @image_types, :id, :name, { include_blank: true},{"tabindex" => c, class: "form-control"}) %>
       <% c += 1 %>
       </div>
 
-      <div class="form_group">
-        <label>Image Status -</label>
+      <div class="input-group">
+        <span class="input-group-addon">Image Status -</span>
         <%= f.collection_select(:image_status_id, @image_statuses, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"})  %>
       <% c += 1%>
       </div>
 
-      <div class="form_group">
-        <label>CloneZilla Version -</label>
+      <div class="input-group">
+        <span class="input-group-addon">CloneZilla Version -</span>
         <%= f.collection_select(:clonezilla_version_id, @clonezillas, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"})  %>
       <% c += 1%>
       </div>
 
-      <div class="form_group">
-        <label>Operating System -</label>
+      <div class="input-group">
+        <span class="input-group-addon">Operating System -</span>
         <%= f.collection_select :ose_id, @oss, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"}%>
       <% c += 1%>
       </div>
 
-      <div class="form_group">
-        <label>Pools -</label>
+      <div class="input-group">
+        <span class="input-group-addon">Pools -</span>
         <%= f.collection_select :pool_id, @pools, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"} %>
       <% c += 1%>
       </div>
 
       <div class="form-group">
-        <label>Disks - </label>
+        <span class="input-group-addon">Disks - </span>
         <%= f.text_area :disk, class: "form-control" %>
       </div>
 
