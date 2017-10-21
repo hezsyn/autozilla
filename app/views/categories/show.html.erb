@@ -4,8 +4,17 @@
   <div class="col-md-9">
       <div class="row">
         <div class="jumbotron">
-          <h1><%= @category.name %></h1>
-          <h4><%= @category.file_location %></h4>
+          <% if @category.category_id.present? %>
+            <%= form_for @category do |f| %>
+                <div class="input-group">
+                <%= f.text_field :name, class: "form-control input-lg" %>
+                <%= f.submit 'Update', class: "btn btn-sm btn-info" %>
+                </div>
+             <% end %>
+          <% else %>
+            <h1><%= @category.name %></h1>
+            <h4><%= @category.file_location %></h4>
+          <% end %>
           <%= button_tag 'New SubCategory', class: "btn btn-sm btn-warning", "data-toggle" => "modal", "data-target" => "#newSubCat" %>
           <%= button_tag 'New System', class: "btn btn-sm btn-warning", "data-toggle" => "modal", "data-target" => "#newSystem" %>
         </div>

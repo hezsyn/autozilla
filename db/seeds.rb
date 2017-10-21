@@ -1,5 +1,5 @@
 # Setting some defaults
-SupportStuff.create(name: 'rootKeyDir', value: '/mnt/c/Users/hezsy/Desktop/Staging/AZK/', description: 'Default location of everything')
+SupportStuff.create(name: 'rootKeyDir', value: '/mnt/c/Users/Hezsyn/Desktop/Staging/AZK/', description: 'Default location of everything')
 SupportStuff.create(name: 'sourceKey', value: 'source', description: 'Source directory for setting up key')
 SupportStuff.create(name: 'productionKey', value: 'production', description: 'Where the key for production is stored')
 # Configu for both configs for autozilla Key

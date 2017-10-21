@@ -5,11 +5,11 @@ class AutozillaKeyConfig < ApplicationRecord
     if direction == "upload"
       self.params_set = SupportStuff.find_by(name: "dupParamsSet").value
       self.edd = SupportStuff.find_by(name: "dupEdd").value
-      self.prerun0 = SupportStuff.find_by(name: "dupPreun0").value
-      self.prerun1 = SupportStuff.find_by(name: "dupPreun1").value
-      self.prerun2 = SupportStuff.find_by(name: "dupPreun2").value
-      self.prerun3 = SupportStuff.find_by(name: "dupPreun3").value
-      self.prerun4 = SupportStuff.find_by(name: "dupPreun4").value
+      self.prerun0 = SupportStuff.find_by(name: "dupPrerun0").value
+      self.prerun1 = SupportStuff.find_by(name: "dupPrerun1").value
+      self.prerun2 = SupportStuff.find_by(name: "dupPrerun2").value
+      self.prerun3 = SupportStuff.find_by(name: "dupPrerun3").value
+      self.prerun4 = SupportStuff.find_by(name: "dupPrerun4").value
       self.live_run = SupportStuff.find_by(name: "dupLiveRun").value
       self.live_keymap = SupportStuff.find_by(name: "dupLiveKeyMap").value
       self.live_param = SupportStuff.find_by(name: "dupLiveParam").value
@@ -23,11 +23,11 @@ class AutozillaKeyConfig < ApplicationRecord
     else
       self.params_set = SupportStuff.find_by(name: "ddlParamsSet").value
       self.edd = SupportStuff.find_by(name: "ddlEdd").value
-      self.prerun0 = SupportStuff.find_by(name: "ddlPreun0").value
-      self.prerun1 = SupportStuff.find_by(name: "ddlPreun1").value
-      self.prerun2 = SupportStuff.find_by(name: "ddlPreun2").value
-      self.prerun3 = SupportStuff.find_by(name: "ddlPreun3").value
-      self.prerun4 = SupportStuff.find_by(name: "ddlPreun4").value
+      self.prerun0 = SupportStuff.find_by(name: "ddlPrerun0").value
+      self.prerun1 = SupportStuff.find_by(name: "ddlPrerun1").value
+      self.prerun2 = SupportStuff.find_by(name: "ddlPrerun2").value
+      self.prerun3 = SupportStuff.find_by(name: "ddlPrerun3").value
+      self.prerun4 = SupportStuff.find_by(name: "ddlPrerun4").value
       self.live_run = SupportStuff.find_by(name: "ddlLiveRun").value
       self.live_keymap = SupportStuff.find_by(name: "ddlLiveKeyMap").value
       self.live_param = SupportStuff.find_by(name: "ddlLiveParam").value

@@ -211,5 +211,16 @@ module Azk
     end
   end
 
+  def removeEntry(entryType)
+    setSettings
+    ["upload", "download"].each do |direction|
+      ["grub", "syslinux"].each do |tool|
+          # Changing directory to file path for file
+          @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
+          @@fut.exist?("#{entryType}_#{self.slug}.menu") ? @@fut.rm("#{entryType}_#{self.slug}.menu") : nil
+      end
+    end
+  end
+
   end # End of Key Module
 end # End of the AZK Module

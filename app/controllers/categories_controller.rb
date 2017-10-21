@@ -57,13 +57,16 @@ class CategoriesController < ApplicationController
 
   def update
     @category = Category.find(params[:id])
+    @category.removeEntry("category")
+    @category.slug = @category.name
+    @category.makeSlug
+    @category.file_location = @category.objectLocation
 
-      if @category.category_id != nil
-        @category.update(sub_category_params)
-      else
-        @category.update(category_params)
-      end
+    @category.save
+
     @category.createAZKCategoryFiles
+
+    redirect_to @category
   end
 
   def destory
