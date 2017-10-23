@@ -25,7 +25,8 @@ class SystemsController < ApplicationController
     @system.is_enabled = 1
     @system.save
 
-    @system.createAZKCategoryFiles
+    @category.createAZKCategoryFiles
+    @system.createAZKSystemFiles
 
     redirect_to category_path(@category)
   end
@@ -37,8 +38,14 @@ class SystemsController < ApplicationController
   def update
     @category = Category.find(params[:category_id])
     @system = @category.systems.find(params[:id])
+    @system.removeEntry("system", @system)
+    @system.slug = @system.name
+    @system.makeSlug
+
     @system.update(system_params)
-    @system.createAZKCategoryFiles
+
+    @category.createAZKCategoryFiles
+    @system.createAZKSystemFiles
 
     redirect_to category_system_path(@category, @system)
   end

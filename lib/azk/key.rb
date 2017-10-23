@@ -105,22 +105,21 @@ module Azk
 
     def createAZKCategoryFiles
       setSettings
-        self.try(:category_id).nil? ? category = self : category = Category.find(self.category_id)
 
         ["upload", "download"].each do |direction|
           ["grub", "syslinux"].each do |tool|
             @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
-            @@menuEntry = File.new("category_#{category.slug}.menu", "w+")
+            @@menuEntry = File.new("category_#{self.slug}.menu", "w+")
 
-              tool == "grub" ? category.grubDefault : category.sysLinuxDefault
+              tool == "grub" ? self.grubDefault : self.sysLinuxDefault
 
-              category.categories.each do |cat|
+              self.categories.each do |cat|
                 tool == "grub" ? cat.grubCatMenuEntry(direction, "category") : cat.sysCatMenuEntry(direction, "category")
               end
 
-              category.present? ? category.breakEntry : nil
+              self.breakEntry if self.systems.present?
 
-              category.systems.each do |sys|
+              self.systems.each do |sys|
                 tool == "grub" ? sys.grubCatMenuEntry(direction, "system") : sys.sysCatMenuEntry(direction, "system")
               end
 
@@ -132,15 +131,14 @@ module Azk
 
     def createAZKSystemFiles
       setSettings
-      self.try(:category_id).nil? ?  system = System.find(self.system_id) : system = System.find(self.id)
 
       ["upload", "download"].each do |direction|
         ["grub", "syslinux"].each do |tool|
           @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
 
-          @@menuEntry = File.new("system_#{system.slug}.menu", "w+")
+          @@menuEntry = File.new("system_#{self.slug}.menu", "w+")
             tool == "grub" ? self.grubDefault : self.sysLinuxDefault
-            system.images.each do |img|
+            self.images.each do |img|
               if tool == "grub"
                 if direction == "upload"
                   img.azkCommand(img.upload, direction, tool)
@@ -211,13 +209,13 @@ module Azk
     end
   end
 
-  def removeEntry(entryType)
+  def removeEntry(entryType, entity)
     setSettings
     ["upload", "download"].each do |direction|
       ["grub", "syslinux"].each do |tool|
           # Changing directory to file path for file
           @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
-          @@fut.exist?("#{entryType}_#{self.slug}.menu") ? @@fut.rm("#{entryType}_#{self.slug}.menu") : nil
+          @@fut.rm("#{entryType}_#{entity.slug}.menu") if File.exist?("#{entryType}_#{entity.slug}.menu")
       end
     end
   end

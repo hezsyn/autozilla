@@ -27,7 +27,7 @@ class CategoriesController < ApplicationController
 
   def create
     @categories = Category.all
-
+    @parentCategory = Category.find(@category.category_id) if @category.category_id != nil
     if :category_id.nil?
       @category = Category.new(category_params)
     else
@@ -42,6 +42,7 @@ class CategoriesController < ApplicationController
     @category.save
 
     @category.createAZKCategoryFiles
+    @parentCategory.createAZKCategoryFiles
 
      if @category.category_id.nil?
        redirect_to category_path(@category)
@@ -57,14 +58,20 @@ class CategoriesController < ApplicationController
 
   def update
     @category = Category.find(params[:id])
-    @category.removeEntry("category")
+    @parentCategory = Category.find(@category.category_id) if @category.category_id != nil
+    @category.removeEntry("category", @category) if @category.category_id != nil
     @category.slug = @category.name
     @category.makeSlug
     @category.file_location = @category.objectLocation
 
-    @category.save
+    @category.update(category_params)
 
-    @category.createAZKCategoryFiles
+    if @category.category_id != nil
+      @category.createAZKCategoryFiles
+      @parentCategory.createAZKCategoryFiles
+    else
+      @category.createAZKCategoryFiles
+    end
 
     redirect_to @category
   end
