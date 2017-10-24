@@ -113,6 +113,8 @@ module Azk
 
               tool == "grub" ? self.grubDefault : self.sysLinuxDefault
 
+              puts self.file_location
+
               self.categories.each do |cat|
                 tool == "grub" ? cat.grubCatMenuEntry(direction, "category") : cat.sysCatMenuEntry(direction, "category")
               end
