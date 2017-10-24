@@ -133,14 +133,15 @@ module Azk
 
     def createAZKSystemFiles
       setSettings
+      system = System.find(self.system_id) if self.system_id != nil
 
       ["upload", "download"].each do |direction|
         ["grub", "syslinux"].each do |tool|
           @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
 
-          @@menuEntry = File.new("system_#{self.slug}.menu", "w+")
+          @@menuEntry = File.new("system_#{system.slug}.menu", "w+")
             tool == "grub" ? self.grubDefault : self.sysLinuxDefault
-            self.images.each do |img|
+            system.images.each do |img|
               if tool == "grub"
                 if direction == "upload"
                   img.azkCommand(img.upload, direction, tool)
