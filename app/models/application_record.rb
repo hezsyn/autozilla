@@ -31,7 +31,7 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def makeSlug
-    slug.chomp
+    slug.strip
     slug.gsub!(" ", "_")
     slug.downcase!
     c = System.where(name: name).count
