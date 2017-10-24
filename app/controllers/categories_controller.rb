@@ -27,7 +27,6 @@ class CategoriesController < ApplicationController
 
   def create
     @categories = Category.all
-    @parentCategory = Category.find(@category.category_id) if @category.category_id != nil
     if :category_id.nil?
       @category = Category.new(category_params)
     else
@@ -41,6 +40,7 @@ class CategoriesController < ApplicationController
 
     @category.save
 
+    @parentCategory = Category.find(@category.category_id) if @category.category_id != nil
     @category.createAZKCategoryFiles
     @parentCategory.createAZKCategoryFiles
 

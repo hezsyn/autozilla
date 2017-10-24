@@ -30,7 +30,7 @@ SupportStuff.create(name: 'ddlParamsSet', value: 'components config noswap noloc
 SupportStuff.create(name: 'ddlEdd', value: 'on')
 SupportStuff.create(name: 'ddlPrerun0', value: 'dhclient -v eth0')
 SupportStuff.create(name: 'ddlPrerun1', value: 'sleep 2')
-SupportStuff.create(name: 'ddlPrerun2', value: 'sudo mount -t cifs #{netPath} /mnt -o user=sys_iddclonezilla,credentials=/root/.cifs.sys_iddclonezilla,sec=ntlm')
+SupportStuff.create(name: 'ddlPrerun2', value: 'sudo mount -t cifs #{netPath}#{filePath} /mnt -o user=sys_iddclonezilla,credentials=/root/.cifs.sys_iddclonezilla,sec=ntlm')
 SupportStuff.create(name: 'ddlPrerun3', value: '')
 SupportStuff.create(name: 'ddlPrerun4', value: '')
 SupportStuff.create(name: 'ddlLiveRun', value: 'ocs-sr #{surCom.flags} -scr restoredisk #{self.name} #{self.disk}')
