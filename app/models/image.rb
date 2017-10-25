@@ -12,12 +12,17 @@ class Image < ApplicationRecord
   belongs_to :download, class_name: "AutozillaKeyConfig"
 
   def azkName
-    self.current == 1 ? cur = "Current - " : cur = nil
-    "#{cur}" + pool.name + " - " + image_type.name + " - " + ose.name + " - bheinrix - " + updated_at.strftime("%d%b%Y")
+    cur = "Current - " if self.current == 1
+    if self.current == 1
+      "#{cur}" + pool.name + " - " + image_type.name + " - " + ose.name + " - bheinrix - " + updated_at.strftime("%d%b%Y")
+    else
+      pool.name + " - " + image_type.name + " - " + ose.name + " - bheinrix - " + updated_at.strftime("%d%b%Y")
+    end
   end
 
   def img_file_location
     "#{self.system.file_location}/#{self.pool.name}"
   end
+
 
 end

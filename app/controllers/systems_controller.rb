@@ -23,6 +23,7 @@ class SystemsController < ApplicationController
     @system.slug = @system.name
     @system.makeSlug
     @system.is_enabled = 1
+    @system.default_disk.downcase!
     @system.save
 
     @category.createAZKCategoryFiles
@@ -41,6 +42,7 @@ class SystemsController < ApplicationController
     @system.removeEntry("system", @system)
     @system.slug = @system.name
     @system.makeSlug
+    @system.default_disk.downcase!
 
     @system.update(system_params)
 

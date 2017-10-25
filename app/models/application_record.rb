@@ -31,8 +31,11 @@ class ApplicationRecord < ActiveRecord::Base
   end
 
   def makeSlug
+    # removes the first and last white spaces
     slug.strip
+    # Replaces any spaces to _
     slug.gsub!(" ", "_")
+    # Sets all the characters to lowercase
     slug.downcase!
     c = System.where(name: name).count
     c += Category.where(name: name).count

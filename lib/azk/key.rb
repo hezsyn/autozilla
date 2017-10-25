@@ -16,13 +16,21 @@ module Azk
       @@menuEntry.puts "*=======================================================================*\n\n"
     end
 
-    def grubDefault
+    def grubDefault(direction)
       @@menuEntry.puts "set default=#{@@default}"
-      @@menuEntry.puts "configfile /EFI/boot/graphics.cfg\n\n"
+      if direction == "download"
+        @@menuEntry.puts "configfile /EFI/boot/graphics.cfg\n\n"
+      else
+        @@menuEntry.puts "configfile /EFI/boot/graphics_upload.cfg\n\n"
+      end
     end
 
-    def sysLinuxDefault
-      @@menuEntry.puts "INCLUDE /syslinux/graphics.conf\n\n"
+    def sysLinuxDefault(direction)
+      if direction == "download"
+        @@menuEntry.puts "INCLUDE /syslinux/graphics.conf\n\n"
+      else
+        @@menuEntry.puts "INCLUDE /syslinux/graphics_upload.conf\n\n"
+      end
     end
 
     def azkCommand(surCom, direction, tool)
@@ -111,7 +119,7 @@ module Azk
             @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
             @@menuEntry = File.new("category_#{self.slug}.menu", "w+")
 
-              tool == "grub" ? self.grubDefault : self.sysLinuxDefault
+              tool == "grub" ? self.grubDefault(direction) : self.sysLinuxDefault(direction)
 
               puts self.file_location
 
@@ -133,14 +141,14 @@ module Azk
 
     def createAZKSystemFiles
       setSettings
-      self.try(:category_id).nil? ?  system = System.find(self.system_id) : system = System.find(self.id)
+      self.try(:category_id).nil? ?  system = System.find(self.system_id) : system = System.find_by(name: self.name)
 
       ["upload", "download"].each do |direction|
         ["grub", "syslinux"].each do |tool|
           @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
 
           @@menuEntry = File.new("system_#{system.slug}.menu", "w+")
-            tool == "grub" ? self.grubDefault : self.sysLinuxDefault
+            tool == "grub" ? self.grubDefault(direction) : self.sysLinuxDefault(direction)
             system.images.each do |img|
               if tool == "grub"
                 if direction == "upload"

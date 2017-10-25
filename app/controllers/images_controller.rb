@@ -12,6 +12,7 @@ class ImagesController < ApplicationController
     @image.file_location = @image.img_file_location
     @image.upload = @cz.upload
     @image.download = @cz.download
+    @image.disk.downcase
     @image.save
     @image.createAZKSystemFiles
     redirect_to category_system_path(@category, @system)
@@ -36,7 +37,10 @@ class ImagesController < ApplicationController
     @category = Category.find(params[:category_id])
     @system = System.find(params[:system_id])
     @image = Image.find(params[:id])
+    @image.disk.downcase!
+
     @image.update(image_params)
+
     @image.createAZKSystemFiles
 
     redirect_to edit_category_system_image_path(@category, @system, @image)
