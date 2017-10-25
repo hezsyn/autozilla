@@ -207,7 +207,7 @@ module Azk
           @@menuEntry = File.new("top.menu", "w+")
 
           # This line is only added once to the file, it is the default data for the file
-          tool == "grub" ? grubDefault : sysLinuxDefault
+          tool == "grub" ? grubDefault(direction) : sysLinuxDefault(direction)
           # Loops and adds all top level entries to the file
           topLevel.each do |cat|
             tool == "grub" ? cat.grubCatMenuEntry(direction, "category") : cat.sysCatMenuEntry(direction, "category")
