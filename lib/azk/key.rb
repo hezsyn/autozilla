@@ -141,7 +141,7 @@ module Azk
 
     def createAZKSystemFiles
       setSettings
-      self.try(:category_id).nil? ?  system = System.find(self.system_id) : system = System.find_by(name: self.name)
+      self.try(:category_id).nil? ? system = System.find(self.system_id) : system = System.find_by(name: self.name)
 
       ["upload", "download"].each do |direction|
         ["grub", "syslinux"].each do |tool|
