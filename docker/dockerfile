@@ -1,0 +1,10 @@
+FROM rails:5.1.4
+MAINTAINER Brandon Heinrichs <brandonx.heinrichs@intel.com>
+# Creates Autozilla Directory
+RUN mkdir -p /var/www/rails/autozilla
+WORKDIR /var/www/rails/autozilla
+RUN bundle install
+RUN rails db:create
+RUN rails db:migrate
+RUN rails db:seed
+CMD rails s -b 0.0.0.0
