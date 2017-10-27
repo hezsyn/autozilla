@@ -7,8 +7,12 @@
           <% if @category.category_id.present? %>
             <%= form_for @category do |f| %>
                 <div class="input-group">
-                <%= f.text_field :name, class: "form-control input-lg" %>
-                <%= f.submit 'Update', class: "btn btn-sm btn-info" %>
+                <p>
+                  <%= f.text_field :name, class: "form-control input-lg" %>
+                </p>
+                <p>
+                  <%= f.submit 'Update', class: "btn btn-sm btn-info" %>
+                </p>
                 </div>
              <% end %>
           <% else %>

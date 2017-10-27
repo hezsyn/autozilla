@@ -6,7 +6,6 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.integer       :is_domain_login
       t.string        :slug
       t.string        :password
-      t.string        :password_digest
       t.string        :email
       t.date          :last_login
       t.string        :role
