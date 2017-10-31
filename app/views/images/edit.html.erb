@@ -51,14 +51,16 @@
       <% c += 1%>
       </div>
 
-      <div class="form-group">
+      <div class="input-group">
         <span class="input-group-addon">Disks - </span>
-        <%= f.text_area :disk, class: "form-control" %>
+        <%= f.text_field :disk, id: "addDisk", class: "form-control" %>
       </div>
 
     <%= f.submit %>
 
   <% end %>
+
+
 
 </div><!-- End of Overall Column -->
 

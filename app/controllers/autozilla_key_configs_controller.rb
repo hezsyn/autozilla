@@ -21,7 +21,7 @@ class AutozillaKeyConfigsController < ApplicationController
 
   private
     def azk_params
-      params.require(:autozilla_key_config).permit(:params_set, :flags, :location, :live_run, :live_keymap, :live_param, :live_batch, :prerun0, :postrun0, :prerun1, :postrun1, :prerun2, :postrun2, :prerun3, :postrun3, :prerun4, :postrun4)
+      params.require(:autozilla_key_config).permit(:params_set, :flags, :location, :live_run, :live_keymap, :live_param, :live_batch, :prerun0, :postrun0, :prerun1, :postrun1, :prerun2, :postrun2, :prerun3, :postrun3, :prerun4, :postrun4, :edd, :locales)
     end
 
 end

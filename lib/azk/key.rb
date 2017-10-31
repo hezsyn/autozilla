@@ -99,14 +99,14 @@ module Azk
     end
 
     def grubEntry
-      @@menuEntry.print "menuentry \"#{current}#{self.azkName}\" \{\n"
+      @@menuEntry.print "menuentry \"#{current}#{self.name}\" \{\n"
       @@menuEntry.print "\s\slinux #{@@azkCom}\n"
       @@menuEntry.print "\}\n\n"
     end
 
     def sysEntry
-      @@menuEntry.puts "LABEL #{self.azkName}"
-      @@menuEntry.puts "\tMENU LABEL #{self.azkName}"
+      @@menuEntry.puts "LABEL #{self.name}"
+      @@menuEntry.puts "\tMENU LABEL #{self.name}"
       @@menuEntry.puts "\tKERNEL /live/CloneZilla/#{self.clonezilla_version.name}/vmlinuz"
       @@menuEntry.puts "\tAPPEND initrd=#{@@azkCom}\n\n"
     end
