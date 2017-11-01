@@ -1,6 +1,8 @@
 class Image < ApplicationRecord
   include Azk::Key
 
+  validates_uniqueness_of :name
+
   has_many   :notes
   belongs_to :pool
   belongs_to :system
@@ -18,6 +20,7 @@ class Image < ApplicationRecord
   def img_file_location
     "#{self.system.file_location}/#{self.pool.name}"
   end
+
 
 
 end

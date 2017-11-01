@@ -32,3 +32,25 @@
   background-color: #000000;
   color: #FFFFFF;
 }
+
+.subCategory {
+
+}
+.subCategory a:link, .subcategory a:visited {
+  width: 100px;
+  border: 1px solid;
+  border-radius: 20%;
+  display:  block;
+  text-decoration: none;
+  background: #EBC748;
+  color: #000;
+}
+
+.subCategory a:hover {
+  background: #B4B6FF;
+}
+
+.subCategory h4 {
+  text-align: center;
+  border-bottom: 1px solid fff;
+}

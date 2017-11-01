@@ -11,7 +11,7 @@
                   <%= f.text_field :name, class: "form-control input-lg" %>
                 </p>
                 <p>
-                  <%= f.submit 'Update', class: "btn btn-sm btn-info" %>
+                  <%= f.submit 'Update', class: "btn btn-sm btn-primary" %>
                 </p>
                 </div>
              <% end %>
@@ -19,8 +19,8 @@
             <h1><%= @category.name %></h1>
             <h4><%= @category.file_location %></h4>
           <% end %>
-          <%= button_tag 'New SubCategory', class: "btn btn-sm btn-warning", "data-toggle" => "modal", "data-target" => "#newSubCat" %>
-          <%= button_tag 'New System', class: "btn btn-sm btn-warning", "data-toggle" => "modal", "data-target" => "#newSystem" %>
+          <%= button_tag 'New SubCategory', class: "btn btn-sm btn-success", "data-toggle" => "modal", "data-target" => "#newSubCat" %>
+          <%= button_tag 'New System', class: "btn btn-sm btn-success", "data-toggle" => "modal", "data-target" => "#newSystem" %>
         </div>
       </div>
 
@@ -34,6 +34,15 @@
         <h2 class="text-center">Sub-Categories</h2>
 
         <hr>
+
+        <% @subcategories.each do |t| %>
+          <div class="subCategory">
+            <%= link_to category_path(t.id) do %>
+              <h4><%= t.name %></h4>
+              <p><%= t.description %></p>
+            <% end %>
+          </div>
+        <% end %>
 
         <table class="table table-hover table-responsive table-striped">
           <thead>
@@ -110,7 +119,7 @@
       </div>
 
       <div class="modal-footer">
-        <%= f.submit 'Create Category', class: "btn btn-warning" %>
+        <%= f.submit 'Create Category', class: "btn btn-success" %>
         <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal", "aria-label" => "Close" %>
       </div>
       <% end %>
@@ -155,7 +164,7 @@
       </div>
 
       <div class="modal-footer">
-        <%= f.submit 'Create System', class: "btn btn-warning" %>
+        <%= f.submit 'Create System', class: "btn btn-success" %>
         <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal", "aria-label" => "Close" %>
       </div>
       <% end %>

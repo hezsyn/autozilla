@@ -27,10 +27,6 @@ module Azk
 
     def sysLinuxDefault(direction)
       if direction == "download"
-        @@menuEntry.puts "INCLUDE /syslinux/graphics.conf\n\n"
-      else
-        @@menuEntry.puts "INCLUDE /syslinux/graphics_upload.conf\n\n"
-      end
     end
 
     def azkCommand(surCom, direction, tool)
@@ -83,6 +79,7 @@ module Azk
       @@azkCom.concat("vga=788 net.ifnames=0 toram=filesystem.squashfs live-media-path=#{czPath} ")
       tool == "grub" ? @@azkCom += "\n\s\sinitrd #{czPath}/initrd.img" : nil
       @@azkCom = eval '"' + @@azkCom.gsub('"', '\"') + '"'
+
     end
 
     def grubCatMenuEntry(direction, entryType)
