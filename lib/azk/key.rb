@@ -27,6 +27,10 @@ module Azk
 
     def sysLinuxDefault(direction)
       if direction == "download"
+        @@menuEntry.puts "INCLUDE /EFI/boot/graphics.cfg\n\n"
+      else
+        @@menuEntry.puts "INCLUDE /EFI/boot/graphics_upload.cfg\n\n"
+      end
     end
 
     def azkCommand(surCom, direction, tool)
@@ -79,7 +83,6 @@ module Azk
       @@azkCom.concat("vga=788 net.ifnames=0 toram=filesystem.squashfs live-media-path=#{czPath} ")
       tool == "grub" ? @@azkCom += "\n\s\sinitrd #{czPath}/initrd.img" : nil
       @@azkCom = eval '"' + @@azkCom.gsub('"', '\"') + '"'
-
     end
 
     def grubCatMenuEntry(direction, entryType)
@@ -111,29 +114,29 @@ module Azk
     def createAZKCategoryFiles
       setSettings
 
-        ["upload", "download"].each do |direction|
-          ["grub", "syslinux"].each do |tool|
-            @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
-            @@menuEntry = File.new("category_#{self.slug}.menu", "w+")
+      ["upload", "download"].each do |direction|
+        ["grub", "syslinux"].each do |tool|
+          @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
+          @@menuEntry = File.new("category_#{self.slug}.menu", "w+")
 
-              tool == "grub" ? self.grubDefault(direction) : self.sysLinuxDefault(direction)
+            tool == "grub" ? self.grubDefault(direction) : self.sysLinuxDefault(direction)
 
-              puts self.file_location
+            puts self.file_location
 
-              self.categories.each do |cat|
-                tool == "grub" ? cat.grubCatMenuEntry(direction, "category") : cat.sysCatMenuEntry(direction, "category")
-              end
+            self.categories.each do |cat|
+              tool == "grub" ? cat.grubCatMenuEntry(direction, "category") : cat.sysCatMenuEntry(direction, "category")
+            end
 
-              self.breakEntry if self.systems.present?
+            self.breakEntry if self.systems.present?
 
-              self.systems.each do |sys|
-                tool == "grub" ? sys.grubCatMenuEntry(direction, "system") : sys.sysCatMenuEntry(direction, "system")
-              end
+            self.systems.each do |sys|
+              tool == "grub" ? sys.grubCatMenuEntry(direction, "system") : sys.sysCatMenuEntry(direction, "system")
+            end
 
-            @@menuEntry.close
+          @@menuEntry.close
 
-          end
         end
+      end
     end
 
     def createAZKSystemFiles
@@ -194,28 +197,28 @@ module Azk
       #Gathers all of the top level categories
       topLevel = Category.where(is_enabled: 1, category_id: nil)
 
-      # Creating loops to create the 4 files necessary
-      ["upload", "download"].each do |direction|
-        ["grub", "syslinux"].each do |tool|
+        # Creating loops to create the 4 files necessary
+        ["upload", "download"].each do |direction|
+          ["grub", "syslinux"].each do |tool|
 
-          # Changing directory to file path for file
-          @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
-          # Starting the file creation
-          @@menuEntry = File.new("top.menu", "w+")
+            # Changing directory to file path for file
+            @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
+            # Starting the file creation
+            @@menuEntry = File.new("top.menu", "w+")
 
-          # This line is only added once to the file, it is the default data for the file
-          tool == "grub" ? grubDefault(direction) : sysLinuxDefault(direction)
-          # Loops and adds all top level entries to the file
-          topLevel.each do |cat|
-            tool == "grub" ? cat.grubCatMenuEntry(direction, "category") : cat.sysCatMenuEntry(direction, "category")
+            # This line is only added once to the file, it is the default data for the file
+            tool == "grub" ? grubDefault(direction) : sysLinuxDefault(direction)
+            # Loops and adds all top level entries to the file
+            topLevel.each do |cat|
+              tool == "grub" ? cat.grubCatMenuEntry(direction, "category") : cat.sysCatMenuEntry(direction, "category")
+            end
+
+            # Like every door you open, you should close that door.  This is just closing the file.
+            @@menuEntry.close
           end
-
-          # Like every door you open, you should close that door.  This is just closing the file.
-          @@menuEntry.close
         end
       end
     end
-  end
 
   def removeEntry(entryType, entity)
     setSettings
