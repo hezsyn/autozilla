@@ -46,6 +46,9 @@ class SystemsController < ApplicationController
 
     @system.update(system_params)
 
+    @system.file_location = @system.objectLocation
+    @system.update(system_params)
+
     @category.createAZKCategoryFiles
     @system.createAZKSystemFiles
 
@@ -58,7 +61,7 @@ class SystemsController < ApplicationController
 
   private
     def system_params
-      params.require(:system).permit(:name, :slug, :description, :is_enabled, :category_id, :default_disk)
+      params.require(:system).permit(:name, :slug, :description, :is_enabled, :category_id, :default_disk, :file_location)
     end
 
 end

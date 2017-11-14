@@ -27,7 +27,7 @@ class ApplicationRecord < ActiveRecord::Base
         @fileLocation = "#{@fileLocation}/#{coo}"
       end
     end
-    @fileLocation.gsub!(" ","_")
+    @fileLocation.gsub(" ","_")
   end
 
   def makeSlug

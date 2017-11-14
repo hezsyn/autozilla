@@ -21,6 +21,4 @@ class Image < ApplicationRecord
     "#{self.system.file_location}/#{self.pool.name}"
   end
 
-
-
 end

@@ -41,6 +41,9 @@ class ImagesController < ApplicationController
 
     @image.update(image_params)
 
+    @image.file_location = @image.img_file_location
+    @image.update(image_params)
+
     @image.createAZKSystemFiles
 
     redirect_to edit_category_system_image_path(@category, @system, @image)
