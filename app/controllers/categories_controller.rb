@@ -15,8 +15,8 @@ class CategoriesController < ApplicationController
     end
     @newCategory = Category.new
     @subcategory = Category.new
-    @subcategories = Category.where(category_id: params[:id], is_enabled: 1).all
-    @systems = @category.systems.all
+    @subcategories = Category.where(category_id: params[:id], is_enabled: 1).order(:name)
+    @systems = @category.systems.order(:name)
     @system = @category.systems.build
   end
 

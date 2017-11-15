@@ -3,13 +3,13 @@ class SystemsController < ApplicationController
   def show
     @category = Category.find(params[:category_id])
     @system = System.find(params[:id])
-    @systems = @category.systems.all
-    @images = @system.images.all
+    @systems = @category.systems.order(:name)
+    @images = @system.images.order(:name)
     @pools = Pool.all
     @oses = Ose.all
-    @imagesStatuses = ImageStatus.all
-    @clonezillas = ClonezillaVersion.all
-    @image_types = ImageType.order(:name).all
+    @imagesStatuses = ImageStatus.order(:name)
+    @clonezillas = ClonezillaVersion.order(:name)
+    @image_types = ImageType.order(:name)
   end
 
   def new
