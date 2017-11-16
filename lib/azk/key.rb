@@ -123,13 +123,13 @@ module Azk
 
             puts self.file_location
 
-            self.categories.each do |cat|
+            self.categories.order(:name).where(:is_enabled == 1).each do |cat|
               tool == "grub" ? cat.grubCatMenuEntry(direction, "category") : cat.sysCatMenuEntry(direction, "category")
             end
 
             self.breakEntry if self.systems.present?
 
-            self.systems.each do |sys|
+            self.systems.order(:name).where(:is_enabled == 1).each do |sys|
               tool == "grub" ? sys.grubCatMenuEntry(direction, "system") : sys.sysCatMenuEntry(direction, "system")
             end
 
@@ -149,7 +149,7 @@ module Azk
 
           @@menuEntry = File.new("system_#{system.slug}.menu", "w+")
             tool == "grub" ? self.grubDefault(direction) : self.sysLinuxDefault(direction)
-            system.images.each do |img|
+            system.images.order(:name).where(:is_enabled == 1).each do |img|
               if tool == "grub"
                 if direction == "upload"
                   img.azkCommand(img.upload, direction, tool)
