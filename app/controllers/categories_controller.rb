@@ -38,11 +38,15 @@ class CategoriesController < ApplicationController
     @category.makeSlug
     @category.is_enabled = 1
 
-    @category.save
+    if @category.save
+      flash[:notice] = "Category has been created."
+      @category.createAZKCategoryFiles
+      @parentCategory.createAZKCategoryFiles
+    else
+      flash[:alert] = @category.errors.full_messages.gsub!( "\[\"", "")
+    end
 
     @parentCategory = Category.find(@category.category_id) if @category.category_id != nil
-    @category.createAZKCategoryFiles
-    @parentCategory.createAZKCategoryFiles
 
      if @category.category_id.nil?
        redirect_to category_path(@category)

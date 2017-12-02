@@ -1,7 +1,7 @@
 class Image < ApplicationRecord
   include Azk::Key
 
-  validates_uniqueness_of :name
+  validates :name, presence: true, uniqueness: { scope: :system_id, message: "is already in use."}
 
   has_many   :notes
   belongs_to :pool

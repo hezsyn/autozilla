@@ -1,5 +1,9 @@
 class AutozillaKeyConfigsController < ApplicationController
 
+  def index
+
+  end
+
   def new
     @cv = ClonezillVersion.find(params[:id])
   end

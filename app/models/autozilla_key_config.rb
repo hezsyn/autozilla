@@ -1,4 +1,5 @@
 class AutozillaKeyConfig < ApplicationRecord
+  include Azk::Key
   has_many :image
 
   def czAZKConfig(direction)

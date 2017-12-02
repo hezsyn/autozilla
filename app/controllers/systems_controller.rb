@@ -24,10 +24,13 @@ class SystemsController < ApplicationController
     @system.makeSlug
     @system.is_enabled = 1
     @system.default_disk.downcase!
-    @system.save
-
-    @category.createAZKCategoryFiles
-    @system.createAZKSystemFiles
+    if @system.save
+      flash[:notice] = "System has been created!"
+      @category.createAZKCategoryFiles
+      @system.createAZKSystemFiles
+    else
+      flash[:alert] = @system.errors.full_messages
+    end
 
     redirect_to category_path(@category)
   end

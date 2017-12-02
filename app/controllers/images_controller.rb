@@ -7,14 +7,21 @@ class ImagesController < ApplicationController
   def create
     @category = Category.find(params[:category_id])
     @system = System.find(params[:system_id])
-    @cz = ClonezillaVersion.find(params[:image][:clonezilla_version_id])
     @image = @system.images.new(image_params)
     @image.file_location = @image.img_file_location
-    @image.upload = @cz.upload
-    @image.download = @cz.download
+    if params[:image][:clonezilla_version_id].present?
+      @cz = ClonezillaVersion.find(params[:image][:clonezilla_version_id])
+      @image.upload = @cz.upload
+      @image.download = @cz.download
+    end
     @image.disk.downcase
-    @image.save
-    @image.createAZKSystemFiles
+    if @image.save
+      flash[:notice] = "Image has been successfully created!"
+      @image.createAZKSystemFiles
+    else
+      flash[:alert] = @image.errors
+    end
+
     redirect_to category_system_path(@category, @system)
   end
 

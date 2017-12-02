@@ -4,5 +4,5 @@ class Category < ApplicationRecord
   has_many :categories
   has_many :systems
 
-  validates :name, presence: true, uniqueness: { scope: :category_id, message: "Only one is needed"}
+  validates :name, presence: true, uniqueness: { scope: :category_id, message: "is already in use."}
 end

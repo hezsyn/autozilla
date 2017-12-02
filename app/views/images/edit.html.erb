@@ -4,6 +4,8 @@
 <div class="col-xs-9">
   <% c = 1 %> <!-- Staging the tab index -->
 
+  <%= render 'layouts/error' %>
+
   <%= form_for [@category, @system, @image] do |f| %>
   <div class="row">
       <%= f.check_box :current %><label class="imgTitle"><%= @system.name %></label>
@@ -65,3 +67,4 @@
 </div><!-- End of Overall Column -->
 
 </div>
+

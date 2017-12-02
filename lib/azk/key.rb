@@ -2,20 +2,26 @@ module Azk
   module Key
     require 'fileutils'
 
+    # Section of reused to create the code
+    # setSettings to create initial settings for each module
     def setSettings
       @@fut = FileUtils
-      @@rootDir = SupportStuff.find_by(name: "rootKeyDir").value
-      @@sourceDir = SupportStuff.find_by(name: "sourceKey").value
-      @@prodKey = SupportStuff.find_by(name: "productionKey").value
+      @@rootDir = SupportStuff.find_by(name: "rootKeyDir").value + '/'
+      @@sourceDir = @@rootDir +  SupportStuff.find_by(name: "sourceKey").value
+      @@prodKey = @@rootDir +  SupportStuff.find_by(name: "productionKey").value
+      @@czSource = @@rootDir + SupportStuff.find_by(name: "czSource").value
+      @@czProduction = @@rootDir + SupportStuff.find_by(name: "czProduction").value
 
       @@default = "\"0\""
       @@prefix = "/live"
     end
 
+    # Helps seperate categories and systems in an entry
     def breakEntry
       @@menuEntry.puts "*=======================================================================*\n\n"
     end
 
+    # Creates the header area of the file initially
     def grubDefault(direction)
       @@menuEntry.puts "set default=#{@@default}"
       if direction == "download"
@@ -33,6 +39,7 @@ module Azk
       end
     end
 
+    # This is the magic, creates the boot parameters
     def azkCommand(surCom, direction, tool)
       # Making it easier, some variables used throughtout the method
       cz = self.clonezilla_version
@@ -85,6 +92,7 @@ module Azk
       @@azkCom = eval '"' + @@azkCom.gsub('"', '\"') + '"'
     end
 
+    # This takes the command above and inputs it into the file
     def grubCatMenuEntry(direction, entryType)
       @@menuEntry.puts "menuentry \"#{self.name}\" \{"
       @@menuEntry.puts "\tconfigfile #{@@prefix}/#{direction}/grub/#{entryType}_#{self.slug}.menu"
@@ -111,12 +119,13 @@ module Azk
       @@menuEntry.puts "\tAPPEND initrd=#{@@azkCom}\n\n"
     end
 
+    # Used to create the Category entry
     def createAZKCategoryFiles
       setSettings
 
       ["upload", "download"].each do |direction|
         ["grub", "syslinux"].each do |tool|
-          @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
+          @@fut.cd("#{@@prodKey}/live/#{direction}/#{tool}")
           @@menuEntry = File.new("category_#{self.slug}.menu", "w+")
 
             tool == "grub" ? self.grubDefault(direction) : self.sysLinuxDefault(direction)
@@ -139,13 +148,14 @@ module Azk
       end
     end
 
+    # Used to create the System Entry
     def createAZKSystemFiles
       setSettings
       self.try(:category_id).nil? ? system = System.find(self.system_id) : system = System.find_by(name: self.name)
 
       ["upload", "download"].each do |direction|
         ["grub", "syslinux"].each do |tool|
-          @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
+          @@fut.cd("#{@@prodKey}/live/#{direction}/#{tool}")
 
           @@menuEntry = File.new("system_#{system.slug}.menu", "w+")
             tool == "grub" ? self.grubDefault(direction) : self.sysLinuxDefault(direction)
@@ -173,25 +183,10 @@ module Azk
       end
     end
 
-    def removeAZK
-      setSettings
-      FileUtils.ch(@@rootDir)
-      FileUtils.rm_r("production")
-    end
-
-    def createAZKDefault
-      setSettings
-      FileUtils.cd(@@rootDir)
-      Dir.exist?("production") ? FileUtils.rm_r("production") : nil
-
-      ["boot", "EFI", "home", "live", "syslinux", "utils"].each do |src|
-        FileUtils.cp_r("#{@@sourceDir}/#{src}", "keygen")
-      end
-    end
-
+    # Creates the top level area
     def createTopLevel
       setSettings
-      if File.exist?("#{@@rootDir}#{@@prodKey}/live/download/grub/top.menu")
+      if File.exist? "#{@@prodKey}/live/download/grub/top.menu"
         nil
       else
       #Gathers all of the top level categories
@@ -202,7 +197,7 @@ module Azk
           ["grub", "syslinux"].each do |tool|
 
             # Changing directory to file path for file
-            @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
+            @@fut.cd "#{@@prodKey}/live/#{direction}/#{tool}"
             # Starting the file creation
             @@menuEntry = File.new("top.menu", "w+")
 
@@ -220,16 +215,49 @@ module Azk
       end
     end
 
-  def removeEntry(entryType, entity)
-    setSettings
-    ["upload", "download"].each do |direction|
-      ["grub", "syslinux"].each do |tool|
-          # Changing directory to file path for file
-          @@fut.cd("#{@@rootDir}/#{@@prodKey}/live/#{direction}/#{tool}")
-          @@fut.rm("#{entryType}_#{entity.slug}.menu") if File.exist?("#{entryType}_#{entity.slug}.menu")
+
+    # Destruction of the key
+    # Deletes the whole production key
+    def removeAZK
+      setSettings
+      FileUtils.ch(@@rootDir)
+      FileUtils.rm_r("production")
+    end
+
+    # This removes the previous entry file
+    def removeEntry(entryType, entity)
+      setSettings
+      ["upload", "download"].each do |direction|
+        ["grub", "syslinux"].each do |tool|
+            # Changing directory to file path for file
+            @@fut.cd("#{@@prodKey}/live/#{direction}/#{tool}")
+            @@fut.rm("#{entryType}_#{entity.slug}.menu") if File.exist?("#{entryType}_#{entity.slug}.menu")
+        end
       end
     end
-  end
+
+    # Creation for the structure of the ke
+    # Recreates the file structure of the system
+    def createAZKDefault
+      setSettings
+      @@fut.cd @@rootDir
+      Dir.exist?("production") ? @@fut.rm_r("production") : nil
+
+      @@fut.cd "production/live"
+      @@fut.mkdir_p %w( "CloneZilla" "download/grub" "download/syslinux" "selfupdate" "upload/grub" "upload/syslinux")
+    end
+
+    def migrateClonezillas
+      setSettings
+
+      @@fut.cp_r @@czSource, @@czProduction
+
+      # Navigate to working directory, production/live
+      @@fut.cd @@rootDir + "live"
+      ['grub', 'syslinux'].each do |tool|
+        @menuEntry.new
+      end
+    end
 
   end # End of Key Module
 end # End of the AZK Module
