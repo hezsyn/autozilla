@@ -8,7 +8,6 @@ SupportStuff.create(name: 'azkLocation', value: '//amr.corp.intel.com/idd/Infras
 SupportStuff.create(name: 'czSource', value: 'czSource')
 SupportStuff.create(name: 'czProduction', value: 'production/live/CloneZilla')
 
-
 # Upload config preconfigs for clonezilla
 SupportStuff.create(name: 'dupParamsSet', value: 'components config noswap nolocales nodmraid nomodeset nointremap nosplash noprompt')
 SupportStuff.create(name: 'dupEdd', value: 'on')

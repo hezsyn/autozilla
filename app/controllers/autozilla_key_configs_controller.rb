@@ -35,18 +35,20 @@ class AutozillaKeyConfigsController < ApplicationController
     # Migrates all Clonezillas, and creates a new entries
     @category.migrateClonezillas
 
+    # Creating the self update files
+    @category.selfUpdate
     # Start of creating all new key entries for key
     # Create top.menu first, this is the top categories which don't worry about the @category
     # The method calls the correct ones.
-    #@category.createTopLevel
+    @category.createTopLevel
     # Now to create the categories under the top level
-    #@categories.each do |cat|
-    #  cat.createAZKCategoryFiles
-    #end
+    @categories.each do |cat|
+      cat.createAZKCategoryFiles
+    end
     # Now we have the system files!
-    #@systems.each do |sys|
-    #  sys.createAZKSystemFiles
-    #end
+    @systems.each do |sys|
+      sys.createAZKSystemFiles
+    end
 
     # That should be it.  Hopefully.
     flash[:notice] = "Reset complete"

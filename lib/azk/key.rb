@@ -94,28 +94,51 @@ module Azk
       @@azkCom = eval '"' + @@azkCom.gsub('"', '\"') + '"'
     end
 
-    def czAZKCom(cz, tool)
-      puts cz
-      puts tool
+    def czAZKCom(cz, tool, purpose)
       czPath = "#{@@prefix}/CloneZilla/#{cz.name}"
 
-      tool == "grub" ? rawCZCom = "#{czPath}/vmlinuz\\" : rawCZCom = "#{czPath}/initrd.img"
-      rawCZCom += "\n\s\s\sboot=live union=overlay username=user\\\n" \
-                "\s\s\sconfig components nointremap noswap nomodeset nodmraid noeject nosplash\\\n" \
-                "\s\s\sedd=on\\\n" \
-                "\s\s\slocales=en_US.UTF-8\\\n" \
-                "\s\s\skeyboard-layouts=NONE\\\n" \
-                "\s\s\socs_live_run=\"ocs-live-general\"\\\n" \
-                "\s\s\socs_live_batch=no\\\n" \
-                "\s\s\svga=788\\\n" \
-                "\s\s\storam=filesystem.squashfs\\\n" \
-                "\s\s\snet.ifnames=0\\\n" \
-                "\s\s\si915.blacklist=yes\\\n" \
-                "\s\s\sradeonhd.blacklist=yes\\\n" \
-                "\s\s\snouveau.blacklist=yes\\\n" \
-                "\s\s\svmwgfx.enable_fbdev=1\\\n" \
-                "\s\s\slive-media-path=#{czPath}"
-      tool == "grub" ? rawCZCom += "\n\s\sinitrd #{czPath}/initrd.img\n" : nil
+      if purpose == "grub" || tool == "syslinux"
+        tool == "grub" ? rawCZCom = "#{czPath}/vmlinuz\\" : rawCZCom = "#{czPath}/initrd.img"
+        rawCZCom += "\n\s\s\sboot=live union=overlay username=user\\\n" \
+                  "\s\s\sconfig components nointremap noswap nomodeset nodmraid noeject nosplash\\\n" \
+                  "\s\s\sedd=on\\\n" \
+                  "\s\s\slocales=en_US.UTF-8\\\n" \
+                  "\s\s\skeyboard-layouts=NONE\\\n" \
+                  "\s\s\socs_live_run=\"ocs-live-general\"\\\n" \
+                  "\s\s\socs_live_batch=no\\\n" \
+                  "\s\s\svga=788\\\n" \
+                  "\s\s\storam=filesystem.squashfs\\\n" \
+                  "\s\s\snet.ifnames=0\\\n" \
+                  "\s\s\si915.blacklist=yes\\\n" \
+                  "\s\s\sradeonhd.blacklist=yes\\\n" \
+                  "\s\s\snouveau.blacklist=yes\\\n" \
+                  "\s\s\svmwgfx.enable_fbdev=1\\\n" \
+                  "\s\s\slive-media-path=#{czPath}"
+        tool == "grub" ? rawCZCom += "\n\s\sinitrd #{czPath}/initrd.img" : nil
+      end
+
+      if purpose == "selfupdate"
+        tool == "grub" ? rawCZCom = "#{czPath}/vmlinuz\\" : rawCZCom = "#{czPath}/initrd.img"
+        rawCZCom += "\n\s\s\sboot=live union=overlay username=user\\\n" \
+                  "\s\s\sconfig components nointremap noswap nomodeset nodmraid noeject nosplash\\\n" \
+                  "\s\s\sedd=on\\\n" \
+                  "\s\s\slocales=en_US.UTF-8\\\n" \
+                  "\s\s\skeyboard-layouts=NONE\\\n" \
+                  "\s\s\socs_prerun01=\"sudo dhclient -v eth0\"\\\n" \
+                  "\s\s\socs_prerun02=\"sudo mkdir /azksrc\"\\\n" \
+                  "\s\s\socs_prerun03=\"sudo mount -t cifs -v //idds-superzilla.hf.intel.com/Azk /azksrc -o user=azk,password=gigLow54,sec=ntlm,ro\"\\\n" \
+                  "\s\s\socs_prerun04=\"sudo mount -n -o remount,rw /lib/live/mount/medium/\"\\\n" \
+                  "\s\s\socs_live_run=\"rsync -rvzt --progress /azksrc /lib/live/mount/medium/\"\\\n" \
+                  "\s\s\socs_postrun01=\"sudo sync\"\\\n" \
+                  "\s\s\socs_postrun02=\"sudo reboot -f\"\\\n" \
+                  "\s\s\svga=788\\\n" \
+                  "\s\s\storam=filesystem.squashfs\\\n" \
+                  "\s\s\snet.ifnames=0\\\n" \
+                  "\s\s\slive-media-path=#{czPath}"
+        rawCZCom += "\n\s\sinitrd #{czPath}/initrd.img" if tool == "grub"
+      end
+      rawCZCom = rawCZCom.gsub("\s\s", "\s").gsub("\n","").gsub("\\","").chomp if tool == "syslinux"
+      return rawCZCom
     end
 
     # This takes the command above and inputs it into the file
@@ -145,17 +168,27 @@ module Azk
       @@menuEntry.puts "\tAPPEND initrd=#{entryCom}\n\n"
     end
 
-    def azkEntry(entry, tool)
-      entryCom = czAZKCom(entry, tool)
+    def azkEntry(entry, tool, purpose)
+      entryCom = czAZKCom(entry, tool, purpose)
       if tool == "grub"
-        azkCom = "menuentry \"#{entry.name}\" \{" \
-                #"\n\s\slinux #{entryCom}" \
-                 "\n\}\n"
+        if purpose == "selfupdate"
+          azkCom = "menuentry \"\" \{\n\s\strue\n\}\n"
+          azkCom += "\nmenuentry \"Clonezilla Self Update\" \{"
+        else
+          azkCom = "menuentry \"#{entry.name}\" \{"
+        end
+        azkCom += "\n\s\slinux #{entryCom}" \
+                  "\n\}\n"
       else
-        azkCom = "LABEL #{entry.name}\n" \
-                 "\tMENU LABEL #{entry.name}\n"  \
-                 "\tKERNEL /live/CloneZilla/#{entry.name}/vmlinuz\n" \
-                 "\tAPPEND initrd=#{entryCom}\n\n"
+        if purpose == "selfupdate"
+          azkCom = "label\n"
+          azkCom += "\nLABEL ClonezillaSelfUpdate\n"
+        else
+          azkCom = "\nLABEL #{entry.name}\n"
+        end
+        azkCom += "\tMENU LABEL #{entry.name}\n"  \
+                  "\tKERNEL /live/CloneZilla/#{entry.name}/vmlinuz\n" \
+                  "\tAPPEND initrd=#{entryCom}\n\n"
       end
     end
 
@@ -229,7 +262,7 @@ module Azk
 
         czs.each do |cz|
           # Creates the file in czFile
-          czFile += azkEntry(cz, tool)
+          czFile += azkEntry(cz, tool, tool)
         end
 
         return czFile
@@ -301,15 +334,33 @@ module Azk
     def migrateClonezillas
       setSettings
 
-      @@fut.cp_r @@czSource, @@czProduction
+      @@fut.cp_r @@czSource + '/.', @@czProduction
 
       # Navigate to working directory, production/live
       @@fut.cd @@czProduction
       ['grub', 'syslinux'].each do |tool|
-        @menuentry = File.new("live.#{tool}", "w+")
-          @menuentry.puts createCZEntry(tool)
-        @menuentry.close
+        @menuEntry = File.new("live.#{tool}", "w+")
+          @menuEntry.puts createCZEntry(tool)
+        @menuEntry.close
       end
+    end
+
+    #-----------------------------------------------------------------
+    # -------------------- Self Update Series! -----------------------
+    # ----------------------------------------------------------------
+    def selfUpdate
+      # Find the default version of clonezilla
+      cz = ClonezillaVersion.find_by(:default => 1)
+      # Navigate to the folder with selfupdate
+      @@fut.cd @@productionDir + '/live/selfupdate'
+
+      # Creates a selfupdate files
+      ["grub", "syslinux"].each do |tool|
+        @menuEntry = File.new("selfupdate.#{tool}", "w+")
+          @menuEntry.puts azkEntry(cz, tool, "selfupdate")
+        @menuEntry.close
+      end
+
     end
 
   end # End of Key Module

@@ -1,12 +1,14 @@
 Phase 1:
 
 Key:
-  ☐ Regenerate Whole Key
-  ☐ Delete Old Key
+  ✔ Regenerate Whole Key @done (17-12-05 11:55)
+  ✔ Delete Old Key @done (17-12-05 11:55)
+  ☐ Getting syslinux to work nicely
 
 Organize:
   ☐ Archive Categories
   ☐ Archive Systems
+  ☐ Archive Clonezilla
   ☐ Search
   ☐ HVR Addition
 
