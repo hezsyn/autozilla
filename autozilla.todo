@@ -1,0 +1,61 @@
+Phase 1:
+
+Key:
+  ☐ Regenerate Whole Key
+  ☐ Delete Old Key
+
+Organize:
+  ☐ Archive Categories
+  ☐ Archive Systems
+  ☐ Search
+  ☐ HVR Addition
+
+Image:
+  ☐ Allow custom entries
+  ☐ Archive Images
+
+Users:
+  ☐ Single Sign On
+  ☐ Account Creation
+  ☐ Account Privileges
+  ☐ Deactivation of Accounts
+
+Admin:
+  ☐ Logging Services
+
+Backup:
+   ☐ Manual Backup
+   ☐ Organize Backups
+   ☐ Archive Older Backups
+   ☐ Restore Backup
+
+UI:
+  ☐ Present details needed for document
+  ✔ Flash Messages @done (17-12-04 10:36)
+
+Phase 2:
+
+Organize:
+  ☐ File Shadowing
+  ☐ Computer Tracking
+
+Program:
+  ☐ Installation of programs post image
+  ☐ Auto update program
+
+Key:
+  ☐ Dynamic
+  ☐ Autoupdate
+  ☐ Create standalone flash drives
+  ☐ Dynamic HVR Control
+
+Image:
+  ☐ Able to create image from key
+  ☐ No image names
+
+Post Image Automation:
+  ☐ Computer Rename
+
+UI:
+  ☐ Change how Categories display
+  ☐ Chagne how System displays

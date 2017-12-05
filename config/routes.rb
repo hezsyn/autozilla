@@ -20,8 +20,10 @@ Rails.application.routes.draw do
   resources :users
   resources :clonezilla_versions
   resources :support_stuffs
-  resources :autozilla_key_configs
 
   get '/ohya!', to: 'randy#savage'
+
+  get '/autozilla_key', to: 'autozilla_key_configs#index'
+  get '/autozilla_key/restore', to: 'autozilla_key_configs#restoreKey'
 
 end

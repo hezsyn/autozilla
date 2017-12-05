@@ -8,7 +8,7 @@ module Azk
       @@fut = FileUtils
       @@rootDir = SupportStuff.find_by(name: "rootKeyDir").value + '/'
       @@sourceDir = @@rootDir +  SupportStuff.find_by(name: "sourceKey").value
-      @@prodKey = @@rootDir +  SupportStuff.find_by(name: "productionKey").value
+      @@productionDir = @@rootDir +  SupportStuff.find_by(name: "productionKey").value
       @@czSource = @@rootDir + SupportStuff.find_by(name: "czSource").value
       @@czProduction = @@rootDir + SupportStuff.find_by(name: "czProduction").value
 
@@ -39,7 +39,9 @@ module Azk
       end
     end
 
+
     # This is the magic, creates the boot parameters
+    # surCom is the commands from autozillaConfigKey table associated with the image
     def azkCommand(surCom, direction, tool)
       # Making it easier, some variables used throughtout the method
       cz = self.clonezilla_version
@@ -92,6 +94,30 @@ module Azk
       @@azkCom = eval '"' + @@azkCom.gsub('"', '\"') + '"'
     end
 
+    def czAZKCom(cz, tool)
+      puts cz
+      puts tool
+      czPath = "#{@@prefix}/CloneZilla/#{cz.name}"
+
+      tool == "grub" ? rawCZCom = "#{czPath}/vmlinuz\\" : rawCZCom = "#{czPath}/initrd.img"
+      rawCZCom += "\n\s\s\sboot=live union=overlay username=user\\\n" \
+                "\s\s\sconfig components nointremap noswap nomodeset nodmraid noeject nosplash\\\n" \
+                "\s\s\sedd=on\\\n" \
+                "\s\s\slocales=en_US.UTF-8\\\n" \
+                "\s\s\skeyboard-layouts=NONE\\\n" \
+                "\s\s\socs_live_run=\"ocs-live-general\"\\\n" \
+                "\s\s\socs_live_batch=no\\\n" \
+                "\s\s\svga=788\\\n" \
+                "\s\s\storam=filesystem.squashfs\\\n" \
+                "\s\s\snet.ifnames=0\\\n" \
+                "\s\s\si915.blacklist=yes\\\n" \
+                "\s\s\sradeonhd.blacklist=yes\\\n" \
+                "\s\s\snouveau.blacklist=yes\\\n" \
+                "\s\s\svmwgfx.enable_fbdev=1\\\n" \
+                "\s\s\slive-media-path=#{czPath}"
+      tool == "grub" ? rawCZCom += "\n\s\sinitrd #{czPath}/initrd.img\n" : nil
+    end
+
     # This takes the command above and inputs it into the file
     def grubCatMenuEntry(direction, entryType)
       @@menuEntry.puts "menuentry \"#{self.name}\" \{"
@@ -106,17 +132,31 @@ module Azk
       @@menuEntry.puts "APPEND #{@@prefix}/#{direction}/syslinux/#{entryType}_#{self.slug}.menu\n\n"
     end
 
-    def grubEntry
-      @@menuEntry.print "menuentry \"#{current}#{self.name}\" \{\n"
-      @@menuEntry.print "\s\slinux #{@@azkCom}\n"
+    def grubEntry(entryCom)
+      @@menuEntry.print "menuentry \"#{self.name}\" \{\n"
+      @@menuEntry.print "\s\slinux #{entryCom}\n"
       @@menuEntry.print "\}\n\n"
     end
 
-    def sysEntry
+    def sysEntry(entryCom)
       @@menuEntry.puts "LABEL #{self.name}"
       @@menuEntry.puts "\tMENU LABEL #{self.name}"
       @@menuEntry.puts "\tKERNEL /live/CloneZilla/#{self.clonezilla_version.name}/vmlinuz"
-      @@menuEntry.puts "\tAPPEND initrd=#{@@azkCom}\n\n"
+      @@menuEntry.puts "\tAPPEND initrd=#{entryCom}\n\n"
+    end
+
+    def azkEntry(entry, tool)
+      entryCom = czAZKCom(entry, tool)
+      if tool == "grub"
+        azkCom = "menuentry \"#{entry.name}\" \{" \
+                #"\n\s\slinux #{entryCom}" \
+                 "\n\}\n"
+      else
+        azkCom = "LABEL #{entry.name}\n" \
+                 "\tMENU LABEL #{entry.name}\n"  \
+                 "\tKERNEL /live/CloneZilla/#{entry.name}/vmlinuz\n" \
+                 "\tAPPEND initrd=#{entryCom}\n\n"
+      end
     end
 
     # Used to create the Category entry
@@ -125,7 +165,7 @@ module Azk
 
       ["upload", "download"].each do |direction|
         ["grub", "syslinux"].each do |tool|
-          @@fut.cd("#{@@prodKey}/live/#{direction}/#{tool}")
+          @@fut.cd("#{@@productionDir}/live/#{direction}/#{tool}")
           @@menuEntry = File.new("category_#{self.slug}.menu", "w+")
 
             tool == "grub" ? self.grubDefault(direction) : self.sysLinuxDefault(direction)
@@ -155,7 +195,7 @@ module Azk
 
       ["upload", "download"].each do |direction|
         ["grub", "syslinux"].each do |tool|
-          @@fut.cd("#{@@prodKey}/live/#{direction}/#{tool}")
+          @@fut.cd("#{@@productionDir}/live/#{direction}/#{tool}")
 
           @@menuEntry = File.new("system_#{system.slug}.menu", "w+")
             tool == "grub" ? self.grubDefault(direction) : self.sysLinuxDefault(direction)
@@ -174,7 +214,7 @@ module Azk
                 end
               end
 
-              tool == "grub" ? img.grubEntry : img.sysEntry
+              tool == "grub" ? img.grubEntry(@@azkCom) : img.sysEntry(@@azkCom)
             end
 
           @@menuEntry.close
@@ -183,13 +223,25 @@ module Azk
       end
     end
 
+    def createCZEntry(tool)
+      tool == "grub" ? czFile = "set prefix=/live\n\n" : czFile = "INCLUDE /syslinux/graphics.conf\n\n"
+      czs = ClonezillaVersion.where(:is_enabled => 1).order(:name)
+
+        czs.each do |cz|
+          # Creates the file in czFile
+          czFile += azkEntry(cz, tool)
+        end
+
+        return czFile
+    end
+
     # Creates the top level area
     def createTopLevel
       setSettings
-      if File.exist? "#{@@prodKey}/live/download/grub/top.menu"
+      if File.exist? "#{@@productionDir}/live/download/grub/top.menu"
         nil
       else
-      #Gathers all of the top level categories
+      # Gathers all of the top level categories
       topLevel = Category.where(is_enabled: 1, category_id: nil)
 
         # Creating loops to create the 4 files necessary
@@ -197,7 +249,7 @@ module Azk
           ["grub", "syslinux"].each do |tool|
 
             # Changing directory to file path for file
-            @@fut.cd "#{@@prodKey}/live/#{direction}/#{tool}"
+            @@fut.cd "#{@@productionDir}/live/#{direction}/#{tool}"
             # Starting the file creation
             @@menuEntry = File.new("top.menu", "w+")
 
@@ -215,13 +267,12 @@ module Azk
       end
     end
 
-
     # Destruction of the key
     # Deletes the whole production key
     def removeAZK
       setSettings
-      FileUtils.ch(@@rootDir)
-      FileUtils.rm_r("production")
+      @@fut.cd @@rootDir
+      @@fut.rm_r("production") if File.exist? "production"
     end
 
     # This removes the previous entry file
@@ -230,7 +281,7 @@ module Azk
       ["upload", "download"].each do |direction|
         ["grub", "syslinux"].each do |tool|
             # Changing directory to file path for file
-            @@fut.cd("#{@@prodKey}/live/#{direction}/#{tool}")
+            @@fut.cd("#{@@productionDir}/live/#{direction}/#{tool}")
             @@fut.rm("#{entryType}_#{entity.slug}.menu") if File.exist?("#{entryType}_#{entity.slug}.menu")
         end
       end
@@ -241,10 +292,10 @@ module Azk
     def createAZKDefault
       setSettings
       @@fut.cd @@rootDir
-      Dir.exist?("production") ? @@fut.rm_r("production") : nil
+      @@fut.cp_r @@sourceDir, @@productionDir
 
       @@fut.cd "production/live"
-      @@fut.mkdir_p %w( "CloneZilla" "download/grub" "download/syslinux" "selfupdate" "upload/grub" "upload/syslinux")
+      @@fut.mkdir_p %w( CloneZilla download/grub download/syslinux selfupdate upload/grub upload/syslinux)
     end
 
     def migrateClonezillas
@@ -253,9 +304,11 @@ module Azk
       @@fut.cp_r @@czSource, @@czProduction
 
       # Navigate to working directory, production/live
-      @@fut.cd @@rootDir + "live"
+      @@fut.cd @@czProduction
       ['grub', 'syslinux'].each do |tool|
-        @menuEntry.new
+        @menuentry = File.new("live.#{tool}", "w+")
+          @menuentry.puts createCZEntry(tool)
+        @menuentry.close
       end
     end
 
