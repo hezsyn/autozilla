@@ -1,16 +1,23 @@
 Phase 1:
 
+  Bug:
+    ☐ Unable to self update
+    # Its running out of space?
+
 Key:
   ✔ Regenerate Whole Key @done (17-12-05 11:55)
   ✔ Delete Old Key @done (17-12-05 11:55)
-  ☐ Getting syslinux to work nicely
 
 Organize:
-  ☐ Archive Categories
+  ✔ Archive Categories @done (17-12-06 11:17)
+  ☐ Enable Categories
   ☐ Archive Systems
+  ☐ Enable Systems
   ☐ Archive Clonezilla
+  ☐ Enable Clonezilla
   ☐ Search
   ☐ HVR Addition
+  ☐ Name Validations
 
 Image:
   ☐ Allow custom entries
@@ -50,6 +57,8 @@ Key:
   ☐ Autoupdate
   ☐ Create standalone flash drives
   ☐ Dynamic HVR Control
+  ☐ Remove the need for syslinux
+  ☐ Make data image information
 
 Image:
   ☐ Able to create image from key

@@ -46,12 +46,14 @@ class ImagesController < ApplicationController
     @image = Image.find(params[:id])
     @image.disk.downcase!
 
-    @image.update(image_params)
-
-    @image.file_location = @image.img_file_location
-    @image.update(image_params)
-
-    @image.createAZKSystemFiles
+    if @image.update(image_params)
+      flash[:notice] = "Image has been updated"
+      @image.file_location = @image.img_file_location
+      @image.update(image_params)
+      @image.createAZKSystemFiles
+    else
+      flash[:alert] = @image.errors
+    end
 
     redirect_to edit_category_system_image_path(@category, @system, @image)
   end

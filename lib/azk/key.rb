@@ -132,7 +132,6 @@ module Azk
                   "\s\s\socs_postrun01=\"sudo sync\"\\\n" \
                   "\s\s\socs_postrun02=\"sudo reboot -f\"\\\n" \
                   "\s\s\svga=788\\\n" \
-                  "\s\s\storam=filesystem.squashfs\\\n" \
                   "\s\s\snet.ifnames=0\\\n" \
                   "\s\s\slive-media-path=#{czPath}"
         rawCZCom += "\n\s\sinitrd #{czPath}/initrd.img" if tool == "grub"

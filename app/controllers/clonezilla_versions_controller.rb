@@ -40,11 +40,13 @@ class ClonezillaVersionsController < ApplicationController
   end
 
   def destroy
-    @cv = ClonezillaVersion.find(params[:id])
-      if @cv.is_enabled == 0
-        @cv.update(:is_enabled => 1)
+    @cz = ClonezillaVersion.find(params[:id])
+      if @cz.is_enabled == 0
+        @cz.update(:is_enabled => 1)
+        flash[:notice] = "#{@cz.name} has been enabled"
       else
-        @cv.update(:is_enabled => 0)
+        @cz.update(:is_enabled => 0)
+        flash[:notice] = "#{@cz.name} has been disabled"
       end
 
     redirect_to clonezilla_versions_path

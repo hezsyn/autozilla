@@ -8,21 +8,23 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @categories = Category.where(category_id: nil, is_enabled: 1).order(:name)
+    @categories = Category.order(:name).where(category_id: nil, is_enabled: 1)
     @category = Category.find(params[:id])
-    if @category.category_id?
-      @parentCategory = Category.find(@category.category_id)
-    end
+    @parentCategory = Category.find(@category.category_id) if @category.category_id?
     @newCategory = Category.new
     @subcategory = Category.new
-    @subcategories = Category.where(category_id: params[:id], is_enabled: 1).order(:name)
-    @systems = @category.systems.order(:name)
+    @subcategories = @category.categories.where(is_enabled: 1).order(:name)
+    @systems = @category.systems.order(:name).where(is_enabled: 1)
     @system = @category.systems.build
   end
 
   def new
-    @categories = Category.all
-    @category = Category.new
+    if Category.find_by(name: params[@category.name])
+
+    else
+      @categories = Category.all
+      @category = Category.new
+    end
   end
 
   def create
@@ -37,16 +39,16 @@ class CategoriesController < ApplicationController
     @category.slug = @category.name
     @category.makeSlug
     @category.is_enabled = 1
+    @parentCategory = Category.find(@category.category_id) if @category.category_id != nil
 
     if @category.save
       flash[:notice] = "Category has been created."
       @category.createAZKCategoryFiles
       @parentCategory.createAZKCategoryFiles
     else
-      flash[:alert] = @category.errors.full_messages.gsub!( "\[\"", "")
+      flash[:alert] = @category.errors
     end
 
-    @parentCategory = Category.find(@category.category_id) if @category.category_id != nil
 
      if @category.category_id.nil?
        redirect_to category_path(@category)
@@ -68,21 +70,34 @@ class CategoriesController < ApplicationController
     @category.makeSlug
     @category.file_location = @category.objectLocation
 
-    @category.update(category_params)
+    if @category.update(category_params)
+      flash[:notice] = "Category has been updated!"
 
-    if @category.category_id != nil
-      @category.createAZKCategoryFiles
-      @parentCategory.createAZKCategoryFiles
+      if @category.category_id != nil
+        @category.createAZKCategoryFiles
+        @parentCategory.createAZKCategoryFiles
+      else
+        @category.createAZKCategoryFiles
+      end
     else
-      @category.createAZKCategoryFiles
+      flash[:alert] = "Category hasn't been updated."
     end
 
     redirect_to @category
   end
 
-  def destory
+  def destroy
     @category = Category.find(params[:id])
-    @category.update(is_enabled: 0)
+    @parentCategory = @category.category_id if @category.category_id != nil
+    if @category.is_enabled == "1"
+      @category.update(:is_enabled => "0")
+      flash[:notice] = "#{@category.name} has been archived."
+      redirect_to category_path(@parentCategory)
+    else
+      @category.update(:is_enabled => "1")
+      flash[:notice] = "#{@category.name} has been enabled."
+      redirect_to category_path(@category)
+    end
   end
 
   private

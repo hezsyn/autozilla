@@ -2,6 +2,9 @@
 <%= render 'categories/layout/list' %>
 
   <div class="col-md-9">
+
+      <%= render 'layouts/error' %>
+
       <div class="row">
         <div class="jumbotron">
           <% if @category.category_id.present? %>
@@ -12,7 +15,13 @@
                 </p>
                 <p>
                   <%= f.submit 'Update', class: "btn btn-sm btn-primary" %>
-                </p>
+
+                  <% if @category.is_enabled == "1" %>
+                    <%= button_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-sm btn-danger" %>
+                  <% else %>
+                    <%= button_to 'Enable', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-success" %>
+                  <% end %>
+                  </p>
                 </div>
              <% end %>
           <% else %>
@@ -163,3 +172,5 @@
 
     </div><!-- End of Modal Dialog -->
 </div> <!-- End of Modal newSystem -->
+
+<%= console %>
