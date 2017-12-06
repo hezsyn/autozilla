@@ -15,7 +15,7 @@
                 </p>
                 <p>
                   <%= f.submit 'Update', class: "btn btn-sm btn-primary" %>
-
+             <% end %>
                   <% if @category.is_enabled == "1" %>
                     <%= button_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-sm btn-danger" %>
                   <% else %>
@@ -23,7 +23,6 @@
                   <% end %>
                   </p>
                 </div>
-             <% end %>
           <% else %>
             <h1><%= @category.name %></h1>
             <h4><%= @category.file_location %></h4>
