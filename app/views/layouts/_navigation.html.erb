@@ -12,9 +12,11 @@
       </ul>
       <form class="navbar-form navbar-right">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
+          <%= form_tag controller: :searches, action: :search, method: 'get', id: "search-form" do %>
+            <%= text_field_tag :search, params[:search], placeholder: "Search Autozilla" %>
+            <%= submit_tag 'Submit', class: "btn btn-sm btn-default", :name => nil %>
+          <% end %>
         </div>
-        <%= button_tag 'Submit', class: "btn btn-sm btn-default" %>
       </form>
     </div>
   </div>
@@ -22,4 +24,3 @@
   <div class="keyLocation">
     <%= link_to 'Link to the Key \\\\idds-superzilla.hf.intel.com\\AzK', 'file://idds-superzilla.hf.intel.com/Azk' %>
   </div>
-

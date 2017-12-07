@@ -43,4 +43,8 @@ class ApplicationRecord < ActiveRecord::Base
     slug << "#{c}"
   end
 
+  def self.search(search)
+    where("name ILIKE ?", "%#{search}")
+  end
+
 end

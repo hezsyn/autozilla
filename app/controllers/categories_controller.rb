@@ -102,11 +102,11 @@ class CategoriesController < ApplicationController
 
   private
     def sub_category_params
-      params.require(:category).permit(:name, :slug, :description, :is_enabled, :category_id, :file_location)
+      params.require(:category).permit(:name, :slug, :description, :is_enabled, :category_id, :file_location, :search)
     end
 
     def category_params
-      params.require(:category).permit(:name, :slug, :description, :is_enabled, :file_location)
+      params.require(:category).permit(:name, :slug, :description, :is_enabled, :file_location, :search)
     end
 
 end

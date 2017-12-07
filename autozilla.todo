@@ -1,58 +1,47 @@
 Phase 1:
 
   Bug:
-    ☐ Unable to self update
-    # Its running out of space?
 
-Key:
-  ✔ Regenerate Whole Key @done (17-12-05 11:55)
-  ✔ Delete Old Key @done (17-12-05 11:55)
-
-Organize:
-  ✔ Archive Categories @done (17-12-06 11:17)
-  ☐ Enable Categories
-  ☐ Archive Systems
-  ☐ Enable Systems
-  ☐ Archive Clonezilla
-  ☐ Enable Clonezilla
+  Organize:
   ☐ Search
+    # Still working... Unable to get it to activate the controller
   ☐ HVR Addition
   ☐ Name Validations
+  # Only allow [] - letters numbers
 
-Image:
-  ☐ Allow custom entries
-  ☐ Archive Images
-
-Users:
+  Users:
   ☐ Single Sign On
   ☐ Account Creation
   ☐ Account Privileges
   ☐ Deactivation of Accounts
 
-Admin:
+  Image:
+  ☐ Allow custom entries
+  ☐ Archive Images
+
+  Admin:
   ☐ Logging Services
 
-Backup:
+  Backup:
    ☐ Manual Backup
    ☐ Organize Backups
    ☐ Archive Older Backups
    ☐ Restore Backup
 
-UI:
+  UI:
   ☐ Present details needed for document
-  ✔ Flash Messages @done (17-12-04 10:36)
 
 Phase 2:
 
-Organize:
+  Organize:
   ☐ File Shadowing
   ☐ Computer Tracking
 
-Program:
+  Program:
   ☐ Installation of programs post image
   ☐ Auto update program
 
-Key:
+  Key:
   ☐ Dynamic
   ☐ Autoupdate
   ☐ Create standalone flash drives
@@ -60,13 +49,31 @@ Key:
   ☐ Remove the need for syslinux
   ☐ Make data image information
 
-Image:
+  Image:
   ☐ Able to create image from key
   ☐ No image names
 
-Post Image Automation:
+  Post Image Automation:
   ☐ Computer Rename
 
-UI:
+  UI:
   ☐ Change how Categories display
   ☐ Chagne how System displays
+
+  HVR:
+   ☐ Create Dyanmic changes
+   ☐ Backup database in Laptop on HVR
+
+＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+Archive:
+ ✔ Unable to self update @done (17-12-06 14:37) @project(Phase 1 / Bug)
+  # Its running out of space?  Fixed by removing toram from boot
+ ✔ Enable Systems @done (17-12-06 13:25) @project(Organize)
+ ✔ Archive Systems @done (17-12-06 13:25) @project(Organize)
+ ✔ Enable Categories @done (17-12-06 11:49) @project(Organize)
+ ✔ Enable Clonezilla @done (17-12-06 11:17) @project(Organize)
+ ✔ Archive Clonezilla @done (17-12-06 11:17) @project(Organize)
+ ✔ Archive Categories @done (17-12-06 11:17) @project(Organize)
+ ✔ Regenerate Whole Key @done (17-12-05 11:55) @project(Key)
+ ✔ Delete Old Key @done (17-12-05 11:55) @project(Key)
+ ✔ Flash Messages @done (17-12-04 10:36) @project(UI)

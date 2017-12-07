@@ -7,7 +7,6 @@ Rails.application.routes.draw do
 
   root 'categories#index'
 
-
   resources :categories do
     resources :systems do
       resources :images do
@@ -28,4 +27,5 @@ Rails.application.routes.draw do
   get '/autozilla_key', to: 'autozilla_key_configs#index'
   get '/autozilla_key/restore', to: 'autozilla_key_configs#restoreKey'
 
+  get '/search', to: 'searches#search'
 end

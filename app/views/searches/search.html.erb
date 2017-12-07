@@ -1,0 +1,60 @@
+<% if @categories.present? %>
+ <table class="table table-hover table-responsive table-striped">
+    <thead>
+      <td></td>
+      <th>Name</th>
+    </thead>
+    <tbody>
+      <% @categories.each do |cat| %>
+        <tr data-link="<%=category_path(cat.id)%>">
+          <td><%= link_to 'View', category_path(cat.id) %></td>
+          <td><%= cat.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <% else %>
+
+  <p>No search found in categories.</p>
+<% end %>
+
+<% if @systems.present? %>
+ <table class="table table-hover table-responsive table-striped">
+    <thead>
+      <td></td>
+      <th>Name</th>
+    </thead>
+    <tbody>
+      <% @systems.each do |sys| %>
+        <tr data-link="<%=category_system_path(sys.category_id,sys.id)%>">
+          <td><%= link_to 'View', category_system_path(sys.category_id, sys.id) %></td>
+          <td><%= sys.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+
+  <p>Found no systems for systems.</p>
+<% end %>
+
+<% if @images.present? %>
+ <table class="table table-hover table-responsive table-striped">
+    <thead>
+      <td></td>
+      <th>Name</th>
+    </thead>
+    <tbody>
+      <% @images.each do |img| %>
+        <tr data-link="<%= category_system_path(img.system.category_id, img.system, img.id)%>">
+          <td><%= link_to 'Edit', category_system_path(img.system.category_id, img.system, img.id) %></td>
+          <td><%= img.name %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% else %>
+
+  <p>Found nothing for search images</p>
+<% end %>
