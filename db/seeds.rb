@@ -125,10 +125,15 @@ Ose.create(is_enabled: 1, name: 'Other | Customer OS' )
 
 ImageStatus.create(is_visible: 1, name: 'Production' )
 ImageStatus.create(is_visible: 1, name: 'Obsolete' )
-ImageStatus.create(is_visible: 1, name: 'Gold Image' )
-ImageStatus.create(is_visible: 1, name: 'Development' )
-ImageStatus.create(is_visible: 1, name: 'Test Image' )
+ImageStatus.create(is_visible: 1, name: 'Archive' )
 
+ImageType.create(is_enabled: 1, name: 'DDLC-Ship')
+ImageType.create(is_enabled: 1, name: 'iDDR')
+ImageType.create(is_enabled: 1, name: 'OOBE')
+ImageType.create(is_enabled: 1, name: 'Test')
+ImageType.create(is_enabled: 1, name: 'Gold')
+ImageType.create(is_enabled: 1, name: 'Custom_OS')
+ImageType.create(is_enabled: 1, name: 'Event')
 
 7.times do
   ['Upload', 'Download'].each do |direction|
@@ -177,10 +182,3 @@ czCount = 0
                            )
 end
 
-ImageType.create(is_enabled: 1, name: 'DDLC-Ship')
-ImageType.create(is_enabled: 1, name: 'iDDR')
-ImageType.create(is_enabled: 1, name: 'OOBE')
-ImageType.create(is_enabled: 1, name: 'Test')
-ImageType.create(is_enabled: 1, name: 'Gold')
-ImageType.create(is_enabled: 1, name: 'Custom_OS')
-ImageType.create(is_enabled: 1, name: 'Event')

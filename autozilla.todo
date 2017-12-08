@@ -6,7 +6,7 @@ Phase 1:
   ☐ Search
     # Still working... Unable to get it to activate the controller
   ☐ HVR Addition
-  ☐ Name Validations
+  ✔ Name Validations @done (17-12-07 14:11)
   # Only allow [] - letters numbers
 
   Users:
@@ -18,9 +18,13 @@ Phase 1:
   Image:
   ☐ Allow custom entries
   ☐ Archive Images
+  ☐ Fix the URL to folder
+  ☐ Make grubs entries readable
 
   Admin:
   ☐ Logging Services
+  ☐ Manipulate Image Status
+  ☐ Organize Admin Page
 
   Backup:
    ☐ Manual Backup
