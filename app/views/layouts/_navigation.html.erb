@@ -12,7 +12,7 @@
       </ul>
       <form class="navbar-form navbar-right">
         <div class="form-group">
-          <%= form_tag controller: :searches, action: :search, method: 'get', id: "search-form" do %>
+          <%= form_tag search_search_path, method: :get, id: "search-form" do %>
             <%= text_field_tag :search, params[:search], placeholder: "Search Autozilla" %>
             <%= submit_tag 'Submit', class: "btn btn-sm btn-default", :name => nil %>
           <% end %>
