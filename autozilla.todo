@@ -3,7 +3,6 @@ Phase 1:
   Bug:
 
   Organize:
-  ✔ HVR Addition @done (17-12-12 16:25)
 
   Users:
   ☐ Single Sign On
@@ -77,6 +76,7 @@ Phase 2:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ HVR Addition @done (17-12-12 16:25) @project(Phase 1)
  ✔ Name Validations @done (17-12-07 14:11) @project(Phase 1)
   # Only allow [] - letters numbers
  ✔ Unable to self update @done (17-12-06 14:37) @project(Phase 1 / Bug)

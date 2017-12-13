@@ -26,5 +26,6 @@ Rails.application.routes.draw do
 
   get '/autozilla_key', to: 'autozilla_key_configs#index'
   get '/autozilla_key/restore', to: 'autozilla_key_configs#restoreKey'
+  get '/autozilla_key/selfupdate', to: 'autozilla_key_configs#selfUpdate'
 
 end

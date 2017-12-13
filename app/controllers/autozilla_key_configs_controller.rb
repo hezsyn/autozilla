@@ -1,5 +1,5 @@
 class AutozillaKeyConfigsController < ApplicationController
-
+    include Azk::Key
   def index
 
   end
@@ -36,7 +36,7 @@ class AutozillaKeyConfigsController < ApplicationController
     @category.migrateClonezillas
 
     # Creating the self update files
-    @category.selfUpdate
+    @category.createSelfUpdate
     # Start of creating all new key entries for key
     # Create top.menu first, this is the top categories which don't worry about the @category
     # The method calls the correct ones.
@@ -52,6 +52,11 @@ class AutozillaKeyConfigsController < ApplicationController
 
     # That should be it.  Hopefully.
     flash[:notice] = "Reset complete"
+    redirect_to autozilla_key_path
+  end
+
+  def selfUpdate
+    createSelfUpdate
     redirect_to autozilla_key_path
   end
 

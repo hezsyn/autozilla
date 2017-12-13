@@ -121,15 +121,14 @@ module Azk
       if purpose == "selfupdate"
         tool == "grub" ? rawCZCom = "#{czPath}/vmlinuz\\" : rawCZCom = "#{czPath}/initrd.img"
         rawCZCom += "\n\s\s\sboot=live union=overlay username=user\\\n" \
-                  "\s\s\sconfig components nointremap noswap nomodeset nodmraid noeject nosplash\\\n" \
+                  "\s\s\sconfig components noswap nomodeset nodmraid noeject nosplash\\\n" \
                   "\s\s\sedd=on\\\n" \
                   "\s\s\slocales=en_US.UTF-8\\\n" \
                   "\s\s\skeyboard-layouts=NONE\\\n" \
                   "\s\s\socs_prerun01=\"sudo dhclient -v\"\\\n" \
-                  "\s\s\socs_prerun02=\"sudo mkdir /azksrc\"\\\n" \
-                  "\s\s\socs_prerun03=\"sudo mount -t cifs -v //idds-superzilla.hf.intel.com/Azk /azksrc -o user=azk,password=gigLow54,sec=ntlm,ro\"\\\n" \
-                  "\s\s\socs_prerun04=\"sudo mount -n -o remount,rw /lib/live/mount/medium/\"\\\n" \
-                  "\s\s\socs_live_run=\"rsync -rvzt --progress /azksrc /lib/live/mount/medium/\"\\\n" \
+                  "\s\s\socs_prerun02=\"sudo mount -t cifs -v //idds-superzilla.hf.intel.com/Azk /mnt -o guest,ro\"\\\n" \
+                  "\s\s\socs_prerun03=\"sudo mount -n -o remount,rw /lib/live/mount/medium/\"\\\n" \
+                  "\s\s\socs_live_run=\"sudo rsync -rvzt /mnt/live/ /lib/live/mount/medium/live/\"\\\n" \
                   "\s\s\socs_postrun01=\"sudo sync\"\\\n" \
                   "\s\s\socs_postrun02=\"sudo reboot -f\"\\\n" \
                   "\s\s\svga=788\\\n" \
@@ -348,7 +347,8 @@ module Azk
     #-----------------------------------------------------------------
     # -------------------- Self Update Series! -----------------------
     # ----------------------------------------------------------------
-    def selfUpdate
+    def createSelfUpdate
+      setSettings
       # Find the default version of clonezilla
       cz = ClonezillaVersion.find_by(:default => 1)
       # Navigate to the folder with selfupdate
