@@ -5,11 +5,14 @@ class SystemsController < ApplicationController
     @system = System.find(params[:id])
     @systems = @category.systems.where(is_enabled: 1).order(:name)
     @images = @system.images.order(:name)
-    @pools = Pool.all
-    @oses = Ose.all
-    @imagesStatuses = ImageStatus.order(:name)
-    @clonezillas = ClonezillaVersion.order(:name)
-    @image_types = ImageType.order(:name)
+
+    # Variables for new image, they only pull enabled entries.  Location is only one with no turn off.
+    @image_types = ImageType.where(is_enabled: 1)
+    @image_statuses = ImageStatus.where(is_visible: 1)
+    @clonezillas = ClonezillaVersion.where(is_enabled: 1)
+    @oss = Ose.where(:is_enabled => 1)
+    @pools = Pool.where(is_enabled: 1)
+    @locations = Location.order(:name)
   end
 
   def new

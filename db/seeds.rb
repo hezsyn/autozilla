@@ -4,7 +4,6 @@ SupportStuff.create(name: 'sourceKey', value: 'keySource', description: 'Source 
 SupportStuff.create(name: 'productionKey', value: 'production', description: 'Where the key for production is stored')
 # Configu for both configs for autozilla Key
 SupportStuff.create(name: 'azkLocales', value: 'en_US.UTF-8')
-SupportStuff.create(name: 'azkLocation', value: '//amr.corp.intel.com/idd/Infrastructure/CloneZilla/NAMO.OR.Loan/Images/automation')
 SupportStuff.create(name: 'czSource', value: 'czSource')
 SupportStuff.create(name: 'czProduction', value: 'production/live/CloneZilla')
 
@@ -150,8 +149,7 @@ ImageType.create(is_enabled: 1, name: 'Event')
                                 live_keymap: SupportStuff.find_by(name: 'dupLiveKeyMap').value,
                                 live_batch: SupportStuff.find_by(name: 'dupLiveBatch').value,
                                 locales: SupportStuff.find_by(name: 'azkLocales').value,
-                                flags: SupportStuff.find_by(name: 'dupFlags').value,
-                                location: SupportStuff.find_by(name: 'azkLocation').value
+                                flags: SupportStuff.find_by(name: 'dupFlags').value
                                 )
     else
       AutozillaKeyConfig.create(purpose: direction,
@@ -166,17 +164,21 @@ ImageType.create(is_enabled: 1, name: 'Event')
                                 live_keymap: SupportStuff.find_by(name: 'ddlLiveKeyMap').value,
                                 live_batch: SupportStuff.find_by(name: 'ddlLiveBatch').value,
                                 locales: SupportStuff.find_by(name: 'azkLocales').value,
-                                flags: SupportStuff.find_by(name: 'ddlFlags').value,
-                                location: SupportStuff.find_by(name: 'azkLocation').value
+                                flags: SupportStuff.find_by(name: 'ddlFlags').value
                                 )
      end
   end
 end
 
+Location.create(name: 'Images', location: '//amr.corp.intel.com/idd/Infrastructure/CloneZilla/NAMO.OR.Loan/Images/automation', description: 'Original location for Clonezilla Images reside')
+Location.create(name: 'Images2', location: '//idds-store-c02.amr.intel.com/LC.US.CZ2\$', description: 'New image location with dedup enabled, Only use 2.5.2 and higher due to limitation from samba for older')
+Location.create(name: 'HVR', location: '//idds-hvrsrv01/Local_Images/Images/Clonezilla', description: 'High volume rack ')
+
 czCount = 0
 ['clonezilla-live-2.5.2-17-amd64', 'clonezilla-live-2.5.0-25-amd64', 'clonezilla-live-2.4.7-8-amd64', 'clonezilla-live-2.4.2-61-amd64', 'clonezilla-live-2.4.2-32-amd64', 'clonezilla-live-2.3.2-22-amd64', 'clonezilla-live-2.3.2-22-i686-pae'].each do |cz|
   ClonezillaVersion.create(name: cz,
                            is_enabled: 1,
+                           location: 1,
                            upload_id: czCount += 1,
                            download_id: czCount += 1
                            )

@@ -7,7 +7,13 @@
     <h1><%= @cz.name %></h1>
     <hr>
   </div>
-
+  <%= form_for @cz do |f| %>
+  <div class="input-group">
+     <span class="input-group-addon">Location -</span>
+     <%= f.collection_select(:location_id, @locations, :id, :name, { include_blank: true},{class: "form-control"}) %>
+     <%= submit_tag 'Submit' %>
+  </div>
+  <% end %>
 
 <% ["upload", "download"].each do |direction| %>
 

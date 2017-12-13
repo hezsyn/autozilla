@@ -3,6 +3,7 @@ class ClonezillaVersionsController < ApplicationController
   def index
     @czvs = ClonezillaVersion.all.order('name DESC')
     @newCV = ClonezillaVersion.new
+    @locations = Location.all
   end
 
   def show
@@ -21,6 +22,7 @@ class ClonezillaVersionsController < ApplicationController
     @cv.download.czAZKConfig("download")
     @cv.is_enabled = 1
     @cv.save
+    puts  @cv.errors.full_messages
 
     redirect_to clonezilla_versions_path
   end
@@ -30,13 +32,14 @@ class ClonezillaVersionsController < ApplicationController
     @cz = ClonezillaVersion.find(params[:id])
     @czParam = AutozillaKeyConfig.all
     @azk = AutozillaKeyConfig.all
+    @locations = Location.all
   end
 
   def update
     @cv = ClonezillaVersion.find(params[:id])
     @cv.update(czv_params)
 
-    redirect_to edit_clonezilla_verion_path(@cv)
+    redirect_to edit_clonezilla_version_path(@cv)
   end
 
   def destroy
@@ -54,7 +57,7 @@ class ClonezillaVersionsController < ApplicationController
 
   private
     def czv_params
-      params.require(:clonezilla_version).permit(:name, :description, :is_enabled)
+      params.require(:clonezilla_version).permit(:name, :description, :is_enabled, :location_id)
     end
 
 end

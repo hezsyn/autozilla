@@ -52,6 +52,11 @@
             </div>
             <br>
             <div class="input-group">
+              <span class="input-group-addon"><%= f.label :location_id %></span>
+              <%= f.collection_select :location_id, @locations, :id, :name, { include_blank: true},class: "form-control" %>
+            </div>
+            <br>
+            <div class="input-group">
               <span class="input-group-addon"><%= f.label :description %></span>
               <%= f.text_area :description, class: "form-control" %>
             </div>

@@ -1,6 +1,6 @@
 class SearchesController < ApplicationController
 
-  def search
+  def index
 
     if params[:search]
       @categories = Category.search(params[:search]).order(:name)

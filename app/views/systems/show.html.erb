@@ -5,7 +5,6 @@
 
   <%= render 'layouts/error' %>
 
-
   <div class="jumbotron">
     <%= form_for [@category, @system] do |sys| %>
 
@@ -118,6 +117,11 @@
               </div>
               <br>
               <div class="input-group">
+                <span class="input-group-addon"><%= f.label :location %></span>
+                <%= f.collection_select :location_id, @locations, :id, :name, {include_blank: true}, {class: "form-control"} %>
+              </div>
+              <br>
+              <div class="input-group">
                 <span class="input-group-addon"><%= f.label :image_type %></span>
                 <%= f.collection_select :image_type_id, @image_types, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
@@ -128,18 +132,18 @@
               </div>
               <br>
               <div class="input-group">
-                <span class="input-group-addon">OS</span>
-                <%= f.collection_select :ose_id, @oses, :id, :name, {include_blank: true}, {class: "form-control"} %>
+                <span class="input-group-addon"><strong>OS</strong></span>
+                <%= f.collection_select :ose_id, @oss, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
               <br>
               <div class="input-group">
                 <span class="input-group-addon"><%= f.label :image_status %></span>
-                <%= f.collection_select :image_status_id, @imagesStatuses, :id, :name, {include_blank: true}, {class: "form-control"} %>
+                <%= f.collection_select :image_status_id, @image_statuses, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
               <br>
               <div class="input-group">
                 <span class="input-group-addon"><%= f.label :clonezilla_version %></span>
-                <%= f.collection_select :clonezilla_version_id, @clonezillas, :id, :name, {include_blank: true}, {class: "form-control"} %>
+                <%= f.collection_select :clonezilla_version_id, @clonezillas, :id, :name, {include_blank: true}, {value: @clonezillas.find_by(:default => 1), class: "form-control"} %>
               </div>
 
           </div>

@@ -10,7 +10,7 @@
   <div class="row">
       <%= f.check_box :current %><label class="imgTitle"><%= @system.name %></label>
       <h4><%= @image.azkName %></h4>
-      <h4><%= link_to "#{@netUpPath}#{@image.file_location}", "C:\\Users\\hezsy\\" %></h4>
+      <h4><%= link_to "#{@image.location.location}#{@image.file_location}", "file://#{@image.location.location}#{@image.file_location}" %></h4>
   </div>
       <div class="row">
         <div class="col-xs-9">
@@ -23,16 +23,35 @@
       <h3><%= @image.file_location.gsub!("\ "," ") %></h3>
     <hr>
 
+
       <div class="input-group">
-        <span class="input-group-addon">Image Type -</span>
-        <%= f.collection_select(:image_type_id, @image_types, :id, :name, { include_blank: true},{"tabindex" => c, class: "form-control"}) %>
-      <% c += 1 %>
+        <span class="input-group-addon">Pools -</span>
+        <%= f.collection_select :pool_id, @pools, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"} %>
+      <% c += 1%>
       </div>
 
       <div class="input-group">
         <span class="input-group-addon">Image Status -</span>
         <%= f.collection_select(:image_status_id, @image_statuses, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"})  %>
       <% c += 1%>
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-addon">Disks - </span>
+        <%= f.text_field :disk, id: "addDisk", class: "form-control" %>
+        <% c += 1 %>
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-addon">Location - </span>
+        <%= f.collection_select :location_id, @locations, :id, :name, {:include_blank => true},{"tabindex" => c, class: "form-control"} %>
+        <% c += 1 %>
+      </div>
+
+      <div class="input-group">
+        <span class="input-group-addon">Image Type -</span>
+        <%= f.collection_select(:image_type_id, @image_types, :id, :name, { include_blank: true},{"tabindex" => c, class: "form-control"}) %>
+      <% c += 1 %>
       </div>
 
       <div class="input-group">
@@ -47,16 +66,6 @@
       <% c += 1%>
       </div>
 
-      <div class="input-group">
-        <span class="input-group-addon">Pools -</span>
-        <%= f.collection_select :pool_id, @pools, :id, :name,{:include_blank => true},{"tabindex" => c, class: "form-control"} %>
-      <% c += 1%>
-      </div>
-
-      <div class="input-group">
-        <span class="input-group-addon">Disks - </span>
-        <%= f.text_field :disk, id: "addDisk", class: "form-control" %>
-      </div>
 
     <%= f.submit %>
 

@@ -2,8 +2,8 @@ class Image < ApplicationRecord
   include Azk::Key
 
   validates :name, presence: true, uniqueness: { scope: :system_id, message: "is already in use."}, format: { with: /\A[a-zA-Z0-9\[\]\-\_]+\z/, message: 'invalid name - a-zA-Z0-9 []-' }
-
   has_many   :notes
+  belongs_to :location, class_name: "Location"
   belongs_to :pool
   belongs_to :system
   belongs_to :ose

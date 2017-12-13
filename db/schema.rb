@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171207004726) do
+ActiveRecord::Schema.define(version: 20171211234244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,7 +65,9 @@ ActiveRecord::Schema.define(version: 20171207004726) do
     t.bigint "download_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "location_id"
     t.index ["download_id"], name: "index_clonezilla_versions_on_download_id"
+    t.index ["location_id"], name: "index_clonezilla_versions_on_location_id"
     t.index ["upload_id"], name: "index_clonezilla_versions_on_upload_id"
   end
 
@@ -105,16 +107,26 @@ ActiveRecord::Schema.define(version: 20171207004726) do
     t.bigint "download_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "location_id"
     t.index ["clonezilla_version_id"], name: "index_images_on_clonezilla_version_id"
     t.index ["download_id"], name: "index_images_on_download_id"
     t.index ["image_status_id"], name: "index_images_on_image_status_id"
     t.index ["image_type_id"], name: "index_images_on_image_type_id"
+    t.index ["location_id"], name: "index_images_on_location_id"
     t.index ["note_id"], name: "index_images_on_note_id"
     t.index ["ose_id"], name: "index_images_on_ose_id"
     t.index ["pool_id"], name: "index_images_on_pool_id"
     t.index ["system_id"], name: "index_images_on_system_id"
     t.index ["upload_id"], name: "index_images_on_upload_id"
     t.index ["user_id"], name: "index_images_on_user_id"
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "logs", id: :serial, force: :cascade do |t|

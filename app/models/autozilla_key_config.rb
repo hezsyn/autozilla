@@ -41,6 +41,5 @@ class AutozillaKeyConfig < ApplicationRecord
       self.flags = SupportStuff.find_by(name: "ddlFlags").value
      end
     self.locales = SupportStuff.find_by(name: "azkLocales").value
-    self.location =  SupportStuff.find_by(name: "azkLocation").value
   end
 end
