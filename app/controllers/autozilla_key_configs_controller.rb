@@ -57,7 +57,20 @@ class AutozillaKeyConfigsController < ApplicationController
 
   def selfUpdate
     createSelfUpdate
+    flash[:notice] = "SelfUpdate has been recreated"
     redirect_to autozilla_key_path
+  end
+
+  def rebuildKey
+    @category.createTopLevel
+    # Now to create the categories under the top level
+    @categories.each do |cat|
+      cat.createAZKCategoryFiles
+    end
+    # Now we have the system files!
+    @systems.each do |sys|
+      sys.createAZKSystemFiles
+    end
   end
 
   private

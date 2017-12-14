@@ -128,8 +128,10 @@ module Azk
                   "\s\s\socs_prerun01=\"sudo dhclient -v\"\\\n" \
                   "\s\s\socs_prerun02=\"sudo mount -t cifs -v //idds-superzilla.hf.intel.com/Azk /mnt -o guest,ro\"\\\n" \
                   "\s\s\socs_prerun03=\"sudo mount -n -o remount,rw /lib/live/mount/medium/\"\\\n" \
-                  "\s\s\socs_live_run=\"sudo rsync -rvzt /mnt/live/ /lib/live/mount/medium/live/\"\\\n" \
-                  "\s\s\socs_postrun01=\"sudo sync\"\\\n" \
+                  "\s\s\socs_live_run=\"sudo rsync -rvzt --size-only /mnt/live/CloneZilla/ /lib/live/mount/medium/live/CloneZilla/\"\\\n" \
+                  "\s\s\socs_postrun01=\"sudo rsync -rvzt /mnt/live/download/ /lib/live/mount/medium/live/download/\"\\\n" \
+                  "\s\s\socs_postrun02=\"sudo rsync -rvzt /mnt/live/upload/ /lib/live/mount/medium/live/upload/\"\\\n" \
+                  "\s\s\socs_postrun03=\"sudo sync\"\\\n" \
                   "\s\s\socs_postrun02=\"sudo reboot -f\"\\\n" \
                   "\s\s\svga=788\\\n" \
                   "\s\s\snet.ifnames=0\\\n" \
@@ -204,13 +206,13 @@ module Azk
 
             puts self.file_location
 
-            self.categories.order(:name).where(:is_enabled == 1).each do |cat|
+            self.categories.order(:name).where(is_enabled: 1).each do |cat|
               tool == "grub" ? cat.grubCatMenuEntry(direction, "category") : cat.sysCatMenuEntry(direction, "category")
             end
 
             self.breakEntry if self.systems.present?
 
-            self.systems.order(:name).where(:is_enabled == 1).each do |sys|
+            self.systems.order(:name).where(is_enabled: 1).each do |sys|
               tool == "grub" ? sys.grubCatMenuEntry(direction, "system") : sys.sysCatMenuEntry(direction, "system")
             end
 

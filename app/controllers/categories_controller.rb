@@ -98,6 +98,7 @@ class CategoriesController < ApplicationController
       flash[:notice] = "#{@category.name} has been enabled."
       redirect_to category_path(@category)
     end
+    @parentCategory.createAZKCategoryFiles
   end
 
   private
