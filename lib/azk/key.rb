@@ -52,47 +52,48 @@ module Azk
       czPath = "#{@@prefix}/CloneZilla/#{cz.name}"
 
       # Default starting point, that changes depending on tool
-      tool == "grub" ? @@azkCom = "#{czPath}/vmlinuz " : @@azkCom = "#{czPath}/initrd.img "
-      @@azkCom.concat("boot=live username=user union=overlay ")
-      @@azkCom.concat(surCom.params_set.present? ? "#{surCom.params_set}"     : "#{cz.params_set}")
-      @@azkCom.concat("edd=", surCom.edd.present? ? "#{surCom.edd}"             : "#{cz.edd}")
-      @@azkCom.concat("keyboard-layouts=NONE ")
+      tool == "grub" ? @@azkCom = "#{czPath}/vmlinuz\%\n " : @@azkCom = "#{czPath}/initrd.img "
+      @@azkCom.concat("\sboot=live username=user union=overlay\%\n ")
+      @@azkCom.concat(surCom.params_set.present?  ? "\s#{surCom.params_set}\%\n"     : "\s\s#{cz.params_set}\%\n")
+      @@azkCom.concat("\s\sedd=", surCom.edd.present? ? "#{surCom.edd}\%\n"            : "#{cz.edd}\%\n")
+      @@azkCom.concat("\s\skeyboard-layouts=NONE\%\n ")
       if direction == "upload"
-        surCom.prerun0.present? ?       @@azkCom +=  "ocs_prerun=\"#{surCom.prerun0}\""            : @@azkCom += "ocs_prerun=\"#{cz.upload.prerun0}\""
-        surCom.prerun1.present? ?       @@azkCom +=  "ocs_prerun1=\"#{surCom.prerun1}\""           : @@azkCom += "ocs_prerun1=\"#{cz.upload.prerun1}\""
-        surCom.prerun2.present? ?       @@azkCom +=  "ocs_prerun2=\"#{surCom.prerun2}\""           : @@azkCom += "ocs_prerun2=\"#{cz.upload.prerun2}\""
-        surCom.prerun3.present? ?       @@azkCom +=  "ocs_prerun3=\"#{surCom.prerun3}\""           : @@azkCom += "ocs_prerun3=\"#{cz.upload.prerun3}\""
-        surCom.prerun4.present? ?       @@azkCom +=  "ocs_prerun4=\"#{surCom.prerun4}\""           : @@azkCom += "ocs_prerun4=\"#{cz.upload.prerun4}\""
-        surCom.live_run.present? ?      @@azkCom +=  "ocs_live_run=\"#{surCom.live_run}\""         : @@azkCom += "ocs_live_run=\"#{cz.upload.live_run}\""
-        surCom.live_keymap.present? ?   @@azkCom +=  "ocs_live_keymap=\"#{surCom.live_keymap}\""   : @@azkCom += "ocs_live_keymap=\"#{cz.upload.live_keymap}\""
-        surCom.live_param.present? ?    @@azkCom +=  "ocs_live_param=\"#{surCom.live_param}\""     : @@azkCom += "ocs_live_param=\"#{cz.upload.live_param}\""
-        surCom.live_batch.present? ?    @@azkCom +=  "ocs_live_batch=\"#{surCom.live_batch}\""     : @@azkCom += "ocs_live_batch=\"#{cz.upload.live_batch}\""
-        surCom.postrun0.present? ?      @@azkCom +=  "ocs_postrun=\"#{surCom.postrun0}\""          : @@azkCom += "ocs_postrun0=\"#{cz.upload.postrun0}\""
-        surCom.postrun1.present? ?      @@azkCom +=  "ocs_postrun1=\"#{surCom.postrun1}\""         : @@azkCom += "ocs_postrun1=\"#{cz.upload.postrun1}\""
-        surCom.postrun2.present? ?      @@azkCom +=  "ocs_postrun2=\"#{surCom.postrun2}\""         : @@azkCom += "ocs_postrun2=\"#{cz.upload.postrun2}\""
-        surCom.postrun3.present? ?      @@azkCom +=  "ocs_postrun3=\"#{surCom.postrun3}\""         : @@azkCom += "ocs_postrun3=\"#{cz.upload.postrun3}\""
-        surCom.postrun4.present? ?      @@azkCom +=  "ocs_postrun4=\"#{surCom.postrun4}\""         : @@azkCom += "ocs_postrun4=\"#{cz.upload.postrun4}\""
-        surCom.locales.present? ?       @@azkCom +=  "locales=\"#{surCom.locales}\""               : @@azkCom += "locales=\"#{cz.upload.locales}\""
+        surCom.prerun0.present? ?       @@azkCom +=  "\socs_prerun=\"#{surCom.prerun0}\"\%\n"              : @@azkCom += "\socs_prerun=\"#{cz.upload.prerun0}\"\%\n"
+        surCom.prerun1.present? ?       @@azkCom +=  "\s\socs_prerun1=\"#{surCom.prerun1}\"\%\n"           : @@azkCom += "\s\socs_prerun1=\"#{cz.upload.prerun1}\"\%\n"
+        surCom.prerun2.present? ?       @@azkCom +=  "\s\socs_prerun2=\"#{surCom.prerun2}\"\%\n"           : @@azkCom += "\s\socs_prerun2=\"#{cz.upload.prerun2}\"\%\n"
+        surCom.prerun3.present? ?       @@azkCom +=  "\s\socs_prerun3=\"#{surCom.prerun3}\"\%\n"           : @@azkCom += "\s\socs_prerun3=\"#{cz.upload.prerun3}\"\%\n"
+        surCom.prerun4.present? ?       @@azkCom +=  "\s\socs_prerun4=\"#{surCom.prerun4}\"\%\n"           : @@azkCom += "\s\socs_prerun4=\"#{cz.upload.prerun4}\"\%\n"
+        surCom.live_run.present? ?      @@azkCom +=  "\s\socs_live_run=\"#{surCom.live_run}\"\%\n"         : @@azkCom += "\s\socs_live_run=\"#{cz.upload.live_run}\"\%\n"
+        surCom.live_keymap.present? ?   @@azkCom +=  "\s\socs_live_keymap=\"#{surCom.live_keymap}\"\%\n"   : @@azkCom += "\s\socs_live_keymap=\"#{cz.upload.live_keymap}\"\%\n"
+        surCom.live_param.present? ?    @@azkCom +=  "\s\socs_live_param=\"#{surCom.live_param}\"\%\n"     : @@azkCom += "\s\socs_live_param=\"#{cz.upload.live_param}\"\%\n"
+        surCom.live_batch.present? ?    @@azkCom +=  "\s\socs_live_batch=\"#{surCom.live_batch}\"\%\n"     : @@azkCom += "\s\socs_live_batch=\"#{cz.upload.live_batch}\"\%\n"
+        surCom.postrun0.present? ?      @@azkCom +=  "\s\socs_postrun=\"#{surCom.postrun0}\"\%\n"          : @@azkCom += "\s\socs_postrun0=\"#{cz.upload.postrun0}\"\%\n"
+        surCom.postrun1.present? ?      @@azkCom +=  "\s\socs_postrun1=\"#{surCom.postrun1}\"\%\n"         : @@azkCom += "\s\socs_postrun1=\"#{cz.upload.postrun1}\"\%\n"
+        surCom.postrun2.present? ?      @@azkCom +=  "\s\socs_postrun2=\"#{surCom.postrun2}\"\%\n"         : @@azkCom += "\s\socs_postrun2=\"#{cz.upload.postrun2}\"\%\n"
+        surCom.postrun3.present? ?      @@azkCom +=  "\s\socs_postrun3=\"#{surCom.postrun3}\"\%\n"         : @@azkCom += "\s\socs_postrun3=\"#{cz.upload.postrun3}\"\%\n"
+        surCom.postrun4.present? ?      @@azkCom +=  "\s\socs_postrun4=\"#{surCom.postrun4}\"\%\n"         : @@azkCom += "\s\socs_postrun4=\"#{cz.upload.postrun4}\"\%\n"
+        surCom.locales.present? ?       @@azkCom +=  "\s\slocales=\"#{surCom.locales}\"\%\n"               : @@azkCom += "\s\slocales=\"#{cz.upload.locales}\"\%\n"
       else
-        surCom.prerun0.present? ?       @@azkCom +=  "ocs_prerun=\"#{surCom.prerun0}\""            : @@azkCom += "ocs_prerun=\"#{cz.download.prerun0}\""
-        surCom.prerun1.present? ?       @@azkCom +=  "ocs_prerun1=\"#{surCom.prerun1}\""           : @@azkCom += "ocs_prerun1=\"#{cz.download.prerun1}\""
-        surCom.prerun2.present? ?       @@azkCom +=  "ocs_prerun2=\"#{surCom.prerun2}\""           : @@azkCom += "ocs_prerun2=\"#{cz.download.prerun2}\""
-        surCom.prerun3.present? ?       @@azkCom +=  "ocs_prerun3=\"#{surCom.prerun3}\""           : @@azkCom += "ocs_prerun3=\"#{cz.download.prerun3}\""
-        surCom.prerun4.present? ?       @@azkCom +=  "ocs_prerun4=\"#{surCom.prerun4}\""           : @@azkCom += "ocs_prerun4=\"#{cz.download.prerun4}\""
-        surCom.live_run.present? ?      @@azkCom +=  "ocs_live_run=\"#{surCom.live_run}\""         : @@azkCom += "ocs_live_run=\"#{cz.download.live_run}\""
-        surCom.live_keymap.present? ?   @@azkCom +=  "ocs_live_keymap=\"#{surCom.live_keymap}\""   : @@azkCom += "ocs_live_keymap=\"#{cz.download.live_keymap}\""
-        surCom.live_param.present? ?    @@azkCom +=  "ocs_live_param=\"#{surCom.live_param}\""     : @@azkCom += "ocs_live_param=\"#{cz.download.live_param}\""
-        surCom.live_batch.present? ?    @@azkCom +=  "ocs_live_batch=\"#{surCom.live_batch}\""     : @@azkCom += "ocs_live_batch=\"#{cz.download.live_batch}\""
-        surCom.postrun0.present? ?      @@azkCom +=  "ocs_postrun=\"#{surCom.postrun0}\""          : @@azkCom += "ocs_postrun=\"#{cz.download.postrun0}\""
-        surCom.postrun1.present? ?      @@azkCom +=  "ocs_postrun1=\"#{surCom.postrun1}\""         : @@azkCom += "ocs_postrun1=\"#{cz.download.postrun1}\""
-        surCom.postrun2.present? ?      @@azkCom +=  "ocs_postrun2=\"#{surCom.postrun2}\""         : @@azkCom += "ocs_postrun2=\"#{cz.download.postrun2}\""
-        surCom.postrun3.present? ?      @@azkCom +=  "ocs_postrun3=\"#{surCom.postrun3}\""         : @@azkCom += "ocs_postrun3=\"#{cz.download.postrun3}\""
-        surCom.postrun4.present? ?      @@azkCom +=  "ocs_postrun4=\"#{surCom.postrun4}\""         : @@azkCom += "ocs_postrun4=\"#{cz.download.postrun4}\""
-        surCom.locales.present? ?       @@azkCom +=  "locales=\"#{surCom.locales}\""               : @@azkCom += "locales=\"#{cz.download.locales}\""
+        surCom.prerun0.present? ?       @@azkCom +=  "\socs_prerun=\"#{surCom.prerun0}\"\%\n"              : @@azkCom += "\socs_prerun=\"#{cz.download.prerun0}\"\%\n"
+        surCom.prerun1.present? ?       @@azkCom +=  "\s\socs_prerun1=\"#{surCom.prerun1}\"\%\n"           : @@azkCom += "\s\socs_prerun1=\"#{cz.download.prerun1}\"\%\n"
+        surCom.prerun2.present? ?       @@azkCom +=  "\s\socs_prerun2=\"#{surCom.prerun2}\"\%\n"           : @@azkCom += "\s\socs_prerun2=\"#{cz.download.prerun2}\"\%\n"
+        surCom.prerun3.present? ?       @@azkCom +=  "\s\socs_prerun3=\"#{surCom.prerun3}\"\%\n"           : @@azkCom += "\s\socs_prerun3=\"#{cz.download.prerun3}\"\%\n"
+        surCom.prerun4.present? ?       @@azkCom +=  "\s\socs_prerun4=\"#{surCom.prerun4}\"\%\n"           : @@azkCom += "\s\socs_prerun4=\"#{cz.download.prerun4}\"\%\n"
+        surCom.live_run.present? ?      @@azkCom +=  "\s\socs_live_run=\"#{surCom.live_run}\"\%\n"         : @@azkCom += "\s\socs_live_run=\"#{cz.download.live_run}\"\%\n"
+        surCom.live_keymap.present? ?   @@azkCom +=  "\s\socs_live_keymap=\"#{surCom.live_keymap}\"\%\n"   : @@azkCom += "\s\socs_live_keymap=\"#{cz.download.live_keymap}\"\%\n"
+        surCom.live_param.present? ?    @@azkCom +=  "\s\socs_live_param=\"#{surCom.live_param}\"\%\n"     : @@azkCom += "\s\socs_live_param=\"#{cz.download.live_param}\"\%\n"
+        surCom.live_batch.present? ?    @@azkCom +=  "\s\socs_live_batch=\"#{surCom.live_batch}\"\%\n"     : @@azkCom += "\s\socs_live_batch=\"#{cz.download.live_batch}\"\%\n"
+        surCom.postrun0.present? ?      @@azkCom +=  "\s\socs_postrun=\"#{surCom.postrun0}\"\%\n"          : @@azkCom += "\s\socs_postrun=\"#{cz.download.postrun0}\"\%\n"
+        surCom.postrun1.present? ?      @@azkCom +=  "\s\socs_postrun1=\"#{surCom.postrun1}\"\%\n"         : @@azkCom += "\s\socs_postrun1=\"#{cz.download.postrun1}\"\%\n"
+        surCom.postrun2.present? ?      @@azkCom +=  "\s\socs_postrun2=\"#{surCom.postrun2}\"\%\n"         : @@azkCom += "\s\socs_postrun2=\"#{cz.download.postrun2}\"\%\n"
+        surCom.postrun3.present? ?      @@azkCom +=  "\s\socs_postrun3=\"#{surCom.postrun3}\"\%\n"         : @@azkCom += "\s\socs_postrun3=\"#{cz.download.postrun3}\"\%\n"
+        surCom.postrun4.present? ?      @@azkCom +=  "\s\socs_postrun4=\"#{surCom.postrun4}\"\%\n"         : @@azkCom += "\s\socs_postrun4=\"#{cz.download.postrun4}\"\%\n"
+        surCom.locales.present? ?       @@azkCom +=  "\s\slocales=\"#{surCom.locales}\"\%\n"               : @@azkCom += "\s\slocales=\"#{cz.download.locales}\"\%\n"
       end
-      @@azkCom.concat("vga=788 net.ifnames=0 toram=filesystem.squashfs live-media-path=#{czPath} ")
-      tool == "grub" ? @@azkCom += "\n\s\sinitrd #{czPath}/initrd.img" : nil
+      @@azkCom.concat("\s\svga=788\%\n \snet.ifnames=0\%\n \storam=filesystem.squashfs\%\n \slive-media-path=#{czPath} ")
+      tool == "grub" ? @@azkCom += "\n\s\sinitrd #{czPath}/initrd.img" : @@azkCom = @@azkCom.gsub("\s",'').gsub("\n",'').gsub('%', '').chomp
       @@azkCom = eval '"' + @@azkCom.gsub('"', '\"') + '"'
+      @@azkCom = @@azkCom.gsub('%', '\\') if tool == "grub"
     end
 
     def czAZKCom(cz, tool, purpose)
@@ -131,8 +132,9 @@ module Azk
                   "\s\s\socs_live_run=\"sudo rsync -rvzt --size-only /mnt/live/CloneZilla/ /lib/live/mount/medium/live/CloneZilla/\"\\\n" \
                   "\s\s\socs_postrun01=\"sudo rsync -rvzt /mnt/live/download/ /lib/live/mount/medium/live/download/\"\\\n" \
                   "\s\s\socs_postrun02=\"sudo rsync -rvzt /mnt/live/upload/ /lib/live/mount/medium/live/upload/\"\\\n" \
-                  "\s\s\socs_postrun03=\"sudo sync\"\\\n" \
-                  "\s\s\socs_postrun02=\"sudo reboot -f\"\\\n" \
+                  "\s\s\socs_postrun03=\"sudo rsync -rvzt /mnt/live/selfupdate/ /lib/live/mount/medium/live/selfupdate/\"\\\n" \
+                  "\s\s\socs_postrun04=\"sudo sync\"\\\n" \
+                  "\s\s\socs_postrun05=\"sudo reboot -f\"\\\n" \
                   "\s\s\svga=788\\\n" \
                   "\s\s\snet.ifnames=0\\\n" \
                   "\s\s\slive-media-path=#{czPath}"

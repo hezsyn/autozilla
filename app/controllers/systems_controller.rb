@@ -69,10 +69,12 @@ class SystemsController < ApplicationController
     if @system.is_enabled == 1
       @system.update(:is_enabled => 0)
       flash[:notice] = "#{@system.name} has been archived"
+      @parentCategory.createAZKCategoryFiles
       redirect_to category_path(@parentCategory)
     else
       @system.update(is_enabled: 1)
       flash[:notice] = "#{@system.name} has been enabled"
+      @parentCategory.createAZKCategoryFiles
       redirect_to category_system_path(@parentCategory, @system)
     end
   end

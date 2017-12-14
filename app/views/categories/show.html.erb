@@ -9,20 +9,23 @@
         <div class="jumbotron">
           <% if @category.category_id.present? %>
             <%= form_for @category do |f| %>
-                <div class="input-group">
-                <p>
+              <div class="input-group">
+                <div class="col-md-12">
                   <%= f.text_field :name, class: "form-control input-lg" %>
-                </p>
-                <p>
-                  <%= f.submit 'Update', class: "btn btn-sm btn-primary" %>
-             <% end %>
-                  <% if @category.is_enabled == "1" %>
-                    <%= button_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-sm btn-danger" %>
-                  <% else %>
-                    <%= button_to 'Enable', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-success" %>
-                  <% end %>
-                  </p>
                 </div>
+                <div class="col-md-2">
+                  <%= f.submit 'Update', class: "btn btn-sm btn-primary" %>
+                </div>
+            <% end %>
+                <div class="col-md-1">
+                    <% if @category.is_enabled == "1" %>
+                      <%= button_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-sm btn-danger" %>
+                    <% else %>
+                      <%= button_to 'Enable', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-sm btn-success" %>
+                    <% end %>
+                  </div>
+                </div>
+
           <% else %>
             <h1><%= @category.name %></h1>
             <h4><%= @category.file_location %></h4>

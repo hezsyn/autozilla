@@ -88,17 +88,19 @@ class CategoriesController < ApplicationController
 
   def destroy
     @category = Category.find(params[:id])
-    @parentCategory = @category.category_id if @category.category_id != nil
+    @parentCategory = Category.find(@category.category_id)
+
     if @category.is_enabled == "1"
       @category.update(:is_enabled => "0")
       flash[:notice] = "#{@category.name} has been archived."
+      @parentCategory.createAZKCategoryFiles
       redirect_to category_path(@parentCategory)
     else
       @category.update(:is_enabled => "1")
       flash[:notice] = "#{@category.name} has been enabled."
+      @parentCategory.createAZKCategoryFiles
       redirect_to category_path(@category)
     end
-    @parentCategory.createAZKCategoryFiles
   end
 
   private
