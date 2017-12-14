@@ -1,15 +1,6 @@
 class User < ApplicationRecord
   has_many :searches
 
-  attr_accessible :email, :password, :password_confirmation
-
-  attr_accor :password
-  before_save :encrypt_password
-
-  validates_confirmation_of :password
-  validates_presence_of :password, :on => :create
-  validates_present_of :user
-  validates_uniqueness_of :user
 
   def self.authenticate(user, password)
     user = find_by_user(user)
