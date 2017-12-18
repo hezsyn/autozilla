@@ -16,13 +16,13 @@
     <hr> -->
       <!-- Side navigation -->
       <div class="list-group">
-        <% @parentCategory.categories.order(:name).each do |cat| %>
+        <% @parentCategory.categories.where(is_enabled: 1).order(:name).each do |cat| %>
           <%= link_to cat.name, category_path(cat), class: "list-group-item" %>
         <% end %>
       </div>
     <% else %>
       <div class="list-group">
-        <% @categories.order(:name).each do |cat| %>
+        <% @categories.where(is_enabled: 1).order(:name).each do |cat| %>
           <%= link_to cat.name, category_path(cat), class: "list-group-item" %>
         <% end %>
       </div>

@@ -12,9 +12,6 @@ Phase 1:
 
   Image:
   ☐ Allow custom entries
-  ☐ Archive Images
-  ☐ Fix the URL to folder
-  ☐ Make grubs entries readable
 
   Admin:
   ☐ Logging Services
@@ -29,6 +26,7 @@ Phase 1:
 
   UI:
   ☐ Present details needed for document
+  ☐ Remove archive CSI from navigation
 
 Phase 2:
 
@@ -76,6 +74,9 @@ Phase 2:
 
 ＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
 Archive:
+ ✔ Fix the URL to folder @done (17-12-18 14:39) @project(Phase 1)
+ ✔ Make grubs entries readable @done (17-12-14 09:23) @project(Phase 1)
+ ✔ Archive Images @done (17-12-14 08:56) @project(Phase 1)
  ✔ HVR Addition @done (17-12-12 16:25) @project(Phase 1)
  ✔ Name Validations @done (17-12-07 14:11) @project(Phase 1)
   # Only allow [] - letters numbers
@@ -86,7 +87,8 @@ Archive:
  ✔ Enable Categories @done (17-12-06 11:49) @project(Organize)
  ✔ Enable Clonezilla @done (17-12-06 11:17) @project(Organize)
  ✔ Archive Clonezilla @done (17-12-06 11:17) @project(Organize)
- ✔ Archive Categories @done (17-12-06 11:17) @project(Organize)
+ chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/startpage/startpage.html?section=Speed-dials&activeSpeedDialIndex=0✔ Archive Categories @done (17-12-06 11:17) @project(Organize)
+ chrome-extension://mpognobbkildjkofajifpdfhcoklimli/components/startpage/startpage.html?section=Speed-dials&activeSpeedDialIndex=0✔ Archive Categories @done (17-12-06 11:17) @project(Organize)
  ✔ Regenerate Whole Key @done (17-12-05 11:55) @project(Key)
  ✔ Delete Old Key @done (17-12-05 11:55) @project(Key)
  ✔ Flash Messages @done (17-12-04 10:36) @project(UI)

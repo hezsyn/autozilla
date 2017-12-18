@@ -71,7 +71,28 @@
 
   <% end %>
 
+    <% ["upload", "download"].each do |direction| %>
+
+      <div class="row">
+        <h2>
+          <%= button_tag class: "btn btn-info", "data-toggle" => "collapse", "data-target" => "#" + direction do %>
+            <span class="glyphicon glyphicon-plus"></span>
+          <% end %>
+
+         <%= @image.send("#{direction}").purpose %>
+
+        </h2>
+      </div>
+
+      <div class="row">
+        <div id="<%= direction %>" class="row collapse">
+          <%= render 'clonezilla_versions/assets/paraForm', locals: {junBug: @image.send("#{direction}"), clonezilla: @image.clonezilla_version_id} %>
+        </div><!-- End of row that is collapsed with Grub Upload -->
+      </div>
+
+    <% end %>
 </div><!-- End of Overall Column -->
+
 
 </div>
 

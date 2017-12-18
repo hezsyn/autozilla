@@ -178,7 +178,7 @@ czCount = 0
 ['clonezilla-live-2.5.2-17-amd64', 'clonezilla-live-2.5.0-25-amd64', 'clonezilla-live-2.4.7-8-amd64', 'clonezilla-live-2.4.2-61-amd64', 'clonezilla-live-2.4.2-32-amd64', 'clonezilla-live-2.3.2-22-amd64', 'clonezilla-live-2.3.2-22-i686-pae'].each do |cz|
   ClonezillaVersion.create(name: cz,
                            is_enabled: 1,
-                           location: 1,
+                           location_id: 1,
                            upload_id: czCount += 1,
                            download_id: czCount += 1
                            )

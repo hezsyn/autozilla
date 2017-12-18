@@ -41,7 +41,7 @@ class ImagesController < ApplicationController
     @image_types = ImageType.where(is_enabled: 1)
     @image_statuses = ImageStatus.where(is_visible: 1)
     @clonezillas = ClonezillaVersion.where(is_enabled: 1)
-    @oss = Ose.where(:is_enabled => 1)
+    @oss = Ose.where(is_enabled: 1)
     @pools = Pool.where(is_enabled: 1)
   end
 
@@ -51,9 +51,8 @@ class ImagesController < ApplicationController
     @image = Image.find(params[:id])
 
     if @image.update(image_params)
-      flash[:notice] = "Image has been updated"
+      flash[:notice] = "#{@image.name} has been updated"
       @image.file_location = @image.img_file_location
-      @image.update(image_params)
       @image.createAZKSystemFiles
     else
       flash[:alert] = @image.errors
@@ -64,7 +63,7 @@ class ImagesController < ApplicationController
 
   private
     def image_params
-      params.require(:image).permit(:name, :note, :description, :disk, :flags, :flags_upload, :path, :loader_string, :pool_id, :user_id, :ose_id, :image_status_id, :clonezilla_version_id, :system_id, :file_location, :image_type_id, :grub_upload_id, :grub_download_id, :syslinux_upload_id, :syslinux_download_id, :azkName, :current, :location_id)
+      params.require(:image).permit(:name, :note, :description, :disk, :pool_id, :user_id, :ose_id, :image_status_id, :clonezilla_version_id, :system_id, :file_location, :image_type_id, :grub_upload_id, :grub_download_id, :syslinux_upload_id, :syslinux_download_id, :azkName, :current, :location_id)
     end
 
 end

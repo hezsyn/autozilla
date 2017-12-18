@@ -31,12 +31,6 @@
       <div class="col-xs-5 col-xs-offset-1">
 
         <div class="row">
-          <h3><%= @system.file_location %></h3>
-        </div>
-
-        <br>
-
-        <div class="row">
           <div class="input-group">
             <span class="input-group-addon">Description</span>
             <%= sys.text_area :description, class: "form-control" %>
@@ -47,13 +41,17 @@
     </div><!-- End of Row -->
 
     <div class="row">
-      <%= sys.submit 'Update', class: "btn btn-primary btn-sm" %>
+      <div class="col-md-1">
+        <%= sys.submit 'Update', class: "btn btn-primary" %>
       <% end %>
+      </div>
+      <div class="col-md-1">
         <% if @system.is_enabled == 1 %>
-          <%= button_to 'Archive', category_system_path(@category, @system), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-sm btn-danger"  %>
+          <%= button_to 'Archive', category_system_path(@category, @system), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger"  %>
         <% else %>
-          <%= button_to 'Enable', category_system_path(@category, @system), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn btn-sm btn-success" %>
+          <%= button_to 'Enable', category_system_path(@category, @system), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn  btn-success" %>
         <% end %>
+      </div>
     </div>
     <div class="row">
       <%= button_tag 'New Image', class: "btn btn-success btn-sm", "data-toggle" => "modal", "data-target" => "#newImage"%>

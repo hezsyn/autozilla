@@ -11,7 +11,7 @@
   </div>
 
   <div class="list-group">
-    <% @category.systems.order(:name).each do |l| %>
+    <% @category.systems.where(is_enabled: 1).order(:name).each do |l| %>
       <%= link_to l.name, category_system_path(@category, l), class: "list-group-item" %>
     <% end %>
   </div>
