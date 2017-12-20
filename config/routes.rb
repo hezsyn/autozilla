@@ -28,4 +28,6 @@ Rails.application.routes.draw do
   get '/autozilla_key/restore', to: 'autozilla_key_configs#restoreKey'
   get '/autozilla_key/selfupdate', to: 'autozilla_key_configs#selfUpdate'
 
+  get '/clonezilla_version/:id/newCZFiles', to: 'clonezilla_versions#populateCZFiles', as: 'populateCZ'
+
 end

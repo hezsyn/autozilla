@@ -26,13 +26,20 @@ Phase 1:
 
   UI:
   ☐ Present details needed for document
-  ☐ Remove archive CSI from navigation
+  ✔ Remove archive CSI from navigation @done (17-12-19 16:23)
+
+  Clonezilla:
+    ✔ Create new entries on key @done (17-12-19 16:21)
+    ✔ Create method for uploading method to server for others use @done (17-12-19 16:23)
+    ✔ Automate extraction to necessary location @done (17-12-19 16:23)
+    ☐ Create Samba share for upload purposes
 
 Phase 2:
 
   CLonezilla:
   ☐ Edit Page - Show status in navigation side
   ☐ Edit Page - Make it possible to disable and enable
+  ☐ Automatically pull latest clonezilla
 
   Organize:
   ☐ File Shadowing

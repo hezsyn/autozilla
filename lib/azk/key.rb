@@ -1,6 +1,7 @@
 module Azk
   module Key
     require 'fileutils'
+    require 'zip'
 
     # Section of reused to create the code
     # setSettings to create initial settings for each module
@@ -261,7 +262,7 @@ module Azk
 
     def createCZEntry(tool)
       tool == "grub" ? czFile = "set prefix=/live\n\n" : czFile = "INCLUDE /syslinux/graphics.conf\n\n"
-      czs = ClonezillaVersion.where(:is_enabled => 1).order(:name)
+      czs = ClonezillaVersion.where(:is_enabled => 1).order(name: :desc)
 
         czs.each do |cz|
           # Creates the file in czFile
@@ -328,16 +329,19 @@ module Azk
     def createAZKDefault
       setSettings
       @@fut.cd @@rootDir
+      # Copy a skeleton of the production key from source
       @@fut.cp_r @@sourceDir, @@productionDir
 
+      # Create file structure on production key
       @@fut.cd "production/live"
       @@fut.mkdir_p %w( CloneZilla download/grub download/syslinux selfupdate upload/grub upload/syslinux)
+
+      # Copy all CloneZillas Data files to production key
+      @@fut.cp_r @@czSource + '/.', @@czProduction
     end
 
-    def migrateClonezillas
+    def createCZFile
       setSettings
-
-      @@fut.cp_r @@czSource + '/.', @@czProduction
 
       # Navigate to working directory, production/live
       @@fut.cd @@czProduction
@@ -365,6 +369,43 @@ module Azk
         @menuEntry.close
       end
 
+    end
+
+    def newCZFiles
+      setSettings
+      cz = self.name
+      czZip = cz +'.zip'
+      @@fut.cd @@rootDir + 'incCZ'
+
+      if File.exist? self.name
+        puts "Has already been extracted"
+      else
+       unzip_file(czZip, cz)
+      end
+
+      if File.exist? "#{@@czSource}/#{cz}/"
+        puts "Already exists"
+      else
+        @@fut.cp_r "#{cz}/live/", @@czSource + "/#{cz}/"
+      end
+
+      if File.exist? "#{@@czProduction}/#{cz}/"
+        puts "Already exists"
+      else
+        @@fut.cp_r "#{cz}/live/", @@czProduction + "/#{cz}/"
+      end
+
+      @@fut.rm_r @@rootDir + "incCZ/#{cz}" if File.exist? @@rootDir + "incCZ/#{cz}"
+    end
+
+    def unzip_file (file, destination)
+      Zip::File.open(file) do |zip_file|
+        zip_file.each do |f|
+        f_path = File.join(destination, f.name)
+        FileUtils.mkdir_p(File.dirname(f_path))
+        f.extract(f_path)
+        end
+      end
     end
 
   end # End of Key Module

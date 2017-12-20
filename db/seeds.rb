@@ -6,6 +6,7 @@ SupportStuff.create(name: 'productionKey', value: 'production', description: 'Wh
 SupportStuff.create(name: 'azkLocales', value: 'en_US.UTF-8')
 SupportStuff.create(name: 'czSource', value: 'czSource')
 SupportStuff.create(name: 'czProduction', value: 'production/live/CloneZilla')
+SupportStuff.create(name: 'incomingCZ', value: 'incCZ')
 
 # Upload config preconfigs for clonezilla
 SupportStuff.create(name: 'dupParamsSet', value: 'components config noswap nolocales nodmraid nomodeset nointremap nosplash noprompt')

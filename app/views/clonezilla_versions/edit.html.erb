@@ -3,11 +3,27 @@
 </div>
 
 <div class="col-xs-9">
+
+    <%= render 'layouts/error' %>
   <div class="row">
     <h1><%= @cz.name %></h1>
     <hr>
   </div>
+  <% unless File.exist? "#{@czProduction}#{@cz.name}" %>
+    <% if File.exist? "#{@incomingCZ}#{@cz.name}.zip" %>
+      <%= link_to 'Populate Files', populateCZ_path(@cz), class: "btn btn-success"  %>
+    <% else %>
+    <p>
+      Please get a zip file from <a href="http://clonezilla.org/downloads.php">Clonezilla</a> Once downloaded, add zip file to share <%= link_to 'Incoming CZ', "file://#{@incomingCZ}" %>
+    </p>
+    <% end %>
+  <% end %>
   <%= form_for @cz do |f| %>
+  <div class="input-group">
+    <%= f.label :description, class: "input-group-addon" %>
+    <%= f.text_field :description, class: "form-control input-lg" %>
+  </div>
+
   <div class="input-group">
      <span class="input-group-addon">Location -</span>
      <%= f.collection_select(:location_id, @locations, :id, :name, { include_blank: true},{class: "form-control"}) %>
@@ -36,6 +52,5 @@
 
 <% end %>
 
-
-
 </div>
+

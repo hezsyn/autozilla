@@ -8,8 +8,9 @@
 
   <%= form_for [@category, @system, @image] do |f| %>
   <div class="row">
-      <%= f.check_box :current %><label class="imgTitle"><%= @system.name %></label>
-      <h4><%= @image.azkName %></h4>
+      <!-- <%= f.check_box :current %> -->
+      <label class="imgTitle"><%= @system.name %></label>
+<!--       <h4><%= @image.azkName %></h4> -->
       <h4><%= link_to "#{@image.location.location}#{@image.file_location}", "file://#{@image.location.location}#{@image.file_location}" %></h4>
   </div>
       <div class="row">
@@ -73,7 +74,7 @@
 
     <% ["upload", "download"].each do |direction| %>
 
-      <div class="row">
+<!--       <div class="row">
         <h2>
           <%= button_tag class: "btn btn-info", "data-toggle" => "collapse", "data-target" => "#" + direction do %>
             <span class="glyphicon glyphicon-plus"></span>
@@ -90,7 +91,7 @@
         </div><!-- End of row that is collapsed with Grub Upload -->
       </div>
 
-    <% end %>
+    <% end %> -->
 </div><!-- End of Overall Column -->
 
 

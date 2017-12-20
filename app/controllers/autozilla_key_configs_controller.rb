@@ -29,18 +29,20 @@ class AutozillaKeyConfigsController < ApplicationController
     @category = Category.first
 
     # Deletes current AZ key
-    @category.removeAZK
+    removeAZK
+    puts "Old key has been deleted"
     # Creates directory setup for new Key
-    @category.createAZKDefault
+    createAZKDefault
+    puts "New Directories have been created"
     # Migrates all Clonezillas, and creates a new entries
-    @category.migrateClonezillas
-
+    createCZFile
+    puts "Made"
     # Creating the self update files
-    @category.createSelfUpdate
+    createSelfUpdate
     # Start of creating all new key entries for key
     # Create top.menu first, this is the top categories which don't worry about the @category
     # The method calls the correct ones.
-    @category.createTopLevel
+    createTopLevel
     # Now to create the categories under the top level
     @categories.each do |cat|
       cat.createAZKCategoryFiles
