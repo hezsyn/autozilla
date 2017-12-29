@@ -50,9 +50,16 @@ class ImagesController < ApplicationController
     @system = System.find(params[:system_id])
     @image = Image.find(params[:id])
 
+    if params[:image][:clonezilla_version_id] != @image.clonezilla_version_id
+      @cz = ClonezillaVersion.find(params[:image][:clonezilla_version_id])
+      @image.upload = @cz.upload
+      @image.download = @cz.download
+    end
+
     if @image.update(image_params)
       flash[:notice] = "#{@image.name} has been updated"
       @image.file_location = @image.img_file_location
+      @image.save
       @image.createAZKSystemFiles
     else
       flash[:alert] = @image.errors
