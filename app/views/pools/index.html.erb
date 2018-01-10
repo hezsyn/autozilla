@@ -10,7 +10,6 @@
         <thead>
           <th>#</th>
           <th>Name</th>
-          <th>Edit</th>
           <th>Status</th>
         </thead>
         <tbody>
@@ -19,7 +18,6 @@
           <tr class="<%= t.is_enabled == 1 ? "success" : "danger" %>" >
             <td><%= i %></td>
             <td><%= t.name %></td>
-            <td><%= link_to 'Edit', edit_pool_path(t) %></td>
             <td><%= is_enabled?(t.is_enabled) %></td>
             <td><%= link_to t.is_enabled == 1 ? 'Disable': 'Enable', pool_path(t),
                     method: :delete,
@@ -47,12 +45,7 @@
               <span class="input-group-addon"><%= f.label :name %></span>
               <%= f.text_field :name, class: "form-control" %>
             </div>
-            <br>
-            <div class="input-group">
-              <span class="input-group-addon"><%= f.label :description %></span>
-              <%= f.text_area :description, class: "form-control" %>
-            </div>
-        </div><!-- End of Modal Body -->
+            </div><!-- End of Modal Body -->
 
         <div class="modal-footer">
             <%= f.submit 'Subimt', class: "btn btn-primary" %>

@@ -29,7 +29,7 @@ class PoolsController < ApplicationController
 
   def destroy
     @pool = Pool.find(params[:id])
-      if @pool.is_enabled == 0
+      if @pool.is_enabled == 0 || @pool.is_enabled == nil
         @pool.update(:is_enabled => 1)
       else
         @pool.update(:is_enabled => 0)
