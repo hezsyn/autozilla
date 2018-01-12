@@ -22,8 +22,10 @@ Rails.application.routes.draw do
   resources :support_stuffs
   resources :autozilla_key_configs
 
+  # Easter egg :D
   get '/ohya!', to: 'randy#savage'
 
+  # Setting up QA routes
   get '/qa', to: 'qa#qa'
   get '/editQA', to: 'qa#editQA'
   get '/applyQA', to: 'qa#applyQA'
