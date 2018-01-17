@@ -52,6 +52,7 @@ class SystemsController < ApplicationController
 
     if @system.update(system_params)
       flash[:notice] = "System has been updated"
+      @system.makeSlug
       @system.file_location = @system.objectLocation
       @system.save
       @category.createAZKCategoryFiles
