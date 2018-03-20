@@ -50,6 +50,7 @@ class SystemsController < ApplicationController
       @system.removeEntry("system", @system)
       @system.slug = params[:system][:name]
       @system.makeSlug("system")
+      puts @system.slug
     end
     @system.default_disk.downcase!
 
