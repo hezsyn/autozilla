@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :keyfiles
   get '/qa', to: 'qa#qa'
   get '/view', to: 'qa#view'
+  get '/qa_results', to: 'qa#index'
   resources :qa
 
 
