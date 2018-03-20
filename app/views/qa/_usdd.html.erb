@@ -227,6 +227,7 @@
       <% else %>
         <% c = "danger"%>
       <% end %>
+      <% p == 'eventviewapp' || p == 'eventviewsys' ? reportdata[p] == @qas.send(p) ? c = "success" : c = 'info' : nil %>
   <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Output Current Value -->
@@ -238,7 +239,7 @@
       <td class="check">CHECK</td>
     <% elsif reportdata[p] == @qas.send(p) %>
       <td class="pass">PASS</td>
-    <% elsif p == 'eventviewapp' or p == 'eventviewsys' %>
+    <% elsif p == 'eventviewapp' || p == 'eventviewsys' %>
       <td class="potential">POTENTIAL ISSUES</td>
     <% else %>
       <td class="fail">FAIL</td>
@@ -261,11 +262,12 @@
   <% dataindex.each do |x, p| %>
       <%if @qas.send(p) == "VARIES - Check Manually" %>
         <% c = "warning"  %>
-      <% elsif reportdata[p] == @qas.send(p) %>
+      <% elsif reportdata[p] == @qas.send(p)%>
         <% c = "success" %>
       <% else %>
         <% c = "danger"%>
       <% end %>
+      <% p == 'chromever' ? reportdata[p] >= @qas.send(p) ? c = "success" : c ="warning" : nil %>
   <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for Binary Encoding, Output Current Value -->
