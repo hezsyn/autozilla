@@ -30,17 +30,19 @@ class ApplicationRecord < ActiveRecord::Base
     @fileLocation.gsub(" ","_")
   end
 
-  def makeSlug
+  def makeSlug(entryType)
     # removes the first and last white spaces
     slug.strip
     # Replaces any spaces to _
     slug.gsub!(" ", "_")
     # Sets all the characters to lowercase
     slug.downcase!
-    c = System.where(name: name).count
-    c += Category.where(name: name).count
-    c += 1
-    slug << "#{c}"
+    if entryType == "category" then
+      self.id == nil ? c = Category.count : c = self.id
+    else
+      self.id == nil ? c = System.count : c = self.id
+    end
+    slug << "_#{c}"
   end
 
   def self.search(search)

@@ -1,0 +1,28 @@
+  <% if @keyfile.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@keyfile.errors.count, "error") %> prohibited this article from being saved:
+      </h2>
+      <ul>
+        <% @keyfile.errors.full_messages.each do |msg| %>
+          <li>
+            <%= msg %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% if params[:keyfile_type] %>
+    <% if params[:keyfile_type] == 'USDD' %>
+      <%= render 'usdd_form' %>
+    <% elsif params[:keyfile_type] == 'iDDR' %>
+      <%= render 'iddr_form' %>
+    <% end %>
+  <% elsif key_type %>
+    <% if key_type == 'USDD' %>
+      <%= render 'usdd_form' %>
+    <% elsif key_type == 'iDDR' %>
+      <%= render 'iddr_form' %>
+    <% end %>
+  <% end %>
+<% console %>

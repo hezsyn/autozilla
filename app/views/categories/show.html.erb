@@ -18,14 +18,14 @@
                 </div>
             <% end %>
                 <div class="col-md-1">
-                    <% if @category.is_enabled == "1" %>
-                      <%= button_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger" %>
-                    <% else %>
-                      <%= button_to 'Enable', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn  btn-success" %>
-                    <% end %>
-                  </div>
+                  <% if @category.is_enabled == "1" %>
+                    <%= button_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger" %>
+                  <% else %>
+                    <%= button_to 'Enable', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn  btn-success" %>
+                  <% end %>
                 </div>
-
+              </div>
+              <br>
           <% else %>
             <h1><%= @category.name %></h1>
           <% end %>

@@ -1,0 +1,31 @@
+<!-- Let User Know that Report was Saved -->
+<% if flash[:notice] %>
+  <p>
+    <%= flash[:notice] %>
+  </p>
+<% end %>
+
+<!-- Determine if Data is From URL Parameters or From DB -->
+<% if params[:idsid] %>
+  <% reportdata = params %>
+<% else %>
+  <% reportdata = @data.attributes %>
+<% end %>
+
+<!-- Generate Report -->
+<h1>Intel Demo Depot Integrated Configuration System</h1>
+<h2>Quality Assurance Report: Windows 10</h2>
+<h4>Revision 3.0.0</h4>
+<h3>Computer Name: <%= reportdata['hostname'] %></h2>
+<!-- <h4>UUID: <reportdata['uuid'] %></h4>
+<h4>MAC: < reportdata['mac'] %></h4> -->
+<h4>Image Type: <%= reportdata['imagetype'] %></h4>
+
+<!-- Determine Type of Report to Render -->
+<% if reportdata['imagetype'] == "USDD" %>
+  <%= render partial: 'usdd', locals: { reportdata: reportdata } %>
+
+<% elsif reportdata['imagetype'] == "iDDR" %>
+  <%= render partial: 'iddr', locals: { reportdata: reportdata } %>
+
+<% end %>

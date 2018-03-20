@@ -1,0 +1,4 @@
+<h1>Edit Keyfile</h1>
+<%= link_to 'View Keyfiles', keyfiles_path %>
+<% key_type = @keyfile.keyfile_type %>
+<%= render partial: 'form', locals: { key_type: key_type } %>

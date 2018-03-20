@@ -41,18 +41,23 @@
     </div><!-- End of Row -->
 
     <div class="row">
-      <div class="col-md-1">
-        <%= sys.submit 'Update', class: "btn btn-primary" %>
-      <% end %>
-      </div>
-      <div class="col-md-1">
-        <% if @system.is_enabled == 1 %>
-          <%= button_to 'Archive', category_system_path(@category, @system), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger"  %>
-        <% else %>
-          <%= button_to 'Enable', category_system_path(@category, @system), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn  btn-success" %>
-        <% end %>
+      <div class="col-md-10">
+        <div class="col-md-1">
+          <%= sys.submit 'Update', class: "btn btn-primary" %>
+          <% end %>
+        </div>
+        <div class="col-md-1">
+          <% if @system.is_enabled == 1 %>
+            <%= button_to 'Archive', category_system_path(@category, @system), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger"  %>
+          <% else %>
+            <%= button_to 'Enable', category_system_path(@category, @system), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn  btn-success" %>
+          <% end %>
+        </div>
       </div>
     </div>
+
+    <br>
+
     <div class="row">
       <%= button_tag 'New Image', class: "btn btn-success btn-sm", "data-toggle" => "modal", "data-target" => "#newImage"%>
     </div>

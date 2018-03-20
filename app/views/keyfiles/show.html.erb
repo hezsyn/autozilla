@@ -1,0 +1,11 @@
+<%= link_to 'Edit Keyfile', edit_keyfile_path(@keyfile) %> |
+<%= link_to 'View Keyfiles', keyfiles_path %>
+
+<% if @keyfile.keyfile_type == 'USDD' %>
+  <%= render 'show_usdd' %>
+<% elsif @keyfile.keyfile_type == 'iDDR' %>
+  <%= render 'show_iddr' %>
+<% else %>
+  <%= render 'show_usdd' %>
+  <%= render 'show_iddr' %>
+<% end %>

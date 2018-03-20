@@ -40,7 +40,7 @@ class ImagesController < ApplicationController
     @locations = Location.all
     @image_types = ImageType.where(is_enabled: 1)
     @image_statuses = ImageStatus.where(is_visible: 1)
-    @clonezillas = ClonezillaVersion.where(is_enabled: 1)
+    @clonezillas = ClonezillaVersion.order(name: :desc).where(is_enabled: 1)
     @oss = Ose.where(is_enabled: 1)
     @pools = Pool.where(is_enabled: 1)
   end

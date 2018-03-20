@@ -9,7 +9,7 @@ class SystemsController < ApplicationController
     # Variables for new image, they only pull enabled entries.  Location is only one with no turn off.
     @image_types = ImageType.where(is_enabled: 1)
     @image_statuses = ImageStatus.where(is_visible: 1)
-    @clonezillas = ClonezillaVersion.where(is_enabled: 1)
+    @clonezillas = ClonezillaVersion.order(name: :desc).where(is_enabled: 1)
     @oss = Ose.where(:is_enabled => 1)
     @pools = Pool.where(is_enabled: 1)
     @locations = Location.order(:name)
@@ -24,11 +24,12 @@ class SystemsController < ApplicationController
     @system = @category.systems.new(system_params)
     @system.file_location = @system.objectLocation
     @system.slug = @system.name
-    @system.makeSlug
     @system.is_enabled = 1
+    @system.makeSlug("system")
     @system.default_disk.downcase!
     if @system.save
       flash[:notice] = "System has been created!"
+      @system.save
       @category.createAZKCategoryFiles
       @system.createAZKSystemFiles
     else
@@ -45,14 +46,14 @@ class SystemsController < ApplicationController
   def update
     @category = Category.find(params[:category_id])
     @system = @category.systems.find(params[:id])
-    @system.removeEntry("system", @system)
-    @system.slug = @system.name
-    @system.makeSlug
+    if @system.name != params[:name] then
+      @system.removeEntry("system", @system)
+      @system.makeSlug("system")
+    end
     @system.default_disk.downcase!
 
     if @system.update(system_params)
       flash[:notice] = "System has been updated"
-      @system.makeSlug
       @system.file_location = @system.objectLocation
       @system.save
       @category.createAZKCategoryFiles

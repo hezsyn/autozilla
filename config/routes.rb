@@ -26,9 +26,11 @@ Rails.application.routes.draw do
   get '/ohya!', to: 'randy#savage'
 
   # Setting up QA routes
-  get '/qa', to: 'qa#qa'
-  get '/editQA', to: 'qa#editQA'
   get '/applyQA', to: 'qa#applyQA'
+  resources :keyfiles
+  resources :qa
+  get '/view', to: 'qa#view'
+
 
   get '/autozilla_key', to: 'autozilla_key_configs#index'
   get '/autozilla_key/restore', to: 'autozilla_key_configs#restoreKey'

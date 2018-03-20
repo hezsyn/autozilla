@@ -1,0 +1,33 @@
+<h1>Listing Keyfiles</h1>
+<%= link_to 'Home Page', root_path %>
+<%= link_to 'New USDD Keyfile', new_keyfile_path(:keyfile_type => 'USDD') %>
+<%= link_to 'New iDDR Keyfile', new_keyfile_path(:keyfile_type => 'iDDR') %>
+<table>
+  <tr>
+    <th>
+      Date
+    </th>
+    <th>
+      Keyfile Type
+    </th>
+  </tr>
+
+  <% @keyfiles.each do |keyfile| %>
+    <tr>
+      <td>
+        <%= link_to keyfile.created_at.strftime("%B %d, %Y"), keyfile_path(keyfile) %>
+      </td>
+      <td>
+        <%= keyfile.keyfile_type %>
+      </td>
+      <td>
+        <%= link_to 'Edit', edit_keyfile_path(keyfile) %>
+      </td>
+      <td>
+        <%= link_to 'Destroy', keyfile_path(keyfile),
+            method: :delete,
+            data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+  <% end %>
+</table>

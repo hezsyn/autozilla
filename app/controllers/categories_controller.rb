@@ -37,7 +37,7 @@ class CategoriesController < ApplicationController
 
     @category.file_location = @category.objectLocation
     @category.slug = @category.name
-    @category.makeSlug
+    @category.makeSlug("category")
     @category.is_enabled = 1
     @parentCategory = Category.find(@category.category_id) if @category.category_id != nil
 
@@ -48,7 +48,6 @@ class CategoriesController < ApplicationController
     else
       flash[:alert] = @category.errors
     end
-
 
      if @category.category_id.nil?
        redirect_to category_path(@category)
@@ -67,7 +66,7 @@ class CategoriesController < ApplicationController
     @parentCategory = Category.find(@category.category_id) if @category.category_id != nil
     @category.removeEntry("category", @category) if @category.category_id != nil
     @category.slug = @category.name
-    @category.makeSlug
+    @category.makeSlug("category")
     @category.file_location = @category.objectLocation
 
     if @category.update(category_params)
