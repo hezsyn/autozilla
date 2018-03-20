@@ -38,9 +38,9 @@ class ApplicationRecord < ActiveRecord::Base
     # Sets all the characters to lowercase
     slug.downcase!
     if entryType == "category" then
-      self.id == nil ? c = Category.count : c = self.id
+      self.id == nil ? c = Category.count + 1 : c = self.id
     else
-      self.id == nil ? c = System.count : c = self.id
+      self.id == nil ? c = System.count + 1 : c = self.id
     end
     slug << "_#{c}"
   end

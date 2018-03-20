@@ -1,16 +1,15 @@
 <h1>Listing Keyfiles</h1>
-<%= link_to 'Home Page', root_path %>
-<%= link_to 'New USDD Keyfile', new_keyfile_path(:keyfile_type => 'USDD') %>
-<%= link_to 'New iDDR Keyfile', new_keyfile_path(:keyfile_type => 'iDDR') %>
-<table>
-  <tr>
+<%= link_to 'New USDD Keyfile', new_keyfile_path(:keyfile_type => 'USDD'), class: "btn btn-success" %>
+<%= link_to 'New iDDR Keyfile', new_keyfile_path(:keyfile_type => 'iDDR'), class: "btn btn-success" %>
+<table class="table table-striped table-hover">
+  <thead>
     <th>
       Date
     </th>
     <th>
       Keyfile Type
     </th>
-  </tr>
+  </thead>
 
   <% @keyfiles.each do |keyfile| %>
     <tr>

@@ -46,8 +46,9 @@ class SystemsController < ApplicationController
   def update
     @category = Category.find(params[:category_id])
     @system = @category.systems.find(params[:id])
-    if @system.name != params[:name] then
+    if @system.name != params[:system][:name] then
       @system.removeEntry("system", @system)
+      @system.slug = params[:system][:name]
       @system.makeSlug("system")
     end
     @system.default_disk.downcase!

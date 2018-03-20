@@ -65,8 +65,11 @@ class CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     @parentCategory = Category.find(@category.category_id) if @category.category_id != nil
     @category.removeEntry("category", @category) if @category.category_id != nil
-    @category.slug = @category.name
-    @category.makeSlug("category")
+    if @category.name != params[:category][:name] then
+      @category.removeEntry("category", @category)
+      @category.slug = params[:category][:name]
+      @category.makeSlug("category")
+    end
     @category.file_location = @category.objectLocation
 
     if @category.update(category_params)
