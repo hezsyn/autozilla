@@ -53,6 +53,10 @@ class QaController < ApplicationController
     end
   end
 
+  def qa
+
+  end
+
   private
     def qa_params
       params.permit(:keyfileid, :idsid, :hostname, :capturedate, :imagedescription, :imagetype, :imageinitials, :mac, :uuid, :bios, :winver, :winreleaseid, :winacttype, :winupdatecheck, :bitlockerstatus, :useraccount, :accountlogo, :wallpaper, :fonts, :servicewinupdate, :startuponedrive, :securityhealth, :settingfeedback, :settingnotify1, :settingnotify2, :settingwifi, :powerplan, :trayicon, :uac, :autorun, :wirelessautoconnect, :devicemanager, :eventviewapp, :eventviewsys, :chromever, :edgenewtab, :edgehomebutton, :edgehomepagebutton, :firefoxver, :flashver, :javaver, :mcafeeagentver, :mcafeevsever, :officever, :vlcver, :vlcconf, :sevenzipver, :flashsettings, :startupjava, :vlcshortcut, :pptshortcut, :timershortcut, :wmpshortcut, :mcafeelastupdate, :officepptfix, :act, :offact, :eclear, :updatescript, :description)

@@ -28,8 +28,10 @@ Rails.application.routes.draw do
   # Setting up QA routes
   get '/applyQA', to: 'qa#applyQA'
   resources :keyfiles
-  resources :qa
+  get '/qa', to: 'qa#qa'
   get '/view', to: 'qa#view'
+  resources :qa
+
 
 
   get '/autozilla_key', to: 'autozilla_key_configs#index'
