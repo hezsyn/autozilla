@@ -30,7 +30,7 @@
       <%= datas.imagetype %>
     </td>
     <td>
-      <%= link_to datas.created_at.strftime("%B %d, %Y"), qa_path(datas) %>
+      <%= link_to datas.created_at.strftime("%B %d, %Y"), view_results_path(datas) %>
     </td>
   </tr>
 <% end %>

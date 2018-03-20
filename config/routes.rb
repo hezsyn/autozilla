@@ -31,7 +31,8 @@ Rails.application.routes.draw do
   get '/qa', to: 'qa#qa'
   get '/view', to: 'qa#view'
   get '/qa_results', to: 'qa#index'
-  resources :qa
+  post '/qa_results', to: 'qa#create'
+  get '/qa_results/:id', to: 'qa#show', as: 'view_results'
 
 
 

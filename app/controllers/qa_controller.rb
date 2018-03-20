@@ -46,10 +46,10 @@ class QaController < ApplicationController
 
     if @qa.save
       flash[:notice] = "Report Successfully Created"
-      redirect_to @qa
+      redirect_to view_results_path(@qa)
     else
-        flash[:notice] = @qa.errors.full_messages
-        redirect_to qa_index_path
+      flash[:notice] = @qa.errors.full_messages
+      redirect_to view_path
     end
   end
 
