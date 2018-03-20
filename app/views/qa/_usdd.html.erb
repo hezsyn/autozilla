@@ -1,16 +1,23 @@
 <h3>
   System Audit
 </h3>
-<table>
-  <tr>
+<table class="table table-striped table-hover">
+  <thead>
     <th>Attribute</th>
     <th>Current Value</th>
     <th>Appropriate Value</th>
     <th>Pass/Fail</th>
-  </tr>
+  </thead>
   <% dataindex = {'BIOS Version' => 'bios', 'Computer Description' => 'description'} %>
   <% dataindex.each do |x, p| %>
-  <tr>
+      <%if @qas.send(p) == "VARIES - Check Manually" %>
+        <% c = "warning"  %>
+      <% elsif reportdata[p] == @qas.send(p) %>
+        <% c = "success" %>
+      <% else %>
+        <% c = "danger"%>
+      <% end %>
+  <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for Binary Encoding, Output Current Value -->
     <% if reportdata[p] == '0' %>
@@ -43,16 +50,23 @@
 <h3>
   Windows Audit
 </h3>
-<table>
-  <tr>
+<table class="table table-striped table-hover">
+  <thead>
     <th>Attribute</th>
     <th>Current Value</th>
     <th>Appropriate Value</th>
     <th>Pass/Fail</th>
-  </tr>
+  </thead>
   <% dataindex = {'Windows Version' => 'winver', 'Windows Release ID' => 'winreleaseid', 'Windows Activation Type' => 'winacttype', 'Windows Updates Last Checked' => 'winupdatecheck', 'Bitlocker Status' => 'bitlockerstatus'} %>
   <% dataindex.each do |x, p| %>
-  <tr>
+      <%if @qas.send(p) == "VARIES - Check Manually" %>
+        <% c = "warning"  %>
+      <% elsif reportdata[p] == @qas.send(p) %>
+        <% c = "success" %>
+      <% else %>
+        <% c = "danger"%>
+      <% end %>
+  <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for Binary Encoding, Output Current Value -->
     <% if reportdata[p] == '0' %>
@@ -85,16 +99,23 @@
 <h3>
   USDD Customizations
 </h3>
-<table>
-  <tr>
+<table class="table table-striped table-hover">
+  <thead>
     <th>Attribute</th>
     <th>Current Value</th>
     <th>Appropriate Value</th>
     <th>Pass/Fail</th>
-  </tr>
+  </thead>
   <% dataindex = {'User Account' => 'useraccount', 'Intel Account Logo' => 'accountlogo', 'Intel Wallpaper' => 'wallpaper', 'Intel Fonts' => 'fonts'} %>
   <% dataindex.each do |x, p| %>
-  <tr>
+      <%if @qas.send(p) == "VARIES - Check Manually" %>
+        <% c = "warning"  %>
+      <% elsif reportdata[p] == @qas.send(p) %>
+        <% c = "success" %>
+      <% else %>
+        <% c = "danger"%>
+      <% end %>
+  <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for File Hash -->
     <% if p == 'wallpaper' %>
@@ -141,16 +162,23 @@
 <h3>
   Windows Modifications
 </h3>
-<table>
-  <tr>
+<table class="table table-striped table-hover">
+  <thead>
     <th>Attribute</th>
     <th>Current Value</th>
     <th>Appropriate Value</th>
     <th>Pass/Fail</th>
-  </tr>
+  </thead>
   <% dataindex = {'Windows Update Service' => 'servicewinupdate', 'OneDrive Startup' => 'startuponedrive', 'Windows Defender Icon' => 'securityhealth', 'Feedback Setting' => 'settingfeedback', 'Notification Setting 1' => 'settingnotify1', 'Notification Setting 2' => 'settingnotify2', 'WiFiSense/WiFiPaid Settings' => 'settingwifi', 'PowerPlan' => 'powerplan', 'Display All Tray Icons' => 'trayicon', 'UAC' => 'uac', 'AutoRun' => 'autorun'} %>
   <% dataindex.each do |x, p| %>
-  <tr>
+      <%if @qas.send(p) == "VARIES - Check Manually" %>
+        <% c = "warning"  %>
+      <% elsif reportdata[p] == @qas.send(p) %>
+        <% c = "success" %>
+      <% else %>
+        <% c = "danger"%>
+      <% end %>
+  <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for Binary Encoding, Output Current Value -->
     <% if reportdata[p] == '0' %>
@@ -183,16 +211,23 @@
 <h3>
   System Functionality
 </h3>
-<table>
-  <tr>
+<table class="table table-striped table-hover">
+  <thead>
     <th>Attribute</th>
     <th>Current Value</th>
     <th>Appropriate Value</th>
     <th>Pass/Fail</th>
-  </tr>
+  </thead>
   <% dataindex = {'Wireless Auto Connect' => 'wirelessautoconnect', 'Device Manager' => 'devicemanager', 'Event Viewer App' => 'eventviewapp', 'Event Viewer Sys' => 'eventviewsys'} %>
   <% dataindex.each do |x, p| %>
-  <tr>
+      <%if @qas.send(p) == "VARIES - Check Manually" %>
+        <% c = "warning"  %>
+      <% elsif reportdata[p] == @qas.send(p) %>
+        <% c = "success" %>
+      <% else %>
+        <% c = "danger"%>
+      <% end %>
+  <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Output Current Value -->
     <td><%= reportdata[p] %></td>
@@ -215,16 +250,23 @@
 <h3>
   Browsers
 </h3>
-<table>
-  <tr>
+<table class="table table-striped table-hover">
+  <thead>
     <th>Attribute</th>
     <th>Current Value</th>
     <th>Appropriate Value</th>
     <th>Pass/Fail</th>
-  </tr>
+  </thead>
   <% dataindex = {'Chrome Version' => 'chromever', 'Edge New Tab Setting' => 'edgenewtab', 'Edge Home Button Setting' => 'edgehomebutton', 'Edge Homepage URL' => 'edgehomepagebutton', 'FireFox Version' => 'firefoxver'} %>
   <% dataindex.each do |x, p| %>
-  <tr>
+      <%if @qas.send(p) == "VARIES - Check Manually" %>
+        <% c = "warning"  %>
+      <% elsif reportdata[p] == @qas.send(p) %>
+        <% c = "success" %>
+      <% else %>
+        <% c = "danger"%>
+      <% end %>
+  <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for Binary Encoding, Output Current Value -->
     <% if reportdata[p] == '0' %>
@@ -265,16 +307,23 @@
 <h3>
   Application Installation
 </h3>
-<table>
-  <tr>
+<table class="table table-striped table-hover">
+  <thead>
     <th>Attribute</th>
     <th>Current Value</th>
     <th>Appropriate Value</th>
     <th>Pass/Fail</th>
-  </tr>
+  </thead>
   <% dataindex = {'Flash Version' => 'flashver', 'Java Version' => 'javaver', 'McAfee Agent Version' => 'mcafeeagentver', 'McAfee VSE Version' => 'mcafeevsever', 'Microsoft Office Version' => 'officever', 'VLC Version' => 'vlcver', 'VLC Configuration' => 'vlcconf', '7Zip Version' => 'sevenzipver'} %>
   <% dataindex.each do |x, p| %>
-  <tr>
+      <%if @qas.send(p) == "VARIES - Check Manually" %>
+        <% c = "warning"  %>
+      <% elsif reportdata[p] == @qas.send(p) %>
+        <% c = "success" %>
+      <% else %>
+        <% c = "danger"%>
+      <% end %>
+  <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for File Hash, Output Current Value -->
     <% if p == 'vlcconf' %>
@@ -307,16 +356,23 @@
 <h3>
   Application Configuration
 </h3>
-<table>
-  <tr>
+<table class="table table-striped table-hover">
+  <thead>
     <th>Attribute</th>
     <th>Current Value</th>
     <th>Appropriate Value</th>
     <th>Pass/Fail</th>
-  </tr>
+  </thead>
   <% dataindex = {'PowerPoint Fix' => 'officepptfix', 'McAfee Last Update' => 'mcafeelastupdate', 'Flash Configuration' => 'flashsettings', 'Java Startup' => 'startupjava', 'VLC Desktop Shortcut' => 'vlcshortcut', 'PowerPoint Desktop Shortcut' => 'pptshortcut', 'Timer Desktop Shortcut' => 'timershortcut', 'Windows Media Player Desktop Shortcut' => 'wmpshortcut'} %>
   <% dataindex.each do |x, p| %>
-  <tr>
+      <%if @qas.send(p) == "VARIES - Check Manually" %>
+        <% c = "warning"  %>
+      <% elsif reportdata[p] == @qas.send(p) %>
+        <% c = "success" %>
+      <% else %>
+        <% c = "danger"%>
+      <% end %>
+  <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for Binary Encoding, Output Current Value -->
     <% if reportdata[p] == '0' %>
@@ -349,16 +405,23 @@
 <h3>
   Lab Scripts
 </h3>
-<table>
-  <tr>
+<table class="table table-striped table-hover">
+  <thead>
     <th>Attribute</th>
     <th>Current Value</th>
     <th>Appropriate Value</th>
     <th>Pass/Fail</th>
-  </tr>
+  </thead>
   <% dataindex = {'Activation Script' => 'act', 'Office Activation Script' => 'offact', 'Decontamination Script (eclear)' => 'eclear', 'Windows Update Script' => 'updatescript'} %>
   <% dataindex.each do |x, p| %>
-  <tr>
+      <%if @qas.send(p) == "VARIES - Check Manually" %>
+        <% c = "warning"  %>
+      <% elsif reportdata[p] == @qas.send(p) %>
+        <% c = "success" %>
+      <% else %>
+        <% c = "danger"%>
+      <% end %>
+  <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for Binary Encoding, Output Current Value -->
     <% if reportdata[p] == '0' %>
