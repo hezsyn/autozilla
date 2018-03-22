@@ -267,7 +267,7 @@
       <% else %>
         <% c = "danger"%>
       <% end %>
-      <% p == 'chromever' ? reportdata[p] >= @qas.send(p) ? c = "success" : c ="warning" : nil %>
+      <% p == 'chromever' ? reportdata[p] >= @qas.send(p) ? c = "success" : c ="danger" : nil %>
   <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for Binary Encoding, Output Current Value -->
