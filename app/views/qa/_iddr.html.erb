@@ -57,7 +57,7 @@
     <th>Appropriate Value</th>
     <th>Pass/Fail</th>
   </thead>
-  <% dataindex = {'Windows Version' => 'winver', 'Windows Release ID' => 'winreleaseid', 'Windows Activation Type' => 'winacttype', 'Windows Updates Last Checked' => 'winupdatecheck', 'Bitlocker Status' => 'bitlockerstatus'} %>
+  <% dataindex = {'Windows Version' => 'winver', 'Windows Release ID' => 'winreleaseid', 'Windows Activation Type' => 'winacttype', 'Windows Updates Last Checked' => 'winupdatecheck', 'Windows Update Service' => 'servicewinupdate', 'Bitlocker Status' => 'bitlockerstatus'} %>
   <% dataindex.each do |x, p| %>
       <%if @qas.send(p) == "VARIES - Check Manually" %>
         <% c = "warning"  %>

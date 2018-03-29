@@ -79,6 +79,6 @@ class QaController < ApplicationController
     end
 
     def qa_params_iddr
-      params.permit(:keyfileid, :idsid, :hostname, :capturedate, :imagedescription, :imagetype, :imageinitials, :mac, :uuid, :bios, :legalnotice, :winver, :issixtyfourbit, :winreleaseid, :winacttype, :winupdatecheck, :bitlockerstatus, :useraccount, :accountlogo, :wallpaper, :fonts, :wirelessautoconnect, :devicemanager, :eventviewapp, :eventviewsys, :edgenewtab, :edgehomebutton, :edgehomepagebutton, :firefoxver, :officever, :act, :offact, :eclear, :updatescript, :description, :officeinstructions)
+      params.permit(:keyfileid, :idsid, :hostname, :capturedate, :imagedescription, :imagetype, :imageinitials, :mac, :uuid, :bios, :legalnotice, :winver, :issixtyfourbit, :winreleaseid, :winacttype, :winupdatecheck, :bitlockerstatus, :useraccount, :accountlogo, :wallpaper, :fonts, :servicewinupdate, :wirelessautoconnect, :devicemanager, :eventviewapp, :eventviewsys, :edgenewtab, :edgehomebutton, :edgehomepagebutton, :firefoxver, :officever, :act, :offact, :eclear, :updatescript, :description, :officeinstructions)
     end
 end
