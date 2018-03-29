@@ -7,7 +7,13 @@
       Date
     </th>
     <th>
+      Keyfile ID
+    </th>
+    <th>
       Keyfile Type
+    </th>
+    <th>
+      Is 64-Bit?
     </th>
   </thead>
 
@@ -17,7 +23,13 @@
         <%= link_to keyfile.created_at.strftime("%B %d, %Y"), keyfile_path(keyfile) %>
       </td>
       <td>
+        <%= keyfile.id %>
+      </td>
+      <td>
         <%= keyfile.keyfile_type %>
+      </td>
+      <td>
+        <%= keyfile.issixtyfourbit %>
       </td>
       <td>
         <%= link_to 'Edit', edit_keyfile_path(keyfile) %>

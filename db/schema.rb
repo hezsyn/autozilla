@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180315172526) do
+ActiveRecord::Schema.define(version: 20180329184656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,7 @@ ActiveRecord::Schema.define(version: 20180315172526) do
     t.string "legalnotice"
     t.string "officeinstructions"
     t.string "keyfile_type"
+    t.string "issixtyfourbit"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -292,6 +293,7 @@ ActiveRecord::Schema.define(version: 20180315172526) do
     t.string "legalnotice"
     t.string "officeinstructions"
     t.string "keyfileid"
+    t.string "issixtyfourbit"
   end
 
   create_table "searches", force: :cascade do |t|

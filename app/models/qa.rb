@@ -11,6 +11,7 @@ class Qa < ApplicationRecord
   validates :uuid, presence: true
   validates :bios, presence: true
   validates :winver, presence: true
+  validates :issixtyfourbit, presence: true
   validates :winreleaseid, presence: true
   validates :winacttype, presence: true
   validates :winupdatecheck, presence: true
