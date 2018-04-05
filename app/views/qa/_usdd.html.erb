@@ -178,6 +178,7 @@
       <% else %>
         <% c = "danger"%>
       <% end %>
+      <% p == 'settingwifi' ? reportdata[p] == 'No Wi-Fi Adapter Detected' ? c = "info" : reportdata[p] == @qas.send(p) ? c = "success" : c = "danger" : nil %>
   <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for Binary Encoding, Output Current Value -->
@@ -201,6 +202,8 @@
       <td class="check">CHECK</td>
     <% elsif reportdata[p] == @qas.send(p) %>
       <td class="pass">PASS</td>
+    <% elsif p == 'settingwifi' %>
+      <td class="potential">POTENTIAL ISSUES</td>
     <% else %>
       <td class="fail">FAIL</td>
     <% end %>
@@ -267,7 +270,7 @@
       <% else %>
         <% c = "danger"%>
       <% end %>
-      <% p == 'chromever' ? reportdata[p] >= @qas.send(p) ? c = "success" : c ="warning" : nil %>
+      <% p == 'chromever' ? reportdata[p] >= @qas.send(p) ? c = "success" : c ="danger" : nil %>
   <tr class="<%= c %>">
     <td><%= x %></td>
     <!-- Check for Binary Encoding, Output Current Value -->

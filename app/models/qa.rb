@@ -11,6 +11,7 @@ class Qa < ApplicationRecord
   validates :uuid, presence: true
   validates :bios, presence: true
   validates :winver, presence: true
+  validates :issixtyfourbit, presence: true
   validates :winreleaseid, presence: true
   validates :winacttype, presence: true
   validates :winupdatecheck, presence: true
@@ -19,6 +20,7 @@ class Qa < ApplicationRecord
   validates :accountlogo, presence: true
   validates :wallpaper, presence: true
   validates :fonts, presence: true
+  validates :servicewinupdate, presence: true
   validates :wirelessautoconnect, presence: true
   validates :devicemanager, presence: true
   validates :eventviewapp, presence: true
@@ -40,7 +42,6 @@ class Qa < ApplicationRecord
   end
 
   if :imagetype == 'USDD'
-    validates :servicewinupdate, presence: true
     validates :startuponedrive, presence: true
     validates :securityhealth, presence: true
     validates :settingfeedback, presence: true

@@ -2,17 +2,33 @@ class QaController < ApplicationController
   def index
     # Check URL Parameter capturedate against latest Keyfile created_at date to determine which Keyfile to use.
     if params[:capturedate]
-      if params[:imagetype] == 'USDD'
-        if Date.strptime(params[:capturedate], '%m/%d/%Y') > Keyfile.where(keyfile_type: 'USDD').order("created_at").last.created_at
-          @qas = Keyfile.where(keyfile_type: 'USDD').order("created_at").last
+      # USDD 64-bit
+      if params[:imagetype] == 'USDD' && params[:issixtyfourbit] == '1'
+        if Date.strptime(params[:capturedate], '%m/%d/%Y') > Keyfile.where(issixtyfourbit: '1').where(keyfile_type: 'USDD').order("created_at").last.created_at
+          @qas = Keyfile.where(issixtyfourbit: '1').where(keyfile_type: 'USDD').order("created_at").last
         else
-          @qas = Keyfile.where(keyfile_type: 'USDD').order("created_at").offset(1).last
+          @qas = Keyfile.where(issixtyfourbit: '1').where(keyfile_type: 'USDD').order("created_at").offset(1).last
         end
-      elsif params[:imagetype] == 'iDDR'
-        if Date.strptime(params[:capturedate], '%m/%d/%Y') > Keyfile.where(keyfile_type: 'iDDR').order("created_at").last.created_at
-          @qas = Keyfile.where(keyfile_type: 'iDDR').order("created_at").last
+      # iDDR 64-bit
+      elsif params[:imagetype] == 'iDDR' && params[:issixtyfourbit] == '1'
+        if Date.strptime(params[:capturedate], '%m/%d/%Y') > Keyfile.where(issixtyfourbit: '1').where(keyfile_type: 'iDDR').order("created_at").last.created_at
+          @qas = Keyfile.where(issixtyfourbit: '1').where(keyfile_type: 'iDDR').order("created_at").last
         else
-          @qas = Keyfile.where(keyfile_type: 'iDDR').order("created_at").offset(1).last
+          @qas = Keyfile.where(issixtyfourbit: '1').where(keyfile_type: 'iDDR').order("created_at").offset(1).last
+        end
+      # USDD 32-bit
+      elsif params[:imagetype] == 'USDD' && params[:issixtyfourbit] == '0'
+        if Date.strptime(params[:capturedate], '%m/%d/%Y') > Keyfile.where(issixtyfourbit: '0').where(keyfile_type: 'USDD').order("created_at").last.created_at
+          @qas = Keyfile.where(issixtyfourbit: '0').where(keyfile_type: 'USDD').order("created_at").last
+        else
+          @qas = Keyfile.where(issixtyfourbit: '0').where(keyfile_type: 'USDD').order("created_at").offset(1).last
+        end
+      # iDDR 32-bit
+      elsif params[:imagetype] == 'iDDR' && params[:issixtyfourbit] == '0'
+        if Date.strptime(params[:capturedate], '%m/%d/%Y') > Keyfile.where(issixtyfourbit: '0').where(keyfile_type: 'iDDR').order("created_at").last.created_at
+          @qas = Keyfile.where(issixtyfourbit: '0').where(keyfile_type: 'iDDR').order("created_at").last
+        else
+          @qas = Keyfile.where(issixtyfourbit: '0').where(keyfile_type: 'iDDR').order("created_at").offset(1).last
         end
       end
     else
@@ -59,10 +75,10 @@ class QaController < ApplicationController
 
   private
     def qa_params
-      params.permit(:keyfileid, :idsid, :hostname, :capturedate, :imagedescription, :imagetype, :imageinitials, :mac, :uuid, :bios, :winver, :winreleaseid, :winacttype, :winupdatecheck, :bitlockerstatus, :useraccount, :accountlogo, :wallpaper, :fonts, :servicewinupdate, :startuponedrive, :securityhealth, :settingfeedback, :settingnotify1, :settingnotify2, :settingwifi, :powerplan, :trayicon, :uac, :autorun, :wirelessautoconnect, :devicemanager, :eventviewapp, :eventviewsys, :chromever, :edgenewtab, :edgehomebutton, :edgehomepagebutton, :firefoxver, :flashver, :javaver, :mcafeeagentver, :mcafeevsever, :officever, :vlcver, :vlcconf, :sevenzipver, :flashsettings, :startupjava, :vlcshortcut, :pptshortcut, :timershortcut, :wmpshortcut, :mcafeelastupdate, :officepptfix, :act, :offact, :eclear, :updatescript, :description)
+      params.permit(:keyfileid, :idsid, :hostname, :capturedate, :imagedescription, :imagetype, :imageinitials, :mac, :uuid, :bios, :winver, :issixtyfourbit, :winreleaseid, :winacttype, :winupdatecheck, :bitlockerstatus, :useraccount, :accountlogo, :wallpaper, :fonts, :servicewinupdate, :startuponedrive, :securityhealth, :settingfeedback, :settingnotify1, :settingnotify2, :settingwifi, :powerplan, :trayicon, :uac, :autorun, :wirelessautoconnect, :devicemanager, :eventviewapp, :eventviewsys, :chromever, :edgenewtab, :edgehomebutton, :edgehomepagebutton, :firefoxver, :flashver, :javaver, :mcafeeagentver, :mcafeevsever, :officever, :vlcver, :vlcconf, :sevenzipver, :flashsettings, :startupjava, :vlcshortcut, :pptshortcut, :timershortcut, :wmpshortcut, :mcafeelastupdate, :officepptfix, :act, :offact, :eclear, :updatescript, :description)
     end
 
     def qa_params_iddr
-      params.permit(:keyfileid, :idsid, :hostname, :capturedate, :imagedescription, :imagetype, :imageinitials, :mac, :uuid, :bios, :legalnotice, :winver, :winreleaseid, :winacttype, :winupdatecheck, :bitlockerstatus, :useraccount, :accountlogo, :wallpaper, :fonts, :wirelessautoconnect, :devicemanager, :eventviewapp, :eventviewsys, :edgenewtab, :edgehomebutton, :edgehomepagebutton, :firefoxver, :officever, :act, :offact, :eclear, :updatescript, :description, :officeinstructions)
+      params.permit(:keyfileid, :idsid, :hostname, :capturedate, :imagedescription, :imagetype, :imageinitials, :mac, :uuid, :bios, :legalnotice, :winver, :issixtyfourbit, :winreleaseid, :winacttype, :winupdatecheck, :bitlockerstatus, :useraccount, :accountlogo, :wallpaper, :fonts, :servicewinupdate, :wirelessautoconnect, :devicemanager, :eventviewapp, :eventviewsys, :edgenewtab, :edgehomebutton, :edgehomepagebutton, :firefoxver, :officever, :act, :offact, :eclear, :updatescript, :description, :officeinstructions)
     end
 end

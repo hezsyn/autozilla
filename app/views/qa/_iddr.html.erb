@@ -57,7 +57,7 @@
     <th>Appropriate Value</th>
     <th>Pass/Fail</th>
   </thead>
-  <% dataindex = {'Windows Version' => 'winver', 'Windows Release ID' => 'winreleaseid', 'Windows Activation Type' => 'winacttype', 'Windows Updates Last Checked' => 'winupdatecheck', 'Bitlocker Status' => 'bitlockerstatus'} %>
+  <% dataindex = {'Windows Version' => 'winver', 'Windows Release ID' => 'winreleaseid', 'Windows Activation Type' => 'winacttype', 'Windows Updates Last Checked' => 'winupdatecheck', 'Windows Update Service' => 'servicewinupdate', 'Bitlocker Status' => 'bitlockerstatus'} %>
   <% dataindex.each do |x, p| %>
       <%if @qas.send(p) == "VARIES - Check Manually" %>
         <% c = "warning"  %>
@@ -76,40 +76,21 @@
     <% else %>
       <td><%= reportdata[p] %></td>
     <% end %>
-    <!-- Check for Windows 10 Pro 32 or 64 -->
-    <% if p == 'winver' %>
-      <% if reportdata[p] == 'Microsoft Windows 10 Pro 64-bit' %>
-        <td>Microsoft Windows 10 Pro 64-bit</td>
-      <% elsif reportdata[p] == 'Microsoft Windows 10 Pro 32-bit' %>
-        <td>Microsoft Windows 10 Pro 32-bit</td>
-      <% else %>
-        <td>Microsoft Windows 10 Pro</td>
-      <% end %>
+    <!-- Check for Binary Encoding, Output Appropriate Value -->
+    <% if @qas.send(p) == '0' %>
+      <td>Disabled</td>
+    <% elsif @qas.send(p) == '1' %>
+      <td>Enabled</td>
     <% else %>
-      <!-- Check for Binary Encoding, Output Appropriate Value -->
-      <% if @qas.send(p) == '0' %>
-        <td>Disabled</td>
-      <% elsif @qas.send(p) == '1' %>
-        <td>Enabled</td>
-      <% else %>
-        <td><%= @qas.send(p) %></td>
-      <% end %>
+      <td><%= @qas.send(p) %></td>
     <% end %>
     <!-- Data Comparison -->
-    <% if p == 'winver' %>
-      <% if reportdata[p] == 'Microsoft Windows 10 Pro 64-bit' or reportdata[p] == 'Microsoft Windows 10 Pro 32-bit' %>
-        <td class="pass">PASS</td>
-      <% else %>
-        <td class="fail">FAIL</td>
-      <% end %>
+    <% if @qas.send(p) == "VARIES - Check Manually" %>
+      <td class="check">CHECK</td>
+    <% elsif reportdata[p] == @qas.send(p) %>
+      <td class="pass">PASS</td>
     <% else %>
-      <% if @qas.send(p) == "VARIES - Check Manually" %>
-        <td class="check">CHECK</td>
-      <% elsif reportdata[p] == @qas.send(p) %>
-        <td class="pass">PASS</td>
-      <% else %>
-        <td class="fail">FAIL</td>
-      <% end %>
+      <td class="fail">FAIL</td>
     <% end %>
   <% end %>
   </tr>

@@ -9,135 +9,14 @@
   <% end %>
 </p>
 
-<p>
-  <%= form.label :bios %><br />
-  <%= form.text_field :bios %>
-</p>
-
-<p>
-  <%= form.label :winver %><br />
-  <%= form.text_field :winver %>
-</p>
-
-<p>
-  <%= form.label :winreleaseid %><br />
-  <%= form.text_field :winreleaseid %><br />
-</p>
-
-<p>
-  <%= form.label :winacttype %><br />
-  <%= form.text_field :winacttype %><br />
-</p>
-
-<p>
-  <%= form.label :winupdatecheck %><br />
-  <%= form.text_field :winupdatecheck %><br />
-</p>
-
-<p>
-  <%= form.label :bitlockerstatus %><br />
-  <%= form.text_field :bitlockerstatus %><br />
-</p>
-
-<p>
-  <%= form.label :useraccount %><br />
-  <%= form.text_field :useraccount %><br />
-</p>
-
-<p>
-  <%= form.label :accountlogo %><br />
-  <%= form.text_field :accountlogo %><br />
-</p>
-
-<p>
-  <%= form.label :wallpaper %><br />
-  <%= form.text_field :wallpaper %><br />
-</p>
-
-<p>
-  <%= form.label :fonts %><br />
-  <%= form.text_field :fonts %><br />
-</p>
-
-<p>
-  <%= form.label :wirelessautoconnect %><br />
-  <%= form.text_field :wirelessautoconnect %><br />
-</p>
-
-<p>
-  <%= form.label :devicemanager %><br />
-  <%= form.text_field :devicemanager %><br />
-</p>
-
-<p>
-  <%= form.label :eventviewapp %><br />
-  <%= form.text_field :eventviewapp %><br />
-</p>
-
-<p>
-  <%= form.label :eventviewsys %><br />
-  <%= form.text_field :eventviewsys %><br />
-</p>
-
-<p>
-  <%= form.label :edgenewtab %><br />
-  <%= form.text_field :edgenewtab %><br />
-</p>
-
-<p>
-  <%= form.label :edgehomebutton %><br />
-  <%= form.text_field :edgehomebutton %><br />
-</p>
-
-<p>
-  <%= form.label :edgehomepagebutton %><br />
-  <%= form.text_field :edgehomepagebutton %><br />
-</p>
-
-<p>
-  <%= form.label :firefoxver %><br />
-  <%= form.text_field :firefoxver %><br />
-</p>
-
-<p>
-  <%= form.label :officever %><br />
-  <%= form.text_field :officever %><br />
-</p>
-
-<p>
-  <%= form.label :act %><br />
-  <%= form.text_field :act %><br />
-</p>
-
-<p>
-  <%= form.label :offact %><br />
-  <%= form.text_field :offact %><br />
-</p>
-
-<p>
-  <%= form.label :eclear %><br />
-  <%= form.text_field :eclear %><br />
-</p>
-
-<p>
-  <%= form.label :updatescript %><br />
-  <%= form.text_field :updatescript %><br />
-</p>
-
-<p>
-  <%= form.label :description %><br />
-  <%= form.text_field :description %><br />
-</p>
-
-<p>
-  <%= form.label :legalnotice %><br />
-  <%= form.text_field :legalnotice %><br />
-</p>
-
-<p>
-  <%= form.label :officeinstructions %><br />
-  <%= form.text_field :officeinstructions %><br />
-</p>
+<% dataindex = [:bios, :winver, :issixtyfourbit, :winreleaseid, :winacttype, :winupdatecheck, :bitlockerstatus, :useraccount, :accountlogo, :wallpaper, :fonts, :servicewinupdate, :wirelessautoconnect, :devicemanager, :eventviewapp, :eventviewsys, :edgenewtab, :edgehomebutton, :edgehomepagebutton, :firefoxver, :officever, :act, :offact, :eclear, :updatescript, :description, :legalnotice, :officeinstructions] %>
+<% dataindex.each do |x| %>
+  <p>
+    <%= form.label x %><br />
+    <%= form.text_field x %>
+  </br/>
+  </p>
+<% end %>
 
 <p>
   <%= form.submit class: "btn btn-success"%>
