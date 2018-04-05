@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180329184656) do
+ActiveRecord::Schema.define(version: 20180405182217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -294,6 +294,7 @@ ActiveRecord::Schema.define(version: 20180329184656) do
     t.string "officeinstructions"
     t.string "keyfileid"
     t.string "issixtyfourbit"
+    t.string "workorder"
   end
 
   create_table "searches", force: :cascade do |t|

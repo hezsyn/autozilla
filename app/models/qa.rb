@@ -2,6 +2,7 @@ class Qa < ApplicationRecord
 
   validates :keyfileid, presence: true
   validates :idsid, presence: true
+  validates :workorder, presence: true
   validates :hostname, presence: true
   validates :capturedate, presence: true
   validates :imagedescription, presence: true
