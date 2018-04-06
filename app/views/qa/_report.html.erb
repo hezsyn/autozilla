@@ -14,15 +14,12 @@
 
 <!-- Generate Report -->
 <div class="jumbotron text-center">
-<h2>Intel Demo Depot Integrated Configuration System<h2>
-<h3>Quality Assurance Report: Windows 10</h3>
-<h4>Revision 3.0.0</h4>
-<h3>Computer Name: <%= reportdata['hostname'] %></h3>
-<h3>Work Order: <%= reportdata['workorder'] %></h3>
-<!-- <h4>UUID: <reportdata['uuid'] %></h4>
-<h4>MAC: < reportdata['mac'] %></h4> -->
-<h4>Image Type: <%= reportdata['imagetype'] %></h4>
+<h3><strong>Integrated Configuration System</strong> | <strong>Quality Assurance Report v3.0.0</strong></h3>
+<h4><strong>Work Order:</strong> <%= reportdata['workorder'] %> | <strong>Image Type:</strong> <%= reportdata['imagetype'] %> | <strong>Computer Name:</strong> <%= reportdata['hostname'] %> | <strong>Submitter:</strong> <%= reportdata['idsid'] %></h4>
+<h5><strong>MAC:</strong> <%= reportdata['mac'] %></h5>
+<!-- <h4>UUID: <reportdata['uuid'] %></h4> -->
 </div>
+
 <!-- Determine Type of Report to Render -->
 <% if reportdata['imagetype'] == "USDD" %>
   <%= render partial: 'usdd', locals: { reportdata: reportdata } %>
