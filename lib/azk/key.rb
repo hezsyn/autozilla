@@ -128,7 +128,7 @@ module Azk
                   "\s\s\slocales=en_US.UTF-8\\\n" \
                   "\s\s\skeyboard-layouts=NONE\\\n" \
                   "\s\s\socs_prerun01=\"sudo dhclient -v\"\\\n" \
-                  "\s\s\socs_prerun02=\"sudo mount -t cifs -v //idds-superzilla.hf.intel.com/Azk /mnt -o guest,ro\"\\\n" \
+                  "\s\s\socs_prerun02=\"sudo mount -t cifs -v //idd-autozilla.hf.intel.com/Azk /mnt -o guest,ro\"\\\n" \
                   "\s\s\socs_prerun03=\"sudo mount -n -o remount,rw /lib/live/mount/medium/\"\\\n" \
                   "\s\s\socs_live_run=\"sudo rsync -rvzt --size-only /mnt/live/CloneZilla/ /lib/live/mount/medium/live/CloneZilla/\"\\\n" \
                   "\s\s\socs_postrun01=\"sudo rsync -rvzt /mnt/live/download/ /lib/live/mount/medium/live/download/\"\\\n" \
