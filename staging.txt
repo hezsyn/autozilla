@@ -1,0 +1,16 @@
+<nav class="navbar navbar-dark bg-dark">
+    <div class="collapse navbar-collapse" id="mainNavigation">
+      <ul class="navbar-nav">
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Clonezilla Versions", clonezilla_versions_path %></li>
+        <li><%= link_to "Order Groups", pools_path %></li>
+        <li><%= link_to "Operating Systems", oses_path %></li>
+        <li><%= link_to "QA", view_path %></li>
+        <li><%= link_to "Autozilla V1", "http://idds-adswamp01.amr.corp.intel.com" %></li>
+      </form>
+    </div>
+</nav>
+  <div class="keyLocation">
+    <%= link_to 'Link to the Key \\\\idd-autozilla.hf.intel.com\\AzK', 'file://idd-autozilla.hf.intel.com/Azk' %>
+  </div>
+

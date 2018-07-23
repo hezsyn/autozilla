@@ -1,9 +1,12 @@
 <% @cfg.each do |cfg| %>
   <%= form_for cfg do |f| %>
-    <div class="input-group">
-      <span class="input-group-addon"><%= f.submit 'Update' %></span>
-      <span class="input-group-addon"><%= f.label cfg.name %></span>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <%= f.submit 'Update', class: "btn btn-outline-secondary" %>
+      </div>
+        <%= f.label cfg.name, class: "input-group-text" %>
         <%= f.text_area :value, class: "form-control" %>
     </div>
   <% end %>
+    <br />
 <% end %>
