@@ -1,64 +1,64 @@
-
 <%= render 'categories/layout/list' %>
 
-  <div class="col-md-9">
+  <div class="col-sm-8">
 
       <%= render 'layouts/error' %>
 
       <div class="row">
+        <div class="col">
         <div class="jumbotron">
           <% if @category.category_id.present? %>
             <%= form_for @category do |f| %>
+            <div class="row">
               <div class="input-group">
-                <div class="col-md-12">
-                  <%= f.text_field :name, class: "form-control input-lg" %>
-                </div>
-                <div class="col-md-2">
-                  <%= f.submit 'Update', class: "btn btn-primary" %>
-                </div>
-            <% end %>
-                <div class="col-md-1">
-                  <% if @category.is_enabled == "1" %>
-                    <%= button_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger" %>
-                  <% else %>
-                    <%= button_to 'Enable', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn  btn-success" %>
-                  <% end %>
+                <div class="col-sm-4">
+                  <%= f.text_field :name, class: "form-control form-control-lg" %>
                 </div>
               </div>
+            </div><!-- End of Row for Input of Name -->
+            <div class="row" style="padding-top: 5px">
+              <div class="col-sm-1">
+                <%= f.submit 'Update', class: "btn btn-primary" %>
+              </div>
+            <% end %>
+              <div class="col-sm-1">
+                <% if @category.is_enabled == "1" %>
+                  <%= button_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger" %>
+                <% else %>
+                  <%= button_to 'Enable', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn  btn-success" %>
+                <% end %>
+              </div>
+            </div><!-- End of Row for Update / Archive -->
+
               <br>
           <% else %>
             <h1><%= @category.name %></h1>
           <% end %>
           <%= button_tag 'New SubCategory', class: "btn btn-sm btn-success", "data-toggle" => "modal", "data-target" => "#newSubCat" %>
           <%= button_tag 'New System', class: "btn btn-sm btn-success", "data-toggle" => "modal", "data-target" => "#newSystem" %>
+          </div>
         </div>
       </div>
 
     <div class="row">
-
+      <div class="col">
     <% if @subcategories.present? %>
       <% if @systems.present? %>
         <div class="col-xs-6">
       <% end %>
 
         <h2 class="text-center">Sub-Categories</h2>
-
         <hr>
 
-       <table class="table table-hover table-responsive table-striped">
-          <thead>
-            <td></td>
-            <th>Name</th>
-          </thead>
-          <tbody>
             <% @subcategories.each do |t| %>
-              <tr data-link="<%=category_path(t.id)%>">
-                <td><%= link_to 'View', category_path(t.id) %></td>
-                <td><%= t.name %></td>
-              </tr>
+                <%= link_to category_path(t.id) do %>
+                <div class="card text-center" style="width:125px">
+                  <div class="card-body">
+                    <%= t.name %>
+                  </div>
+                </div>
+                <% end %>
             <% end %>
-          </tbody>
-        </table>
 
       <% if @systems.present? %>
         </div>
@@ -69,24 +69,23 @@
         <% if @subcategories.present? %>
           <div class="col-xs-6">
         <% end %>
-        <h2 class="text-center">Systems</h2>
+        <h2 class="text-center">
+          Systems
+        </h2>
         <hr>
-        <table class="table table-hover table-striped">
-          <thead>
-            <th></th>
-            <th>Name</th>
-            <th>Default Disk</th>
-          </thead>
-          <tbody>
-            <% @systems.each do |sys| %>
-              <tr>
-                <td><%= link_to 'View', category_system_path(@category, sys) %></td>
-                <td><%= sys.name %></td>
-                <td><%= sys.default_disk %></td>
-              </tr>
+
+          <% @systems.each do |sys| %>
+            <%= link_to category_system_path(@category, sys) do %>
+              <div class="card text-center" style="width: 150px">
+                <div class="card-body">
+                  <%= sys.name %>
+                </div>
+                <div class="card-footer">
+                  <%= sys.default_disk %>
+                </div>
+              </div>
             <% end %>
-          </tbody>
-        </table>
+          <% end %>
       <% end %>
 
       <% if @subcategories.present? %>
@@ -107,9 +106,11 @@
 
       <div class="modal-body">
         <%= form_for @subcategory do |f| %>
-          <div class="form-group">
+          <div class="input-group mb-3">
             <%= f.hidden_field :category_id, value: @category.id %>
-            <%= f.label :name %>
+            <div class="input-group-prepend">
+              <%= f.label :name, class: "input-group-text" %>
+            </div>
             <%= f.text_field :name, class: "form-control" %>
           <br>
           </div>
@@ -138,22 +139,24 @@
         <%= form_for([@category, @category.systems.build]) do |f| %>
           <%= f.hidden_field :category_id, value: @category.id %>
 
-          <div class="input-group">
-            <span class="input-group-addon"><%= f.label :name %></span>
+          <div class="input-group mb-3">
+            <span class="input-group-prepend">
+              <%= f.label :name, class: "input-group-text" %>
+            </span>
             <%= f.text_field :name, class: "form-control" %>
           </div>
 
-          <br>
-
-          <div class="input-group">
-            <span class="input-group-addon"><%= f.label :default_disk %></span>
+          <div class="input-group mb-3">
+            <span class="input-group-prepend">
+              <%= f.label :default_disk, class: "input-group-text" %>
+            </span>
             <%= f.text_field :default_disk, class: "form-control" %>
           </div>
 
-          <br>
-
-          <div class="input-group">
-            <span class="input-group-addon"><%= f.label :description %></span>
+          <div class="input-group mb-3">
+            <span class="input-group-prepend">
+              <%= f.label :description, class: "input-group-text" %>
+            </span>
             <%= f.text_area :description, class: "form-control" %>
           </div>
 
