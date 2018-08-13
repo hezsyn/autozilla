@@ -12,9 +12,16 @@
 
 
   <body>
-    <div class="container-fluid">
-      <div class="row upperRow bt">
+      <% if Rails.env.development? %>
+      <div class="row bg-warning pt-2">
+        <div class="container-fluid text-center">
+          <h4>Development Site!</h4>
+          <%= link_to 'Production Autozilla', "http://idd-autozilla.hf.intel.com" %>
+        </div>
       </div>
+      <% end %>
+
+    <div class="container-fluid">
 
       <div class="row bg-dark">
         <%= render 'layouts/navigation' %>
@@ -27,3 +34,4 @@
     </div><!-- End of Container -->
   </body>
 </html>
+

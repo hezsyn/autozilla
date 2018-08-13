@@ -1,0 +1,11 @@
+<div class="col-sm-2 h-100">
+
+  <div class="list-group list-group-flush"><!-- Start of Group of Lists for top level Categories -->
+
+  <% @categories.each do |cat| %><!-- Start of Top Level Loop -->
+    <%= link_to cat.name, category_path(cat.id), class: "list-group-item list-group-item-action" %>
+  <% end %> <!-- End of @categories Loop -->
+
+  </div>
+</div>
+

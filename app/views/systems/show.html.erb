@@ -1,7 +1,7 @@
-<%= render 'systems/list' %>
+<%= render 'layouts/supports/categorieslist' %>
 
 
-<div class="col-xs-8">
+<div class="col-sm-8">
 
   <%= render 'layouts/error' %>
 
@@ -9,30 +9,33 @@
     <%= form_for [@category, @system] do |sys| %>
 
     <div class="row">
-      <div class="col-xs-5">
+      <div class="col">
 
         <div class="row">
           <div class="input-group">
-            <%= sys.text_field :name, class: "form-control input-lg" %>
+            <%= sys.text_field :name, class: "form-control form-control-lg" %>
           </div>
         </div>
 
-        <br>
 
         <div class="row">
           <div class="input-group">
-            <span class="input-group-addon">Default Disk</span>
+            <span class="input-group-prepend">
+              <%= sys.label 'Default Disk', class: "input-group-text" %>
+            </span>
               <%= sys.text_field :default_disk, class: "form-control" %>
           </div>
         </div>
 
       </div><!-- End of Column -->
 
-      <div class="col-xs-5 col-xs-offset-1">
+      <div class="col-sm-5 col-xs-offset-1">
 
         <div class="row">
           <div class="input-group">
-            <span class="input-group-addon">Description</span>
+            <span class="input-group-prepend">
+              <%= sys.label 'Description', class: 'input-group-text' %>
+            </span>
             <%= sys.text_area :description, class: "form-control" %>
           </div>
         </div>
@@ -41,9 +44,8 @@
     </div><!-- End of Row -->
 
     <div class="row">
-      <div class="col-md-10">
         <div class="col-md-1">
-          <%= sys.submit 'Update', class: "btn btn-primary" %>
+            <%= sys.submit 'Update', class: "btn btn-primary" %>
           <% end %>
         </div>
         <div class="col-md-1">

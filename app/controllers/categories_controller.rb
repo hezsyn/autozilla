@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
   def show
     @categories = Category.order(:name).where(category_id: nil, is_enabled: 1)
     @category = Category.find(params[:id])
-    @parentCategory = Category.find(@category.category_id) if @category.category_id?
+    @categories = Category.where(category_id: nil, is_enabled: 1).order(:name)
     @newCategory = Category.new
     @subcategory = Category.new
     @subcategories = @category.categories.where(is_enabled: 1).order(:name)

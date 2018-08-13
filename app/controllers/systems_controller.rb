@@ -1,6 +1,7 @@
 class SystemsController < ApplicationController
 
   def show
+    @categories = Category.where(category_id: nil, is_enabled: 1).order(:name)
     @category = Category.find(params[:category_id])
     @system = System.find(params[:id])
     @systems = @category.systems.where(is_enabled: 1).order(:name)
