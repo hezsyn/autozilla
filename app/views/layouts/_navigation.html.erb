@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav">
         <li class="navbar-item">
           <%= link_to "Images", root_path, class: "nav-link" %>
         </li>
@@ -26,6 +26,11 @@
         </li>
       </ul>
     </div>
+    <ul class="nav justify-content-end">
+      <li class="nav-item">
+        <%= link_to 'Login', login_path, class: "nav-link" %>
+      </li>
+    </ul>
 </nav>
   <div class="keyLocation">
     <%= link_to 'Link to the Key \\\\idd-autozilla.hf.intel.com\\AzK', 'file://idd-autozilla.hf.intel.com/Azk' %>

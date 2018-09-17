@@ -43,14 +43,12 @@
     <div class="container-fluid">
     <div class="row">
     <% if @subcategories.present? %>
-      <% if @systems.present? %>
         <div class="col">
-      <% end %>
 
         <h2 class="text-center">Sub-Categories</h2>
         <hr>
 
-          <div class="card-group">
+          <div class="card-columns" >
             <% @subcategories.each do |t| %>
                 <%= link_to category_path(t.id) do %>
                 <div class="card text-center">
@@ -62,15 +60,11 @@
             <% end %>
           </div>
 
-      <% if @systems.present? %>
         </div>
-      <% end %>
     <% end %>
 
       <% if @systems.present? %>
-        <% if @subcategories.present? %>
           <div class="col">
-        <% end %>
         <h2 class="text-center">
           Systems
         </h2>
@@ -88,10 +82,7 @@
           <% end %>
         </div>
       <% end %>
-
-      <% if @subcategories.present? %>
         </div>
-      <% end %>
     </div><!-- End of Row -->
 
   </div> <!-- End of Column -->
