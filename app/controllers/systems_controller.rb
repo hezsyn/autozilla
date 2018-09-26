@@ -86,7 +86,7 @@ class SystemsController < ApplicationController
 
   private
     def system_params
-      params.require(:system).permit(:name, :slug, :description, :is_enabled, :category_id, :default_disk, :file_location)
+      params.require(:system).permit(:name, :slug, :description, :is_enabled, :category_id, :default_disk, :file_location, :document)
     end
 
 end

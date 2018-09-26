@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_05_182217) do
+ActiveRecord::Schema.define(version: 2018_09_25_234458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,7 @@ ActiveRecord::Schema.define(version: 2018_04_05_182217) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "location_id"
+    t.string "document"
     t.index ["clonezilla_version_id"], name: "index_images_on_clonezilla_version_id"
     t.index ["download_id"], name: "index_images_on_download_id"
     t.index ["image_status_id"], name: "index_images_on_image_status_id"
@@ -324,6 +325,7 @@ ActiveRecord::Schema.define(version: 2018_04_05_182217) do
     t.integer "note_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "document"
     t.index ["category_id"], name: "index_systems_on_category_id"
     t.index ["note_id"], name: "index_systems_on_note_id"
   end

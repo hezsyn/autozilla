@@ -16,13 +16,18 @@
           </div>
         </div>
 
-
         <div class="row">
-          <div class="input-group mb-3">
-            <span class="input-group-prepend">
-              <%= sys.label 'Default Disk', class: "input-group-text" %>
-            </span>
+          <div class="input-group mb-2">
+              <%= sys.label 'Default Disk', class: "input-group-addon input-group-text" %>
               <%= sys.text_field :default_disk, class: "form-control" %>
+          </div>
+
+          <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <%= button_tag 'Goto' , class: "btn btn-default gotoDoc", remote: true, type: "button" %>
+                <%= sys.label 'Document', class: "input-group-text" %>
+              </div>
+            <%= sys.text_field :document, class: "form-control", id: "gotoDocLink" %>
           </div>
         </div>
 
@@ -32,9 +37,7 @@
 
         <div class="row">
           <div class="input-group mb-3">
-            <span class="input-group-prepend">
-              <%= sys.label 'Description', class: 'input-group-text' %>
-            </span>
+            <%= sys.label 'Description', class: 'input-group-text input-group-prepend' %>
             <%= sys.text_area :description, class: "form-control" %>
           </div>
         </div>
@@ -43,30 +46,23 @@
     </div><!-- End of Row -->
 
     <div class="row">
-        <div class="col-md-1">
+      <div class="btn-group">
             <%= sys.submit 'Update', class: "btn btn-primary" %>
           <% end %>
-        </div>
-        <div class="col-md-1">
           <% if @system.is_enabled == 1 %>
             <%= button_to 'Archive', category_system_path(@category, @system), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger"  %>
           <% else %>
             <%= button_to 'Enable', category_system_path(@category, @system), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn  btn-success" %>
           <% end %>
-        </div>
-      </div>
-    </div>
+          <%= button_tag 'New Image', class: "btn btn-success btn-sm", "data-toggle" => "modal", "data-target" => "#newImage"%>
+     </div>
+   </div>
+</div><!--  End of JumbroTron -->
 
-    <br>
-
-    <div class="row">
-      <%= button_tag 'New Image', class: "btn btn-success btn-sm", "data-toggle" => "modal", "data-target" => "#newImage"%>
-    </div>
-  </div><!--  End of JumbroTron -->
-
+  <div class="row">
+    <div class="col-md-12">
     <table class="table table-stripped table-hover">
       <thead>
-        <th></th>
         <th>Pool</th>
         <th>Name</th>
         <th>Type</th>
@@ -76,8 +72,7 @@
       </thead>
       <tbody>
       <% @system.images.each do |t| %>
-        <tr>
-          <td><%= link_to 'Edit', edit_category_system_image_path(@category, @system, t) %></td>
+        <tr class="clickable-row" data-href=<%= edit_category_system_image_path(@category, @system, t.id) %>>
           <td><%= t.pool.name %></td>
           <td><%= t.name %></td>
           <td><%= t.image_type.name %></td>
@@ -88,6 +83,11 @@
       <% end %>
       </tbody>
     </table>
+</div>
+
+    </div>
+  </div>
+
 
   </div>
 
@@ -156,7 +156,5 @@
           </div>
         </div>
 
-    </div>
-  </div>
-
-</div>
+    </div><!-- End of modal dialog div -->
+  </div><!-- End of Modal Div -->

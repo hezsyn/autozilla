@@ -5,10 +5,10 @@
   <% end %>
 
   <div class="page-header">
-    <h3><%= @system.name %></h3>
+    <h2><%= @system.name %></h2>
   </div>
 
-    <div class="list-group">
+    <div class="list-group list-group-flush">
     <% @images.order(:name).each do |image| %>
       <%= link_to image.name, edit_category_system_image_path(@category, @system, image), class: "list-group-item" %>
     <% end %>

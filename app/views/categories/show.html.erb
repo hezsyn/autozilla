@@ -4,38 +4,36 @@
 
       <%= render 'layouts/error' %>
 
+          <div class="jumbotron">
       <div class="row">
         <div class="col">
-        <div class="jumbotron">
-          <% if @category.category_id.present? %>
-            <%= form_for @category do |f| %>
-            <div class="row">
-              <div class="input-group">
-                <div class="col-sm-4">
-                  <%= f.text_field :name, class: "form-control form-control-lg" %>
+            <% if @category.category_id.present? %>
+              <%= form_for @category do |f| %>
+              <div class="row">
+                <div class="input-group mb-3">
+                  <div class="col-md-4">
+                    <%= f.text_field :name, class: "form-control form-control-lg" %>
+                  </div>
                 </div>
-              </div>
-            </div><!-- End of Row for Input of Name -->
-            <div class="row" style="padding-top: 5px">
-              <div class="col-sm-1">
-                <%= f.submit 'Update', class: "btn btn-primary" %>
-              </div>
-            <% end %>
-              <div class="col-sm-1">
-                <% if @category.is_enabled == "1" %>
-                  <%= button_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger" %>
-                <% else %>
-                  <%= button_to 'Enable', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn  btn-success" %>
-                <% end %>
-              </div>
-            </div><!-- End of Row for Update / Archive -->
+              </div><!-- End of Row for Input of Name -->
+              <div class="row">
+                <div class="btn-group">
+                  <%= f.submit 'Update', class: "btn btn-primary" %>
+              <% end %>
+                  <% if @category.is_enabled == "1" %>
+                    <%= button_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger" %>
+                  <% else %>
+                    <%= button_to 'Enable', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn  btn-success" %>
+                  <% end %>
+                </div>
+              </div><!-- End of Row for Update / Archive -->
 
-              <br>
-          <% else %>
-            <h1><%= @category.name %></h1>
-          <% end %>
-          <%= button_tag 'New SubCategory', class: "btn btn-sm btn-success", "data-toggle" => "modal", "data-target" => "#newSubCat" %>
-          <%= button_tag 'New System', class: "btn btn-sm btn-success", "data-toggle" => "modal", "data-target" => "#newSystem" %>
+                <br>
+            <% else %>
+              <h1><%= @category.name %></h1>
+            <% end %>
+            <%= button_tag 'New SubCategory', class: "btn btn-sm btn-success", "data-toggle" => "modal", "data-target" => "#newSubCat" %>
+            <%= button_tag 'New System', class: "btn btn-sm btn-success", "data-toggle" => "modal", "data-target" => "#newSystem" %>
           </div>
         </div>
       </div>
