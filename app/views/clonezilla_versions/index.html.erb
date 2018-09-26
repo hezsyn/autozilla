@@ -1,4 +1,4 @@
-  <div class="col-xs-8 col-xs-offset-2">
+  <div class="container">
 
     <%= render 'layouts/error' %>
 
@@ -19,9 +19,7 @@
     <% i = 1 %>
     <% @czvs.each do |t| %>
           <tr class="<%= t.is_enabled == 1 ? "success" : "danger" %>", data-link="<%= edit_clonezilla_version_path(t) %>" >
-            <td><%= link_to t.is_enabled == 1 ? 'Disable': 'Enable', clonezilla_version_path(t),
-                    method: :delete,
-                    data: { confirm: "Are you sure?" } %>
+            <td><%= link_to t.is_enabled == 1 ? 'Disable': 'Enable', @cz, remote: true, method: :delete %>
                     </td>
             <td><%= link_to 'Edit', edit_clonezilla_version_path(t) %></td>
             <td><%= i %></td>

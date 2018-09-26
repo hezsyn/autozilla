@@ -7,10 +7,6 @@ class ClonezillaVersionsController < ApplicationController
     @locations = Location.all
   end
 
-  def show
-    @cv = ClonezillaVersion.find(params[:id])
-  end
-
   def new
     @cv = ClonezillaVersion.new
   end
@@ -29,7 +25,7 @@ class ClonezillaVersionsController < ApplicationController
      flash[:alert] = @cv.errors.full_messages
    end
 
-    redirect_to clonezilla_versions_path
+    redirect_to edit_clonezilla_version_path(@cv)
   end
 
   def edit

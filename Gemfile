@@ -12,6 +12,10 @@ ruby '2.5.1'
 # Use Puma as the app server
 gem 'puma', '~> 3.11', '>= 3.11.4'
 
+# Font Awesome SASS version for glyphicons
+gem 'font-awesome-sass', '~> 5.3.1'
+
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '~> 4.1', '>= 4.1.14'
 # See https://github.com/rails/execjs#readme for more supported runtimes

@@ -1,9 +1,5 @@
 class ImagesController < ApplicationController
 
-  def index
-    @images = Image.all
-  end
-
   def new
     @image = Image.find(params[:id])
   end

@@ -24,7 +24,7 @@
 
           <div class="input-group mb-2">
               <div class="input-group-prepend">
-                <%= button_tag 'Goto' , class: "btn btn-default gotoDoc", remote: true, type: "button" %>
+                <%= button_tag icon('fas', 'external-link-square-alt'), class: "btn btn-default gotoDoc", remote: true, type: "button" %>
                 <%= sys.label 'Document', class: "input-group-text" %>
               </div>
             <%= sys.text_field :document, class: "form-control", id: "gotoDocLink" %>
