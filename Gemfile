@@ -6,24 +6,25 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 5.2.1'
 # Default ruby version
 ruby '2.5.1'
 # Use Puma as the app server
-gem 'puma', '~> 3.11', '>= 3.11.4'
+gem 'puma', '~> 3.12'
 
 # Font Awesome SASS version for glyphicons
 gem 'font-awesome-sass', '~> 5.3.1'
 
 
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '~> 4.1', '>= 4.1.14'
+gem 'uglifier', '~> 4.1', '>= 4.1.19'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2', '>= 4.2.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5.1', '>= 5.1.1'
+gem 'turbolinks', '~> 5.2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
@@ -31,23 +32,23 @@ gem 'jbuilder', '~> 2.7'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1', '>= 3.1.12'
 # Necessary for boot strap to work
-gem 'bootstrap', '~> 4.1', '>= 4.1.1'
+gem 'bootstrap', '~> 4.1', '>= 4.1.3'
 gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
-gem 'rubyzip', '~> 1.2', '>= 1.2.1'
+gem 'rubyzip', '~> 1.2', '>= 1.2.2'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', '~> 10.0', '>= 10.0.2'
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13.0'
-  gem 'selenium-webdriver'
+  gem 'capybara', '~> 3.8', '>= 3.8.1'
+  gem 'selenium-webdriver', '~> 3.14'
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console', '~> 3.6', '>= 3.6.2'
+  gem 'web-console', '~> 3.7'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
@@ -57,7 +58,9 @@ group :development do
   gem 'populator', '~> 1.0'
   gem 'faker', '~> 1.8', '>= 1.8.7'
 end
-gem 'pg', '~> 1.0'
+
+# Postgres connection
+gem 'pg', '~> 1.1', '>= 1.1.3'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data'
