@@ -5,17 +5,23 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = User.new(allowed_params)
     if @user.save
-      redirect_to root_url, flash[:notice] = "Welcome, user account created"
+      flash[:error] = "Welcome, user account created"
+      redirect_to root_path
     else
-      render "new"
+      render :new
     end
   end
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_url, flash[:notice] = "Logged out"
+    redirect_to root_url, flash[:error] = "Logged out"
   end
 
+
+  private
+    def allowed_params
+      params.require(:user).permit(:username, :password, :password_confirmation)
+    end
 end

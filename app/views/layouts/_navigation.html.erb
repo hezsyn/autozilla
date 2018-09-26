@@ -27,9 +27,16 @@
       </ul>
     </div>
     <ul class="navbar-nav justify-content-end">
-      <li class="nav-item">
-        <%= link_to 'Login', login_path, class: "nav-link" %>
-      </li>
+      <% if logged_in? %>
+        <%= link_to 'Logout', logout_path, class: "nav-link" %>
+      <% else %>
+        <li class="nav-item">
+          <%= link_to 'Sign Up', signup_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Login', login_path, class: "nav-link" %>
+        </li>
+      <% end %>
     </ul>
 </nav>
 

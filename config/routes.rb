@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
 
-  get '/login', to: 'sessions#new'
-  post '/login', to: 'session#create'
-  delete '/logout', to: 'session#destroy'
-
+  get 'signup', to: 'users#new', as: 'signup'
+  get 'login', to: 'sessions#new', as: 'login'
+  get 'logout', to: 'sessions#destroy', as: 'logout'
 
   root 'categories#index'
 
@@ -21,6 +20,7 @@ Rails.application.routes.draw do
   resources :clonezilla_versions, only: [:index, :edit, :destroy, :update]
   resources :support_stuffs
   resources :autozilla_key_configs
+  resources :sessions
 
   # Easter egg :D
   get '/ohya!', to: 'randy#savage'
