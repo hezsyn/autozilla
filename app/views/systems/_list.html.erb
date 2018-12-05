@@ -2,7 +2,7 @@
 
   <% if @category != nil %>
     <%= link_to category_path(@category), class: "btn btn-sm btn-warning" do %>
-    <span class="glyphicon glyphicon-arrow-left"></span><%= " Back to #{@category.name}" %>
+    <span class="glyphicon glyphicon-arrow-left text-truncate"></span><%= " Back to #{@category.name}" %>
     <% end %>
   <% end %>
 

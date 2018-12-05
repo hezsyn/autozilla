@@ -9,7 +9,7 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string        :email
       t.date          :last_login
       t.string        :role
-      t.integer       :active
+      t.integer      :active
 
       t.timestamps
     end

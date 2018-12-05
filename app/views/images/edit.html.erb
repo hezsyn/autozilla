@@ -9,7 +9,7 @@
   <%= form_for [@category, @system, @image] do |f| %>
   <div class="row">
     <div class="col">
-      <h4>File Location - <%= link_to "#{@image.location.location}#{@image.file_location}", "file://#{@image.location.location}#{@image.file_location}" %></h4>
+      <h4>Folder Location - <%= link_to "#{@image.location.location}#{@image.file_location}", "file://#{@image.location.location}#{@image.file_location}" %></h4>
     </div>
   </div>
       <div class="row">

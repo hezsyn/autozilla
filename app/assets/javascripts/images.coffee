@@ -1,7 +1,7 @@
 $ ->
   $(".clickable-row").click ->
     window.location = $(this).data("href");
-
+    
 $ ->
   $(".gotoDoc").click ->
     link = document.getElementById('gotoDocLink').value

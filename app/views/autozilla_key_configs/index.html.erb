@@ -1,6 +1,41 @@
-<%= render '/layouts/error' %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="jumbotron text-center">
+                <h1>Key Admin Area</h1>
+                <p>This area is for modification of the key.  If you need to make any tweaks to the parameters of this area, please visit <%= link_to 'Key Parameters', support_stuffs_path %></p>
+            </div>
+        </div>
+    </div>
 
-<%= link_to 'Restore Key', autozilla_key_restore_path, class: "btn" %>
+    <div class="row">
+        <div class="col">
+            <%= render '/layouts/error' %>
+        </div>
+    </div>
 
-<%= link_to 'Recreate SelfUpdate', autozilla_key_selfupdate_path %>
+    <div class="row">
+        <div class="col">
+            <div class="text-center">
+                <h1>Restore of Key</h1>
+                <p>This will delete the whole key, and recreate it from an archived copy.</p>
+
+                <!-- Sometimes the key might get corrupt or need to be remade.  This will send an url request to do the process.  -->
+                <%= link_to 'Restore Key', autozilla_key_restore_path, class: "btn btn-primary" %>
+            </div>
+        </div>
+        
+        <div class="col">
+            <div class="text-center">
+                <h1>Self Update Recreation</h1>
+                <p>This will recreate the self update service from the new variables.</p>
+
+                <!-- This is a url that will erase the self update, recreating the self update methods.  This is good to do when the lib for the self update is tweaked. -->
+                <%= link_to 'Recreate SelfUpdate', autozilla_key_selfupdate_path, class: "btn btn-primary" %>    
+            </div>
+        </div>
+
+    </div>
+</div>
+
 

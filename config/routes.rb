@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :pools
   resources :oses
   resources :users
-  resources :clonezilla_versions, only: [:index, :edit, :destroy, :update]
+  resources :clonezilla_versions
   resources :support_stuffs
   resources :autozilla_key_configs
   resources :sessions

@@ -18,10 +18,9 @@
         <tbody>
     <% i = 1 %>
     <% @czvs.each do |t| %>
-          <tr class="<%= t.is_enabled == 1 ? "success" : "danger" %>", data-link="<%= edit_clonezilla_version_path(t) %>" >
+          <tr class="clickable-row <%= t.is_enabled == 1 ? "success" : "danger" %>" data-href=<%= edit_clonezilla_version_path(t) %>>
             <td><%= link_to t.is_enabled == 1 ? 'Disable': 'Enable', @cz, remote: true, method: :delete %>
                     </td>
-            <td><%= link_to 'Edit', edit_clonezilla_version_path(t) %></td>
             <td><%= i %></td>
             <td><%= t.name %></td>
             <td><%= t.created_at.strftime("%d%b%Y") %></td>

@@ -13,7 +13,7 @@ ruby '2.5.1'
 gem 'puma', '~> 3.12'
 
 # Font Awesome SASS version for glyphicons
-gem 'font-awesome-sass', '~> 5.3.1'
+gem 'font-awesome-sass', '~> 5.5.0'
 
 
 # Use Uglifier as compressor for JavaScript assets

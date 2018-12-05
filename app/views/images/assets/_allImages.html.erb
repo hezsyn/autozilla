@@ -1,16 +1,16 @@
-<div class="col-md-2">
+<div class="col-md-2 text-truncate">
 
   <%= link_to category_system_path(@category, @system), class: "btn btn-sm btn-warning" do %>
-    <span class="glyphicon glyphicon-arrow-left"></span><%= " Back to #{@system.name}" %>
+    <%= icon('fas', 'arrow-left') %><%= " Back to #{@system.name}" %>
   <% end %>
 
   <div class="page-header">
-    <h2><%= @system.name %></h2>
+    <h2 class="text-truncate"><%= @system.name %></h2>
   </div>
 
     <div class="list-group list-group-flush">
     <% @images.order(:name).each do |image| %>
-      <%= link_to image.name, edit_category_system_image_path(@category, @system, image), class: "list-group-item" %>
+      <%= link_to image.name, edit_category_system_image_path(@category, @system, image), class: "list-group-item text-truncate" %>
     <% end %>
     </div>
 

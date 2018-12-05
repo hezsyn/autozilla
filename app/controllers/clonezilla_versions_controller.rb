@@ -79,7 +79,7 @@ class ClonezillaVersionsController < ApplicationController
 
   private
     def czv_params
-      params.require(:clonezilla_version).permit(:name, :description, :is_enabled, :location_id)
+      params.require(:clonezilla_version).permit(:name, :description, :is_enabled, :location_id,:version)
     end
 
 end
