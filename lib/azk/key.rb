@@ -28,7 +28,7 @@ module Azk
         @@menuEntry.puts "if test \$pxe_default_server -eq \" \"\; then\n"\
                                               "\t\tset fs_location=\"live-media-path=/live/Clonezilla/\"\n"\
                                           "else\n"\
-                                              "\t\tset fs_location=\"fetch=http://idds-adsboot02.amr.corp.intel.com/clonezilla\"\n"\
+                                              "\t\tset fs_location=\"fetch=http://idds-adsboot02.amr.corp.intel.com/clonezilla/\"\n"\
                                               "\t\tset fs_file=\"/filesystem.squashfs\"\n"\
                                           "fi\n\n"
 
@@ -266,7 +266,7 @@ module Azk
     end
 
     def createCZEntry(tool)
-      tool == "grub" ? czFile =  "if test \$pxe_default_server -eq \" \"\; then\n\t\tset fs_location=\"live-media-path=/live/Clonezilla/\"\nelse\n\t\tset fs_location=\"fetch=http://idds-adsboot02.amr.corp.intel.com/clonezilla\"\n\t\tset fs_file=\"/filesystem.squashfs\"\nfi\n\n" : czFile = "INCLUDE /syslinux/graphics.conf\n\n"
+      tool == "grub" ? czFile =  "if test \$pxe_default_server -eq \" \"\; then\n\t\tset fs_location=\"live-media-path=/live/Clonezilla/\"\nelse\n\t\tset fs_location=\"fetch=http://idds-adsboot02.amr.corp.intel.com/clonezilla/\"\n\t\tset fs_file=\"/filesystem.squashfs\"\nfi\n\n" : czFile = "INCLUDE /syslinux/graphics.conf\n\n"
       czs = ClonezillaVersion.where(:is_enabled => 1).order(name: :desc)
 
         czs.each do |cz|
