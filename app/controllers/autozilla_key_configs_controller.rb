@@ -1,8 +1,5 @@
 class AutozillaKeyConfigsController < ApplicationController
     include Azk::Key
-  def index
-
-  end
 
   def new
     @cv = ClonezillVersion.find(params[:id])
@@ -14,13 +11,16 @@ class AutozillaKeyConfigsController < ApplicationController
   end
 
   def edit
+    @cz = ClonezillaVersion.find(params[:id])
   end
 
   def update
+    @cz = ClonezillaVersion.find(params[:clonezilla])
     @azk = AutozillaKeyConfig.find(params[:id])
     @azk.update(azk_params)
 
-    redirect_to clonezilla_versions_path
+    flash[:notice] = "#{@cz.name} has been updated"
+    redirect_to edit_clonezilla_version_path(@cz)
   end
 
   def restoreKey

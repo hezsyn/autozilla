@@ -95,7 +95,7 @@
 
       <div class="row">
         <div id="<%= direction %>" class="row collapse">
-          <%= render 'clonezilla_versions/assets/paraForm', locals: {junBug: @image.send("#{direction}"), clonezilla: @image.clonezilla_version_id} %>
+          <%= render 'clonezilla_versions/assets/paraForm', junBug: @image.send("#{direction}"), cz: @cz %>
         </div><!-- End of row that is collapsed with Grub Upload
       </div>
 

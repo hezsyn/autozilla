@@ -1,0 +1,38 @@
+<div id="newVersion" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <%= form_for @newCV do |f| %>
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4>New Clonezilla Verison</h4>
+                </div><!-- End of Modal Header -->
+
+                <div class="modal-body">
+
+                        <div class="input-group mb-2">
+                            <span class="input-group-addon"><%= f.label :name, class: "input-group-text" %></span>
+                                <%= f.text_field :name, class: "form-control" %>
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <span class="input-group-prepend"><%= f.label :location_id, class: "input-group-text"  %></span>
+                                <%= f.collection_select :location_id, @locations, :id, :name, { include_blank: true}, {value: @locations.find_by(:default => 1), class: "form-control"} %>
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <span class="input-group-prepend"><%= f.label :description, class: "input-group-text"  %></span>
+                                <%= f.text_area :description, class: "form-control" %>
+                        </div>
+                </div><!-- End of Modal Body -->
+
+                <div class="modal-footer">
+                    <%= f.submit 'Submit', class: "btn btn-primary" %>
+                    <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal" %>
+                </div><!-- End of Modal Footer -->
+
+            </div><!-- End of Modal Content -->
+        <% end %>
+
+    </div><!-- End of modal-dialog -->
+</div><!-- End of Modal newVersion -->

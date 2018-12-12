@@ -3,27 +3,36 @@
     <%= render 'layouts/error' %>
 
     <div class="row">
-        <h1>List of CloneZilla Versions</h1>
         <%= button_tag 'New Clonezilla Version', class: "btn btn-primary btn-sm", "data-toggle" => "modal", "data-target" => "#newVersion" %>
+      <div class="col">
+        <h1>List of CloneZilla Versions</h1>
+      </div>
     </div>
 
     <div class="row">
       <table class="table table-hover table-striped">
         <thead>
-          <th>Status?</th>
-          <th>#</th>
+          <th class="text-center" width="14%">Status?</th>
+          <th class="text-center" width="10%">#</th>
           <th>Name</th>
-          <th>Created</th>
         </thead>
         <tbody>
     <% i = 1 %>
     <% @czvs.each do |t| %>
-          <tr class="clickable-row <%= t.is_enabled == 1 ? "success" : "danger" %>" data-href=<%= edit_clonezilla_version_path(t) %>>
-            <td><%= link_to t.is_enabled == 1 ? 'Disable': 'Enable', @cz, remote: true, method: :delete %>
-                    </td>
-            <td><%= i %></td>
+          <tr class="clickable-row" data-href=<%= edit_clonezilla_version_path(t) %>>
+            <td>
+              <div class="btn-group">
+                <% if t.is_enabled == 0 %>
+                  <%= link_to 'Enable', changeStatus_path(t), class: "btn btn-sm btn-primary" %>
+                  <%= link_to 'Disable', changeStatus_path(t), class: "btn btn-sm btn-outline-primary disabled" %>
+                <% else %>
+                  <%= link_to 'Enable', changeStatus_path(t), class: "btn btn-sm btn-outline-primary disabled" %>
+                  <%= link_to 'Disable', changeStatus_path(t), class: "btn btn-sm btn-primary" %>
+                <% end %>
+              </div>
+            </td>
+            <td class="text-center"><%= i %></td>
             <td><%= t.name %></td>
-            <td><%= t.created_at.strftime("%d%b%Y") %></td>
           </tr>
         <% i +=1 %>
     <% end %>
@@ -32,39 +41,5 @@
     </div>
   </div>
 
-  <div id="newVersion" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4>New Clonezilla Verison</h4>
-        </div><!-- End of Modal Header -->
-
-        <div class="modal-body">
-          <%= form_for @newCV do |f| %>
-            <div class="input-group">
-              <span class="input-group-addon"><%= f.label :name %></span>
-              <%= f.text_field :name, class: "form-control" %>
-            </div>
-            <br>
-            <div class="input-group">
-              <span class="input-group-addon"><%= f.label :location_id %></span>
-              <%= f.collection_select :location_id, @locations, :id, :name, { include_blank: true},class: "form-control" %>
-            </div>
-            <br>
-            <div class="input-group">
-              <span class="input-group-addon"><%= f.label :description %></span>
-              <%= f.text_area :description, class: "form-control" %>
-            </div>
-        </div><!-- End of Modal Body -->
-
-        <div class="modal-footer">
-            <%= f.submit 'Submit', class: "btn btn-primary" %>
-            <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal" %>
-          <% end %>
-        </div><!-- End of Modal Footer -->
-
-      </div><!-- End of Modal Content -->
-
-    </div><!-- End of dialog -->
-  </div><!-- End of Modal Div -->
+<!-- Starting of the Modal for Creation of a new Clonezilla -->
+<%= render 'newClonezillaBTN' %>

@@ -13,7 +13,7 @@ SupportStuff.create(name: 'dupParamsSet', value: 'components config noswap noloc
 SupportStuff.create(name: 'dupEdd', value: 'on')
 SupportStuff.create(name: 'dupPrerun0', value: 'dhclient -v eth0')
 SupportStuff.create(name: 'dupPrerun1', value: 'sleep 2')
-SupportStuff.create(name: 'dupPrerun2', value: 'sudo mount -t cifs #{netPath} /mnt -o user=sys_iddclonezilla,credentials=/root/.cifs.sys_iddclonezilla,sec=ntlm')
+SupportStuff.create(name: 'dupPrerun2', value: 'sudo mount -t cifs #{netPath} /mnt -o user=sys_iddclonezilla,password=0p#nsourceFTW,vers=3.0')
 SupportStuff.create(name: 'dupPrerun3', value: 'sudo mkdir -p /mnt#{filePath}')
 SupportStuff.create(name: 'dupPrerun4', value: 'sudo mount --bind /mnt#{filePath} /home/partimag/')
 SupportStuff.create(name: 'dupLiveRun', value: 'ocs-sr #{surCom.flags} -scs savedisk ask_user #{self.disk}')
@@ -32,7 +32,7 @@ SupportStuff.create(name: 'ddlParamsSet', value: 'components config noswap noloc
 SupportStuff.create(name: 'ddlEdd', value: 'on')
 SupportStuff.create(name: 'ddlPrerun0', value: 'dhclient -v eth0')
 SupportStuff.create(name: 'ddlPrerun1', value: 'sleep 2')
-SupportStuff.create(name: 'ddlPrerun2', value: 'sudo mount -t cifs #{netPath}#{filePath} /mnt -o user=sys_iddclonezilla,credentials=/root/.cifs.sys_iddclonezilla,sec=ntlm')
+SupportStuff.create(name: 'ddlPrerun2', value: 'sudo mount -t cifs #{netPath}#{filePath} /mnt -o user=sys_iddclonezilla,password=0p#nsourceFTW,vers=3.0')
 SupportStuff.create(name: 'ddlPrerun3', value: '')
 SupportStuff.create(name: 'ddlPrerun4', value: '')
 SupportStuff.create(name: 'ddlLiveRun', value: 'ocs-sr #{surCom.flags} -scr restoredisk #{self.name} #{self.disk}')
@@ -172,7 +172,7 @@ ImageType.create(is_enabled: 1, name: 'Event')
 end
 
 Location.create(name: 'Images', location: '//amr.corp.intel.com/idd/Infrastructure/CloneZilla/NAMO.OR.Loan/Images/automation', description: 'Original location for Clonezilla Images reside')
-Location.create(name: 'Images2', location: '//idds-store-c02.amr.intel.com/LC.US.CZ2\$', description: 'New image location with dedup enabled, Only use 2.5.2 and higher due to limitation from samba for older')
+Location.create(name: 'Images2', location: '//idds-store-c03.amr.intel.com/LC.US.CZ2\$', description: 'New image location with dedup enabled, Only use 2.5.2 and higher due to limitation from samba for older')
 Location.create(name: 'HVR', location: '//idds-hvrsrv01/Local_Images/Images/Clonezilla', description: 'High volume rack ')
 
 czCount = 0

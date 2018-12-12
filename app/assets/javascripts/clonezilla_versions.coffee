@@ -1,3 +1,3 @@
 $ ->
-  $("a[data-remote]").on "ajax.success", (event) ->
-    alert "The version of clonezilla has been modified."
+    $("a[data-remote]").on "ajas:success", (event) ->
+        alert "That clonezilla version has been disabled"

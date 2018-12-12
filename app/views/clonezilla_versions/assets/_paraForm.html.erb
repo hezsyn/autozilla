@@ -1,9 +1,11 @@
-<%= form_for locals[:junBug] do |f| %>
+<%= form_for junBug do |f| %>
   <div class="well">
     <div class="row">
-      <%= f.submit class: "btn btn-warning" %>
+      <div class="col">
+        <%= f.submit class: "btn btn-warning", remote: true, method: :update %>
+      </div>
       <br><br>
-        <%= hidden_field_tag locals[:item_id] %>
+      <%= hidden_field_tag :clonezilla, @cz.id %>
 
       <% ["params_set", "edd", "locales", "flags"].each do |czp| %>
         <div class="form-group col-md-2">

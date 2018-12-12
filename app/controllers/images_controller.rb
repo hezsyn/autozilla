@@ -29,6 +29,7 @@ class ImagesController < ApplicationController
     @category = Category.find(params[:category_id])
     @system = System.find(params[:system_id])
     @image = Image.find(params[:id])
+    @cz = ClonezillaVersion.find(@image.clonezilla_version_id)
     @netUpPath = @image.upload.location
     @images = @system.images.all
     @notes = @image.notes.all
