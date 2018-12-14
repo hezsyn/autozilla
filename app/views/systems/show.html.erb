@@ -33,7 +33,7 @@
 
       </div><!-- End of Column -->
 
-      <div class="col-sm-5 col-xs-offset-1">
+      <div class="col-md-5">
 
         <div class="row">
           <div class="input-group mb-3">
@@ -50,9 +50,9 @@
           <%= sys.submit 'Update', class: "btn btn-primary" %>
           <% end %>
           <% if @system.is_enabled == 1 %>
-            <%= button_to 'Archive', category_system_path(@category, @system), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger"  %>
+            <%= link_to 'Archive', category_system_path(@category, @system), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger"  %>
           <% else %>
-            <%= button_to 'Enable', category_system_path(@category, @system), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn  btn-success" %>
+            <%= link_to 'Enable', category_system_path(@category, @system), method: :delete, data: {confirm: 'Are you sure?' }, class: "btn  btn-success" %>
           <% end %>
           <%= button_tag 'New Image', type: 'button', class: "btn btn-success btn-sm", "data-toggle" => "modal", "data-target" => "#newImage"%>
      </div>
@@ -102,47 +102,47 @@
           <div class="modal-body">
             <%= form_for [@category, @system, @system.images.build] do |f| %>
 
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <span class="input-group-prepend"><%= f.label :name, class: "input-group-text" %></span>
                 <%= f.text_field :name, class: "form-control" %>
               </div>
               <br>
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <span class="input-group-prepend"><%= f.label :description, class: "input-group-text" %></span>
                 <%= f.text_area :description, class: "form-control" %>
               </div>
               <br>
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <span class="input-group-prepend"><%= f.label :disk, class: "input-group-text" %></span>
                 <%= f.text_field :disk, class: "form-control", value: @system.default_disk %>
               </div>
               <br>
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <span class="input-group-prepend"><%= f.label :location, class: "input-group-text" %></span>
                 <%= f.collection_select :location_id, @locations, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
               <br>
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <span class="input-group-prepend"><%= f.label :image_type, class: "input-group-text" %></span>
                 <%= f.collection_select :image_type_id, @image_types, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
               <br>
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <span class="input-group-prepend"><%= f.label :pool, class: "input-group-text" %></span>
                 <%= f.collection_select :pool_id, @pools, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
               <br>
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <span class="input-group-prepend input-group-text">OS</span>
                 <%= f.collection_select :ose_id, @oss, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
               <br>
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <span class="input-group-prepend"><%= f.label :image_status, class: "input-group-text" %></span>
                 <%= f.collection_select :image_status_id, @image_statuses, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
               <br>
-              <div class="input-group mb-3">
+              <div class="input-group">
                 <span class="input-group-prepend"><%= f.label :clonezilla_version, class: "input-group-text" %></span>
                 <%= f.collection_select :clonezilla_version_id, @clonezillas, :id, :name, {include_blank: true}, {value: @clonezillas.find_by(:default => 1), class: "form-control"} %>
               </div>

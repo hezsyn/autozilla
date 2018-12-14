@@ -1,9 +1,9 @@
 <div class="btn-group mb-2">
-    <% if @cz.is_enabled == 0 %>
-        <%= link_to 'Enable', changeStatus_path(@cz), class: "btn btn-sm btn-primary" %>
-        <%= link_to 'Disable', changeStatus_path(@cz), class: "btn btn-sm btn-outline-primary disabled" %>
+    <% if cz.is_enabled == 0 %>
+        <%= link_to 'Enable', changeCZStatus_path(cz), class: "btn btn-sm btn-primary" %>
+        <%= link_to 'Disable', changeCZStatus_path(cz), class: "btn btn-sm btn-outline-primary disabled" %>
     <% else %>
-        <%= link_to 'Enable', changeStatus_path(@cz), class: "btn btn-sm btn-outline-primary disabled" %>
-        <%= link_to 'Disable', changeStatus_path(@cz), class: "btn btn-sm btn-primary" %>
+        <%= link_to 'Enable', changeCZStatus_path(cz), class: "btn btn-sm btn-outline-primary disabled" %>
+        <%= link_to 'Disable', changeCZStatus_path(cz), class: "btn btn-sm btn-primary" %>
     <% end %>
 </div>

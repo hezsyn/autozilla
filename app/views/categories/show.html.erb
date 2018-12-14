@@ -17,13 +17,13 @@
                 </div>
               </div><!-- End of Row for Input of Name -->
               <div class="row">
-                <div class="btn-group">
+                <div class="btn-group mb-2">
                   <%= f.submit 'Update', class: "btn btn-primary" %>
               <% end %>
                   <% if @category.is_enabled == "1" %>
-                    <%= button_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger" %>
+                    <%= link_to 'Archive', category_path(@category), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn  btn-danger" %>
                   <% else %>
-                    <%= button_to 'Enable', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn  btn-success" %>
+                    <%= link_to 'Enable', category_path(@category), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn  btn-success" %>
                   <% end %>
                 </div>
               </div><!-- End of Row for Update / Archive -->

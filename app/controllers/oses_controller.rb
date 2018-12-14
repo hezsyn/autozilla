@@ -39,6 +39,13 @@ class OsesController < ApplicationController
     redirect_to oses_path
   end
 
+  def changeStatus
+    @os = Ose.find(params[:id])
+    @os.update(:is_enabled => @os.is_enabled == 1 ? 0 : 1)
+
+    redirect_to oses_path
+  end
+
   private
     def os_params
       params.require(:ose).permit(:name, :description, :is_enabled)

@@ -28,12 +28,12 @@ class PoolsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def changeStatus
     @pool = Pool.find(params[:id])
-      if @pool.is_enabled == 0 || @pool.is_enabled == nil
-        @pool.update(:is_enabled => 1)
-      else
-        @pool.update(:is_enabled => 0)
-      end
+    @pool.update(:is_enabled => @pool.is_enabled == 1 ? 0 : 1)
+    
     redirect_to pools_path
   end
 

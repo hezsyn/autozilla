@@ -1,70 +1,36 @@
   <div class="container">
+    
     <div class="row">
-      <h2>All Operating Systems...</h2>
-    <%= link_to 'New OS', new_ose_path, class: "btn btn-info btn-sm", "data-toggle" => "modal", "data-target" => "#newOS" %>
+            <%= button_tag 'New OS', class: "btn btn-primary btn-sm", "data-toggle" => "modal", "data-target" => "#newOS" %>
+        <div class="col">
+            <h1>All Operating Systems</h1>
+        </div>
     </div>
 
     <div class="row">
-      <table class="table table-hover table-stripped">
-        <thead>
-          <th>#</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Enabled?</th>
-          <th></th>
-          <th></th>
-        </thead>
-        <tbody>
-          <% i = 1 %>
-          <% @oses.each do |os| %>
-            <tr class="<%= os.is_enabled == 1 ? "success" : "danger" %>" >
-              <td><%= i %></td>
-              <td><%= os.name %></td>
-              <td><%= os.description %></td>
-              <td><%= is_enabled?(os.is_enabled) %></td>
-              <td><%= link_to 'Edit', edit_ose_path(os.id) %></td>
-              <td><%= link_to os.is_enabled == 1 ? "Disable" : "Enable", ose_path(os.id),
-                      method: :delete,
-                      data: { confirm: "Are you sure?" } %></td>
-            </tr>
-            <% i += 1 %>
-          <% end %>
-        </tbody>
-      </table>
+        <div class="col">      
+            <table class="table table-hover table-stripped">
+                <thead>
+                  <th class="text-center" width="5%">Status?</th>
+                  <th class="text-center" width="5%">#</th>
+                  <th>Name</th>
+                </thead>
+            <tbody>
+                <% i = 1 %>
+                <% @oses.each do |os| %>
+                    <tr class="<%= os.is_enabled == 1 ? "success" : "danger" %>" >
+                        <td><%= render 'changeStatus', os: os %></td>
+                        <td><%= i %></td>
+                        <td><%= os.name %></td>
+                    </tr>
+                    <% i += 1 %>
+                <% end %>
+            </tbody>
+        </table>
     </div>
 
   </div>
 
 </div>
 
-<div id="newOS" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismis="modal">&times;</button>
-          <h4>New OS Creation</h4>
-        </div><!-- End of Modal Header -->
-
-        <div class="modal-body">
-          <%= form_for @newOS do |f| %>
-            <div class="input-group">
-              <span class="input-group-addon"><%= f.label :name %></span>
-              <%= f.text_field :name, class: "form-control" %>
-            </div>
-            <br>
-            <div class="input-group">
-              <span class="input-group-addon"><%= f.label :description %></span>
-              <%= f.text_area :description, class: "form-control" %>
-            </div>
-        </div><!-- End of Modal Body -->
-
-        <div class="modal-footer">
-            <%= f.submit 'Subimt', class: "btn btn-primary" %>
-            <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal" %>
-          <% end %>
-        </div><!-- End of Modal Footer -->
-
-      </div><!-- End of Modal Content -->
-
-    </div><!-- End of dialog -->
-  </div><!-- End of Modal Div -->
+<%= render 'newOSBtn' %>

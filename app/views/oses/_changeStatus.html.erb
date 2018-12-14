@@ -1,0 +1,9 @@
+<div class="btn-group mb-2">
+    <% if os.is_enabled == 0 %>
+        <%= link_to 'Enable', changeOSStatus_path(os), class: "btn btn-sm btn-primary" %>
+        <%= link_to 'Disable', changeOSStatus_path(os), class: "btn btn-sm btn-outline-primary disabled" %>
+    <% else %>
+        <%= link_to 'Enable', changeOSStatus_path(os), class: "btn btn-sm btn-outline-primary disabled" %>
+        <%= link_to 'Disable', changeOSStatus_path(os), class: "btn btn-sm btn-primary" %>
+    <% end %>
+</div>

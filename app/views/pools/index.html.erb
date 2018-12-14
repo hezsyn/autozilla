@@ -1,27 +1,38 @@
   <div class="container">
 
+    <%= render 'layouts/error' %>
+
     <div class="row">
-        <h1>List of Order Groups</h1>
         <%= button_tag 'New Order Group', class: "btn btn-primary btn-sm", "data-toggle" => "modal", "data-target" => "#newPool" %>
+      <div class="col">
+        <h1>List of Order Groups</h1>
+      </div>
     </div>
 
     <div class="row">
       <table class="table table-hover table-striped">
         <thead>
-          <th>#</th>
+          <th class="text-center" width="14%">Status?</th>
+          <th class="text-center" width="10%">#</th>
           <th>Name</th>
-          <th>Status</th>
         </thead>
         <tbody>
     <% i = 1 %>
     <% @pools.each do |t| %>
-          <tr class="<%= t.is_enabled == 1 ? "success" : "danger" %>" >
-            <td><%= i %></td>
+          <tr>
+            <td>
+              <div class="btn-group">
+                <% if t.is_enabled == 0 %>
+                  <%= link_to 'Enable', changePoolStatus_path(t), class: "btn btn-sm btn-primary" %>
+                  <%= link_to 'Disable', changePoolStatus_path(t), class: "btn btn-sm btn-outline-primary disabled" %>
+                <% else %>
+                  <%= link_to 'Enable', changePoolStatus_path(t), class: "btn btn-sm btn-outline-primary disabled" %>
+                  <%= link_to 'Disable', changePoolStatus_path(t), class: "btn btn-sm btn-primary" %>
+                <% end %>
+              </div>
+            </td>
+            <td class="text-center"><%= i %></td>
             <td><%= t.name %></td>
-            <td><%= is_enabled?(t.is_enabled) %></td>
-            <td><%= link_to t.is_enabled == 1 ? 'Disable': 'Enable', pool_path(t),
-                    method: :delete,
-                    data: { confirm: "Are you sure?" } %></td>
           </tr>
         <% i +=1 %>
     <% end %>
@@ -30,30 +41,5 @@
     </div>
   </div>
 
-  <div id="newPool" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismis="modal">&times;</button>
-          <h4>New Order Group Creation</h4>
-        </div><!-- End of Modal Header -->
-
-        <div class="modal-body">
-          <%= form_for @newPool do |f| %>
-            <div class="input-group">
-              <span class="input-group-addon"><%= f.label :name %></span>
-              <%= f.text_field :name, class: "form-control" %>
-            </div>
-            </div><!-- End of Modal Body -->
-
-        <div class="modal-footer">
-            <%= f.submit 'Subimt', class: "btn btn-primary" %>
-            <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal" %>
-          <% end %>
-        </div><!-- End of Modal Footer -->
-
-      </div><!-- End of Modal Content -->
-
-    </div><!-- End of dialog -->
-  </div><!-- End of Modal Div -->
+<!-- Starting of the Modal for Creation of a new Clonezilla -->
+<%= render 'newPoolBtn' %>

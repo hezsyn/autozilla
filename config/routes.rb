@@ -39,6 +39,8 @@ Rails.application.routes.draw do
   get '/autozilla_key/selfupdate', to: 'autozilla_key_configs#selfUpdate'
 
   get '/clonezilla_version/:id/newCZFiles', to: 'clonezilla_versions#populateCZFiles', as: 'populateCZ'
-  get '/clonezilla_version/:id/status', to: 'clonezilla_versions#changeStatus', as: 'changeStatus'
+  get '/clonezilla_version/:id', to: 'clonezilla_versions#changeStatus', as: 'changeCZStatus'
+  get '/order_group/:id', to: 'pools#changeStatus', as: 'changePoolStatus'
+  get '/operating_system/:id', to: 'oses#changeStatus', as: 'changeOSStatus'
 
 end
