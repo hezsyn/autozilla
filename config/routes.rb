@@ -18,9 +18,10 @@ Rails.application.routes.draw do
   resources :oses
   resources :users
   resources :clonezilla_versions
-  resources :support_stuffs
+  resources :support_stuffs, only: [:index, :update]
   resources :autozilla_key_configs
   resources :sessions, only: [:index, :create, :edit, :update]
+  resources :locations
 
   # Easter egg :D
   get '/ohya!', to: 'randy#savage'

@@ -1,12 +1,84 @@
-<% @cfg.each do |cfg| %>
-  <%= form_for cfg do |f| %>
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <%= f.submit 'Update', class: "btn btn-outline-secondary" %>
-      </div>
-        <%= f.label cfg.name, class: "input-group-text" %>
-        <%= f.text_area :value, class: "form-control" %>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <%= render 'layouts/error' %>
+        </div>
     </div>
-  <% end %>
-    <br />
-<% end %>
+
+    <div class="row">
+        <div class="col">
+
+            <div class="row"><!-- Start of the Row for setting Key locations -->
+                
+                <div class="col">
+                    <h1>Root</h1>
+                        <%= render 'updateRow', kitty: @root %>
+                </div>
+
+                <div class="col">
+                    <h1>Source Key Files</h1>
+                        <%= render 'updateRow', kitty: @source %>
+                </div>
+
+                <div class="col">
+                    <h1>Production Key</h1>
+                        <%= render 'updateRow', kitty: @prod %>
+                </div>
+
+            </div><!-- End of Row for key locations -->
+        
+        <hr>
+
+            <div class="row">
+                <div class="col">
+
+                    <div class="row">
+                        <div class="col">
+                            <h1>Clonezilla Files</h1>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <h2>Localization</h2>
+                                <%= render 'updateRow', kitty: @czLocals %>
+                        </div>
+
+                        <div class="col">
+                            <h2>Clonezilla Source</h2>
+                                <%= render 'updateRow', kitty: @czSource %>
+                        </div>
+
+                        <div class="col">
+                            <h2>Clonezilla Production</h2>
+                                <%= render 'updateRow', kitty: @czProd %>
+                        </div>
+
+                    </div><!-- End of Clonezilla Files  Area -->
+
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                
+                <!-- Start of the Upload section -->
+                <div class="col">
+                    <h1 class="text-center">CZ Upload Default</h1>
+                    <% @dup.each do |dup| %>
+                        <%= render 'updateParaRow', kitty: dup %>
+                    <% end %>
+                </div>
+                <!-- End of the Upload Section -->
+
+                <!-- Start of the Download Section -->
+                <div class="col">
+                    <h1 class="text-center">CZ Download Default</h1>
+                    <% @ddl.each do |ddl| %>
+                        <%= render 'updateParaRow', kitty: ddl %>
+                    <% end %>                
+                </div>
+            </div>
+            
+        </div>    
+    </div>
+</div>

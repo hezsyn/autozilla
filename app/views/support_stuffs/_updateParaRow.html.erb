@@ -1,0 +1,9 @@
+<%= form_for kitty do |form| %>
+<div class="input-group mb-1">
+    <div class="input-group-prepend">
+        <%= form.submit 'Update', class: "btn btn-primary" %>
+        <%= form.label kitty.name, class: "input-group-text" %>
+    </div>
+    <%= form.text_field :value, class: "form-control" %>
+</div>
+<% end %>

@@ -1,31 +1,24 @@
 class SupportStuffsController < ApplicationController
 
   def index
-    @cfg = SupportStuff.all
-  end
+    @root = SupportStuff.find_by_name("rootKeyDir")
+    @source = SupportStuff.find_by_name("sourceKey")
+    @prod = SupportStuff.find_by_name("productionKey")
 
-  def new
-    @cfg = SupportStuff.find(params[:id])
-  end
+    @czLocals = SupportStuff.find_by_name("azkLocales")
+    @czSource = SupportStuff.find_by_name("czSource")
+    @czProd = SupportStuff.find_by_name("czProduction")
+    @incCZ = SupportStuff.find_by_name("incomingCZ")
 
-  def create
-    @newCFG = SupportStuff.new(cfg_params)
-    @newCFG.save
-  end
-
-  def edit
-    @cfg = SupportStuff.find(params[:id])
+    @ddl = SupportStuff.where("name LIKE 'ddl%'").order(:created_at)
+    @dup = SupportStuff.where("name LIKE 'dup%'").order(:created_at)
   end
 
   def update
     @cfg = SupportStuff.find(params[:id])
     @cfg.update(cfg_params)
 
-    redirect_to support_stuffs_path
-  end
-
-  def destroy
-
+    redirect_to support_stuffs_path, notice: "Update of #{@cfg.name} has been completed"
   end
 
   private

@@ -20,12 +20,27 @@
         <li class="nav-item">
           <%= link_to "QA", view_path, class: "nav-link" %>
         </li>
+        
+        <li class="nav-item">
+          <%= link_to "Key",   autozilla_key_configs_path, class: "nav-link" %>
+        </li>
+
+        <li class="nav-item">
+          <%= link_to "Support", support_stuffs_path, class: "nav-link" %>
+        </li>
+        
+        <li class="nav-item">
+          <%= link_to "Users", users_path, class: "nav-link" %>
+        </li>
+
 
       </ul>
     </div>
+
     <ul class="navbar-nav justify-content-end">
       <% if logged_in? %>
-        <%= link_to 'Logout', logout_path, class: "nav-link" %>
+        <%= link_to @current_user.username, user_path(@current_user), class: "nav-link" %>
+        <%= link_to "Logout", logout_path, class: "nav-link" %>
       <% else %>
         <li class="nav-item">
           <%= link_to 'Sign Up', signup_path, class: "nav-link" %>
