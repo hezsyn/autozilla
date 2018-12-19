@@ -171,9 +171,9 @@ ImageType.create(is_enabled: 1, name: 'Event')
   end
 end
 
-Location.create(name: 'Images', location: '//amr.corp.intel.com/idd/Infrastructure/CloneZilla/NAMO.OR.Loan/Images/automation', description: 'Original location for Clonezilla Images reside')
-Location.create(name: 'Images2', location: '//idds-store-c03.amr.intel.com/LC.US.CZ2\$', description: 'New image location with dedup enabled, Only use 2.5.2 and higher due to limitation from samba for older')
-Location.create(name: 'HVR', location: '//idds-hvrsrv01/Local_Images/Images/Clonezilla', description: 'High volume rack ')
+Location.create(name: 'Images', location: '//amr.corp.intel.com/idd/Infrastructure/CloneZilla/NAMO.OR.Loan/Images/automation', description: 'Original location for Clonezilla Images reside', enabled: 0)
+Location.create(name: 'Images2', location: '//idds-store-c03.amr.intel.com/LC.US.CZ2\$', description: 'New image location with dedup enabled, Only use 2.5.2 and higher due to limitation from samba for older', enabled: 1)
+Location.create(name: 'HVR', location: '//idds-hvrsrv01/Local_Images/Images/Clonezilla', description: 'High volume rack ', enabled: 1)
 
 czCount = 0
 ['clonezilla-live-2.5.2-17-amd64', 'clonezilla-live-2.5.0-25-amd64', 'clonezilla-live-2.4.7-8-amd64', 'clonezilla-live-2.4.2-61-amd64', 'clonezilla-live-2.4.2-32-amd64', 'clonezilla-live-2.3.2-22-amd64', 'clonezilla-live-2.3.2-22-i686-pae'].each do |cz|

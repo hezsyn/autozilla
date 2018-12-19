@@ -1,0 +1,65 @@
+  <div class="container">
+    
+    <div class="row">
+        <div class="col">
+            <%= render 'layouts/error' %>
+        </div>
+    </div>
+
+    <div class="row">
+        <%= button_tag 'New Location', class: "btn btn-primary btn-sm", "data-toggle" => "modal", "data-target" => "#newLocation" %>
+      <div class="col">
+        <h1>List of Locations</h1>
+      </div>
+    </div>
+    
+    <hr>
+
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <td width="10%">Status?</td>
+                        <td width="10%">Default?</td>
+                        <td width="10%">Update</td>
+                        <td width="10%">Name</td>
+                        <td width="30%">Location</td>
+                        <td width="30%">Description</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <% @locations.order(:name).each do |loc| %>
+                    <tr>
+                        <%= form_for loc do |form| %>
+                                <td>
+                                    <%= render 'changeStatus', location: loc %>
+                                </td>
+
+                                <td>
+                                    <%= render 'changeDefault', location: loc %>
+                                </td>
+
+                                <td>
+                                    <%= form.submit 'Update', class: "btn btn-sm btn-primary" %> 
+                                </td>
+
+                                <td>
+                                    <%= form.text_field :name  %>
+                                </td>
+                                <td>
+                                    <%= form.text_field :location %>
+                                </td>
+                                <td>
+                                    <%= form.text_field :description  %>
+                                </td>
+                    <% end %>
+                </tr>
+               <% end %>
+                </tbody>
+            </table>
+        </div>
+  </div>
+
+<!-- Starting of the Modal for Creation of a new Clonezilla -->
+<%= render 'newLocation' %>

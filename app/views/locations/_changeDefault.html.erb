@@ -1,0 +1,7 @@
+<div class="btn-group m-2">
+    <% if location.default == 1 %>
+        <%= link_to 'Default', changeLocDefault_path(location), class: "btn btn-sm btn-outline-primary disabled" %>
+    <% else %>
+        <%= link_to 'Make Default', changeLocDefault_path(location), class: "btn btn-sm btn-primary" %>
+    <% end %>
+</div>  

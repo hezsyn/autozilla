@@ -1,0 +1,38 @@
+<div id="newLocation" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <%= form_for @newLocation do |f| %>
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4>New Location</h4>
+                </div><!-- End of Modal Header -->
+
+                <div class="modal-body">
+
+                        <div class="input-group mb-2">
+                            <span class="input-group-prepend"><%= f.label :name, class: "input-group-text" %></span>
+                                <%= f.text_field :name, class: "form-control" %>
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <span class="input-group-prepend"><%= f.label :location, class: "input-group-text"  %></span>
+                            <%= f.text_area :location, class: "form-control" %>
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <span class="input-group-prepend"><%= f.label :description, class: "input-group-text"  %></span>
+                                <%= f.text_area :description, class: "form-control" %>
+                        </div>
+                </div><!-- End of Modal Body -->
+
+                <div class="modal-footer">
+                    <%= f.submit 'Submit', class: "btn btn-primary" %>
+                    <%= button_tag 'Close', class: "btn btn-default", "data-dismiss" => "modal" %>
+                </div><!-- End of Modal Footer -->
+
+            </div><!-- End of Modal Content -->
+        <% end %>
+
+    </div><!-- End of modal-dialog -->
+</div><!-- End of Modal newVersion -->
