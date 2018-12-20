@@ -1,0 +1,7 @@
+<div class="btn-group m-2">
+    <% if cz.default == 1 %>
+        <%= link_to 'Default', changeCZDefault_path(cz), class: "btn btn-sm btn-outline-primary disabled" %>
+    <% else %>
+        <%= link_to 'Make Default', changeCZDefault_path(cz), class: "btn btn-sm btn-primary" %>
+    <% end %>
+</div>  

@@ -48,4 +48,5 @@ Rails.application.routes.draw do
 
   # Setting default
   get '/locations/:id/changeDefault', to: 'locations#changeDefault', as: 'changeLocDefault' 
+  get '/clonezilla/:id/changeDefault', to: 'clonezilla_versions#changeDefault', as: 'changeCZDefault' 
 end

@@ -60,7 +60,7 @@
 </div><!--  End of JumbroTron -->
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col">
     <table class="table table-stripped table-hover">
       <thead>
         <th>Pool</th>
@@ -102,49 +102,41 @@
           <div class="modal-body">
             <%= form_for [@category, @system, @system.images.build] do |f| %>
 
-              <div class="input-group">
+              <div class="input-group mb-2">
                 <span class="input-group-prepend"><%= f.label :name, class: "input-group-text" %></span>
                 <%= f.text_field :name, class: "form-control" %>
               </div>
-              <br>
-              <div class="input-group">
+              <div class="input-group mb-2">
                 <span class="input-group-prepend"><%= f.label :description, class: "input-group-text" %></span>
                 <%= f.text_area :description, class: "form-control" %>
               </div>
-              <br>
-              <div class="input-group">
+              <div class="input-group mb-2">
                 <span class="input-group-prepend"><%= f.label :disk, class: "input-group-text" %></span>
                 <%= f.text_field :disk, class: "form-control", value: @system.default_disk %>
               </div>
-              <br>
-              <div class="input-group">
+              <div class="input-group mb-2">
                 <span class="input-group-prepend"><%= f.label :location, class: "input-group-text" %></span>
-                <%= f.collection_select :location_id, @locations, :id, :name, {include_blank: true}, {class: "form-control"} %>
+                <%= f.collection_select :location_id, @locations, :id, :name, {include_blank: true, selected: @locations.find_by_default(1).id }, {class: "form-control"} %>
               </div>
-              <br>
-              <div class="input-group">
+              <div class="input-group mb-2">
                 <span class="input-group-prepend"><%= f.label :image_type, class: "input-group-text" %></span>
                 <%= f.collection_select :image_type_id, @image_types, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
-              <br>
-              <div class="input-group">
+              <div class="input-group mb-2">
                 <span class="input-group-prepend"><%= f.label :pool, class: "input-group-text" %></span>
                 <%= f.collection_select :pool_id, @pools, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
-              <br>
-              <div class="input-group">
+              <div class="input-group mb-2">
                 <span class="input-group-prepend input-group-text">OS</span>
                 <%= f.collection_select :ose_id, @oss, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
-              <br>
-              <div class="input-group">
+              <div class="input-group mb-2">
                 <span class="input-group-prepend"><%= f.label :image_status, class: "input-group-text" %></span>
                 <%= f.collection_select :image_status_id, @image_statuses, :id, :name, {include_blank: true}, {class: "form-control"} %>
               </div>
-              <br>
-              <div class="input-group">
+              <div class="input-group mb-2">
                 <span class="input-group-prepend"><%= f.label :clonezilla_version, class: "input-group-text" %></span>
-                <%= f.collection_select :clonezilla_version_id, @clonezillas, :id, :name, {include_blank: true}, {value: @clonezillas.find_by(:default => 1), class: "form-control"} %>
+                <%= f.collection_select :clonezilla_version_id, @clonezillas, :id, :name, {include_blank: true, selected: @clonezillas.find_by_default(1).id}, {class: "form-control" }%>
               </div>
 
           </div>
@@ -158,3 +150,5 @@
 
     </div><!-- End of modal dialog div -->
   </div><!-- End of Modal Div -->
+
+  <% console %>

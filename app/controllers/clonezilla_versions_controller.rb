@@ -2,9 +2,10 @@ class ClonezillaVersionsController < ApplicationController
   include Azk::Key
 
   def index
-    @czvs = ClonezillaVersion.all.order('name DESC')
-    @newCV = ClonezillaVersion.new
-    @locations = Location.all
+    @czs = ClonezillaVersion.all.order('name DESC')
+    @newCZ = ClonezillaVersion.new
+    @locations = Location.where(enabled: 1)
+    @defLocation = Location.find_by_default(1)
   end
 
   def new
@@ -12,20 +13,21 @@ class ClonezillaVersionsController < ApplicationController
   end
 
   def create
-    @cv = ClonezillaVersion.create(czv_params)
-    @cv.upload = AutozillaKeyConfig.new(purpose: "Upload")
-    @cv.upload.czAZKConfig("upload")
-    @cv.download = AutozillaKeyConfig.new(purpose: "Download")
-    @cv.download.czAZKConfig("download")
-    @cv.is_enabled = 1
-    if @cv.save
+    @czs = ClonezillaVersion.all.order('name DESC')
+    @cz = ClonezillaVersion.create(czv_params)
+    @cz.upload = AutozillaKeyConfig.new(purpose: "Upload")
+    @cz.upload.czAZKConfig("upload")
+    @cz.download = AutozillaKeyConfig.new(purpose: "Download")
+    @cz.download.czAZKConfig("download")
+    @cz.is_enabled = 1
+    if @cz.save
      createCZFile
-     flash[:notice] = "#{@cv.name} has been created."
+     flash[:notice] = "#{@cz.name} has been created."
     else
-     flash[:alert] = @cv.errors.full_messages
+     flash[:alert] = "Failed to update"
    end
-
-    redirect_to edit_clonezilla_version_path(@cv)
+    
+    redirect_to edit_clonezilla_version_path(ClonezillaVersion.last)
   end
 
   def edit
@@ -33,8 +35,9 @@ class ClonezillaVersionsController < ApplicationController
     @cz = ClonezillaVersion.find(params[:id])
     @czParam = AutozillaKeyConfig.all
     @azk = AutozillaKeyConfig.all
-    @locations = Location.all
-    @newCV = ClonezillaVersion.new
+    @locations = Location.where(enabled: 1)
+    @defLocation = Location.find_by_default(1)
+    @newCZ = ClonezillaVersion.new
 
     @rootDir = SupportStuff.find_by(name: "rootKeyDir").value + '/'
     @czSource = @rootDir +  SupportStuff.find_by(name: "czSource").value + '/'
@@ -76,6 +79,16 @@ class ClonezillaVersionsController < ApplicationController
 
       createCZFile
       redirect_to clonezilla_versions_path
+  end
+
+  def changeDefault
+    @cz = ClonezillaVersion.find(params[:id])
+    @default = ClonezillaVersion.find_by_default(1)
+
+    @default.update(default: 0)
+    @cz.update(default: 1)
+
+    redirect_to clonezilla_versions_path
   end
 
   private

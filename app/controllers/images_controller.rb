@@ -34,7 +34,7 @@ class ImagesController < ApplicationController
     @images = @system.images.all
     @notes = @image.notes.all
 
-    @locations = Location.all
+    @locations = Location.where(enabled: 1)
     @image_types = ImageType.where(is_enabled: 1)
     @image_statuses = ImageStatus.where(is_visible: 1)
     @clonezillas = ClonezillaVersion.order(name: :desc).where(is_enabled: 1)

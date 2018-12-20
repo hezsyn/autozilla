@@ -8,12 +8,12 @@ class SystemsController < ApplicationController
     @images = @system.images.order(:name)
 
     # Variables for new image, they only pull enabled entries.  Location is only one with no turn off.
-    @image_types = ImageType.where(is_enabled: 1)
-    @image_statuses = ImageStatus.where(is_visible: 1)
-    @clonezillas = ClonezillaVersion.order(name: :desc).where(is_enabled: 1)
-    @oss = Ose.where(:is_enabled => 1).order(:name)
-    @pools = Pool.where(is_enabled: 1).order(:name)
-    @locations = Location.order(:name)
+    @image_types = ImageType.where(is_enabled: 1).order(name: :desc)
+    @image_statuses = ImageStatus.where(is_visible: 1).order(name: :desc)
+    @clonezillas = ClonezillaVersion.where(is_enabled: 1).order(name: :desc)
+    @oss = Ose.where(:is_enabled => 1).order(:name).order(name: :desc)
+    @pools = Pool.where(is_enabled: 1).order(:name).order(name: :desc)
+    @locations = Location.where(enabled: 1).order(:name).order(:name)
   end
 
   def new

@@ -1,7 +1,7 @@
 <div id="newVersion" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
-        <%= form_for @newCV do |f| %>
+        <%= form_for @newCZ do |f| %>
             <div class="modal-content">
 
                 <div class="modal-header">
@@ -15,9 +15,16 @@
                                 <%= f.text_field :name, class: "form-control" %>
                         </div>
 
+<!--                         <div class="input-group mb-2">
+                            <span class="input-group-prepend">
+                                <%= f.label :version, class: "input-group-text" %>
+                            </span>
+                                <%= f.text_field :version, class: "form-control" %>
+                        </div> -->
+
                         <div class="input-group mb-2">
                             <span class="input-group-prepend"><%= f.label :location_id, class: "input-group-text"  %></span>
-                                <%= f.collection_select :location_id, @locations, :id, :name, { include_blank: true}, {value: @locations.find_by(:default => 1), class: "form-control"} %>
+                                <%= f.collection_select :location_id, @locations, :id, :name, { include_blank: true, selected: @defLocation.id}, {class: "form-control"} %>
                         </div>
 
                         <div class="input-group mb-2">
