@@ -16,43 +16,14 @@
                 </div>
 
                 <div class="col">
-                    <h1>Source Key Files</h1>
-                        <%= render 'updateRow', kitty: @source %>
-                </div>
-
-                <div class="col">
-                    <h1>Production Key</h1>
-                        <%= render 'updateRow', kitty: @prod %>
-                </div>
+                    <h2>Localization</h2>
+                        <%= render 'updateRow', kitty: @czLocals %>
+                    </div>
 
             </div><!-- End of Row for key locations -->
         
-        <hr>
-
-            <div class="row">
-                <div class="col">
-
                     <div class="row">
-                        <div class="col">
-                            <h1>Clonezilla Files</h1>
-                        </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col">
-                            <h2>Localization</h2>
-                                <%= render 'updateRow', kitty: @czLocals %>
-                        </div>
-
-                        <div class="col">
-                            <h2>Clonezilla Source</h2>
-                                <%= render 'updateRow', kitty: @czSource %>
-                        </div>
-
-                        <div class="col">
-                            <h2>Clonezilla Production</h2>
-                                <%= render 'updateRow', kitty: @czProd %>
-                        </div>
 
                     </div><!-- End of Clonezilla Files  Area -->
 

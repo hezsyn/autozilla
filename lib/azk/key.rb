@@ -7,7 +7,7 @@ module Azk
     # setSettings to create initial settings for each module
     def setSettings
       @@fut = FileUtils
-      @@rootDir = SupportStuff.find_by(name: "rootKeyDir").value + '/'
+      @@rootDir = SupportStuff.find_by(name: "rootDir").value + '/'
       @@sourceDir = @@rootDir +  SupportStuff.find_by(name: "sourceKey").value
       @@productionDir = @@rootDir +  SupportStuff.find_by(name: "productionKey").value
       # cz = Clonezilla
@@ -33,9 +33,9 @@ module Azk
                                           "fi\n\n"
 
       if direction == "download"
-        @@menuEntry.puts "configfile \$prefix/graphics.cfg\n\n"
+        @@menuEntry.puts "configfile live/support/graphics.cfg\n\n"
       else
-        @@menuEntry.puts "configfile \$prefix/graphics_upload.cfg\n\n"
+        @@menuEntry.puts "configfile live/support/graphics_upload.cfg\n\n"
       end
     end
 

@@ -1,0 +1,45 @@
+Reset current Structure
+    - Remove folder...
+        - boot
+        - EFI
+        - live
+            - ADS
+            - Clonezilla
+            - Imaging
+            - Support
+
+Process 
+    - Create the folder Structure
+        - Create boot\grub
+        - Create EFI\boot
+        - Pause if no live folder 
+        - Recreate folder 
+            - ADS
+            - Clonezilla
+            - Imaging
+                - Download
+                - Upload
+            - Support
+
+Copy files that cannot be created
+    - Files will reside in keySource folder
+        -  copy *.efi to EFI\boot
+        - copy *.png to suppport\
+        - copy unicode.pf2 to support\
+
+Generate these files
+    - boot\grub\grub.cfg
+    - live\support\gfx.cfg
+    - live\support\gfx_upload.cfg
+    - live\support\gfx_download.cfg
+    - live\support\cz.grub
+    - live\support\ads.grub
+    - live\support\selfupdate.grub
+
+Iterate over...
+    - Image\Download
+    - Image\Upload
+
+
+    Creating a Grub Config File
+    

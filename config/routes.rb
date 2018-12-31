@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   get '/qa_results/:id', to: 'qa#show', as: 'view_results'
 
   get '/autozilla_key', to: 'autozilla_key_configs#index'
-  get '/autozilla_key/restore', to: 'autozilla_key_configs#restoreKey'
+  get '/autozilla_key/rebuild', to: 'autozilla_key_configs#rebuildKey'
   get '/autozilla_key/selfupdate', to: 'autozilla_key_configs#selfUpdate'
   get '/clonezilla_version/:id/newCZFiles', to: 'clonezilla_versions#populateCZFiles', as: 'populateCZ'
 

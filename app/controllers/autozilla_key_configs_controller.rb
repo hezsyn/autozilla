@@ -1,6 +1,5 @@
 class AutozillaKeyConfigsController < ApplicationController
-    include Azk::Key
-
+  include  AutozillaKeyConfigsHelper
   def new
     @cv = ClonezillVersion.find(params[:id])
   end
@@ -23,61 +22,19 @@ class AutozillaKeyConfigsController < ApplicationController
     redirect_to edit_clonezilla_version_path(@cz)
   end
 
-  def restoreKey
-    @categories = Category.where(:is_enabled => 1).order(:name)
-    @systems = System.where(:is_enabled => 1).order(:name)
-    @category = Category.first
+    def rebuildKey
+      
+      # Removing old key
+      destroyStructure
 
-    # Deletes current AZ key
-    removeAZK
-    puts "Old key has been deleted"
-    # Creates directory setup for new Key
-    createAZKDefault
-    puts "New Directories have been created"
-    # Migrates all Clonezillas, and creates a new entries
-    createCZFile
-    puts "Clonezilla Live entries created"
-    # Creating the self update files
-    createSelfUpdate
-    puts "Self Update created"
-    # Start of creating all new key entries for key
-    # Create top.menu first, this is the top categories which don't worry about the @category
-    # The method calls the correct ones.
-    createTopLevel
-    puts "Top level menu created"
-    # Now to create the categories under the top level
-    @categories.each do |cat|
-      cat.createAZKCategoryFiles
-    end
-    puts "Categories have been created"
-    # Now we have the system files!
-    @systems.each do |sys|
-      sys.createAZKSystemFiles
-    end
-    puts "System entries have been created."
+      # Creating the structure
+      createStructure
 
-    # That should be it.  Hopefully.
-    flash[:notice] = "Reset complete"
-    redirect_to autozilla_key_path
-  end
+      # Copy the files over to the new structure
+      copyAllUncreatable
 
-  def selfUpdate
-    createSelfUpdate
-    flash[:notice] = "SelfUpdate has been recreated"
-    redirect_to autozilla_key_path
-  end
-
-  def rebuildKey
-    @category.createTopLevel
-    # Now to create the categories under the top level
-    @categories.each do |cat|
-      cat.createAZKCategoryFiles
+      render :index
     end
-    # Now we have the system files!
-    @systems.each do |sys|
-      sys.createAZKSystemFiles
-    end
-  end
 
   private
     def azk_params

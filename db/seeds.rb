@@ -1,11 +1,7 @@
 # Setting some defaults
-SupportStuff.create(name: 'rootKeyDir', value: '/mnt/c/Users/hezsyn/Desktop/Staging/AZK/', description: 'Default location of everything')
-SupportStuff.create(name: 'sourceKey', value: 'keySource', description: 'Source directory for setting up key')
-SupportStuff.create(name: 'productionKey', value: 'production', description: 'Where the key for production is stored')
+SupportStuff.create(name: 'rootDir', value: '/mnt/c/Users/hezsyn/Desktop/Staging/AZK/', description: 'Default location of everything')
 # Configu for both configs for autozilla Key
 SupportStuff.create(name: 'azkLocales', value: 'en_US.UTF-8')
-SupportStuff.create(name: 'czSource', value: 'czSource')
-SupportStuff.create(name: 'czProduction', value: 'production/live/CloneZilla')
 SupportStuff.create(name: 'incomingCZ', value: 'incCZ')
 
 # Upload config preconfigs for clonezilla
