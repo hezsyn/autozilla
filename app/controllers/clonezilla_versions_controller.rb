@@ -1,6 +1,6 @@
 class ClonezillaVersionsController < ApplicationController
-  include Azk::Key
-
+  include  Azk::Key
+  
   def index
     @czs = ClonezillaVersion.all.order('name DESC')
     @newCZ = ClonezillaVersion.new
@@ -20,9 +20,10 @@ class ClonezillaVersionsController < ApplicationController
     @cz.download = AutozillaKeyConfig.new(purpose: "Download")
     @cz.download.czAZKConfig("download")
     @cz.is_enabled = 1
+    
     if @cz.save
-     createCZFile
-     flash[:notice] = "#{@cz.name} has been created."
+     updateCZCFG
+     flash[:notice] = "#{ClonezillaVersion.last.name} has been created."
     else
      flash[:alert] = "Failed to update"
    end
@@ -38,17 +39,12 @@ class ClonezillaVersionsController < ApplicationController
     @locations = Location.where(enabled: 1)
     @defLocation = Location.find_by_default(1)
     @newCZ = ClonezillaVersion.new
-
-    @rootDir = SupportStuff.find_by(name: "rootKeyDir").value + '/'
-    @czSource = @rootDir +  SupportStuff.find_by(name: "czSource").value + '/'
-    @czProduction = @rootDir +  SupportStuff.find_by(name: "czProduction").value + '/'
-    @incomingCZ = @rootDir +  SupportStuff.find_by(name: "incomingCZ").value + '/'
   end
 
   def update
     @cv = ClonezillaVersion.find(params[:id])
     if @cv.update(czv_params)
-      createCZFile
+      updateCZCFG
       flash[:notice] = "#{@cv.name} has been updated"
     else
       flash[:alert] = @cv.errors.full_messages
@@ -59,8 +55,8 @@ class ClonezillaVersionsController < ApplicationController
 
   def populateCZFiles
     @cz = ClonezillaVersion.find(params[:id])
-
-    @cz.newCZFiles
+    
+    updateCZCFG    
 
     flash[:notice] = "Population of files complete!"
     redirect_to edit_clonezilla_version_path(@cz)
@@ -77,7 +73,7 @@ class ClonezillaVersionsController < ApplicationController
         flash[:notice] = "#{@cz.name} has been disabled"
       end
 
-      createCZFile
+      updateCZCFG
       redirect_to clonezilla_versions_path
   end
 

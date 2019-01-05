@@ -1,5 +1,6 @@
 class AutozillaKeyConfigsController < ApplicationController
-  include  AutozillaKeyConfigsHelper
+  include Azk::Key
+
   def new
     @cv = ClonezillVersion.find(params[:id])
   end
@@ -26,13 +27,15 @@ class AutozillaKeyConfigsController < ApplicationController
       
       # Removing old key
       destroyStructure
-
       # Creating the structure
       createStructure
-
       # Copy the files over to the new structure
       copyAllUncreatable
-
+      # Copy CZ Files
+      copyCZFiles
+      # Generating the grub.cfg / gfx files / cz file / ads file
+      genGrubStructure
+      
       render :index
     end
 

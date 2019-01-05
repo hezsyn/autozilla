@@ -1,4 +1,5 @@
 class KeyfilesController < ApplicationController
+
   def index
     @keyfiles = Keyfile.all
   end
