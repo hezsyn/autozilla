@@ -35,8 +35,11 @@ module Grub
             woo = startEntry(cz.name)
                 woo += czVar(cz.name)
                 woo += linux
+                woo += bootSet
                 woo += parameters(czValues.params_set)
                 woo += edd(czValues.edd)
+                woo += locales(czValues.locales)
+                woo += keyboard(czValues.keyboard)
                 woo += liverun("ocs-live-general")
                 woo += vga("788")
                 woo += ram("filesystem.squashfs")
@@ -59,9 +62,11 @@ module Grub
             woo = startEntry("Autozilla Self Update")
                 woo += czVar(cz.name)
                 woo += linux
+                woo += bootSet
                 woo += parameters(cz.upload.params_set)
                 woo += edd(czd.edd)
                 woo += locales(czd.locales)
+                woo += keyboard(czValues.keyboard)                
                 woo += prerun(01, "sudo dhclient -v")
                 woo += prerun(02, "sudo mount -t cifs -v //idd-autozilla.hf.intel.com/Azk /mnt -o guest,ro")
                 woo += prerun(03, "sudo mount -n -o remount,rw /lib/live/mount/medium/")

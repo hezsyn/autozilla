@@ -76,6 +76,10 @@ module Grub
              "#{@preLine}linux /live/clonezilla/\$cz/vmlinuz#{@apLine}"
         end
 
+        def bootSet
+            "#{@preLine}boot=live, union=overlay username=user#{@apLine}"
+        end
+
         def parameters(value)
              "#{@preLine}#{value}#{@apLine}"
         end

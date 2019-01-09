@@ -40,6 +40,7 @@ class AutozillaKeyConfigsController < ApplicationController
       createCategoryFiles
       #Creation of system files
       createSystemFiles
+      
       flash[:notice] = "Complete, key has been rebuilt"
       render :index
     end
