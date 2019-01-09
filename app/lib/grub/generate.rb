@@ -80,10 +80,12 @@ module Grub
         end# End of Self Update
 
         def genCategoryFile(cat, dir)
+            woo = genCF("Return to Grub Menu", "/boot/grub/grub.cfg")
+
             if cat.category != nil
-                woo = genCF("Back to #{cat.category.name}", "/live/image/#{dir}/#{cat.category.filename}")
+                woo += genCF("Back to #{cat.category.name}", "/live/image/#{dir}/#{cat.category.filename}")
             else 
-                woo = genCF("Back to Main Page", "/live/image/#{dir}/main.grub")
+                woo += genCF("Back to Main Page", "/live/image/#{dir}/main.grub")
             end
 
             if cat.categories.any?
@@ -107,10 +109,16 @@ module Grub
 
         def genSystemFile(sys, dir)
             woo = bootMethod
-            
-            woo += genCF(sys.category.name, "/live/image/#{dir}/#{sys.category.filename}")
 
-            sys.images.each do |img|
+            woo += genCF("Return to Grub Menu", "/boot/grub/grub.cfg")
+
+            if sys.category != nil
+                woo += genCF("Back to #{sys.category.name}", "/live/image/#{dir}/#{sys.category.filename}")
+            else 
+                woo += genCF("Back to Main Page", "/live/image/#{dir}/main.grub")
+            end
+          
+           sys.images.each do |img|
                 woo += genImageEntry(img, dir)
             end 
 
