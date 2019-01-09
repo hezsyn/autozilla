@@ -133,7 +133,7 @@ module Grub
         end
 
         def fsLocation
-             "#{@preLine}\$fs_location/\$cz\$fs_file#{@apLine}"
+             "#{@preLine}\$fs_location/\$cz\$fs_file#"
         end
 
         def path
