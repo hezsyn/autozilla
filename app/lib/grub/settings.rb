@@ -63,7 +63,7 @@ module Grub
             "if test \$pxe_default_server -eq \" \"; then\n" \
             "\s\sset fs_location=\"live-media-path=/live/Clonezilla\"\n" \
             "else\n" \
-            "\s\sset fs_location=\"fetch=http://idds-superzilla.hf.intel.com/Development/production/live/clonezilla\n" \
+            "\s\sset fs_location=\"fetch=http://idds-superzilla.hf.intel.com/Development/production/live/clonezilla\"\n" \
             "\s\sset fs_file=\"/filesystem.squashfs\"\n" \
             "fi\n" 
         end
