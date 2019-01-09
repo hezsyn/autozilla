@@ -1,6 +1,6 @@
 module Grub
     module Settings
-        #These are used in lines ot change the formatting
+        #These are used in lines to change the formatting
         def settings
             @preLine = "\n\s\s"
             @apLine = " \\"
@@ -38,16 +38,16 @@ module Grub
 
         def breaknTitle
             "\nmenuentry \"<================================================>\" {\n" \
-            "}"
+            "}\n"
         end
 
         def breakwTitle(value) 
-            "\nmenuentry \"<==========================-#{value}======================>\" {\n" \
-            "}"
+            "\nmenuentry \"<==========================-#{value}-======================>\" {\n" \
+            "}\n"
         end
 
         def configFile(value)
-             "\n\s\sconfigfile #{value}\n"
+             "\n\s\sconfigfile #{value}"
         end
 
         def setBG(value)
@@ -67,7 +67,6 @@ module Grub
             "\s\sset fs_file=\"/filesystem.squashfs\"\n" \
             "fi\n" 
         end
-
 
         def czVar(value)
              "#{@preLine}set  cz=#{value}#{@apLine}"
@@ -90,7 +89,7 @@ module Grub
         end
 
         def prerun(count, value)
-             "#{@preLine}ocs_prerun#{count}=\"#{params}\"#{@apLine}"
+             "#{@preLine}ocs_prerun#{count}=\"#{value}\"#{@apLine}"
         end
 
         def liverun(value)
@@ -131,6 +130,10 @@ module Grub
 
         def fsLocation
              "#{@preLine}\$fs_location/\$cz\$fs_file#{@apLine}"
+        end
+
+        def path
+            "#{@preLine}live-media-path=/live/clonezilla/\$cz"
         end
 
         def initrd

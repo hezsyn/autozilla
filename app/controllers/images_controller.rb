@@ -1,4 +1,5 @@
 class ImagesController < ApplicationController
+  include Azk::Key
 
   def new
     @image = Image.find(params[:id])
@@ -17,7 +18,7 @@ class ImagesController < ApplicationController
     @image.disk.downcase!
     if @image.save
       flash[:notice] = "Image has been successfully created!"
-      @image.createAZKSystemFiles
+      createSystemFile(@image.system)
     else
       flash[:alert] = @image.errors
     end
@@ -57,7 +58,7 @@ class ImagesController < ApplicationController
       flash[:notice] = "#{@image.name} has been updated"
       @image.file_location = @image.img_file_location
       @image.save
-      @image.createAZKSystemFiles
+      createSystemFile(@image.system)
     else
       flash[:alert] = @image.errors
     end

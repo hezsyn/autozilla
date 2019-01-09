@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  include Azk::Key
 
   def index
     @categories = Category.where(category_id: nil, is_enabled: 1).order(:name)
@@ -7,9 +8,8 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @categories = Category.order(:name).where(category_id: nil, is_enabled: 1)
-    @category = Category.find(params[:id])
     @categories = Category.where(category_id: nil, is_enabled: 1).order(:name)
+    @category = Category.find(params[:id])
     @newCategory = Category.new
     @subcategory = Category.new
     @subcategories = @category.categories.where(is_enabled: 1).order(:name)
@@ -42,8 +42,7 @@ class CategoriesController < ApplicationController
 
     if @category.save
       flash[:notice] = "Category has been created."
-      @category.createAZKCategoryFiles
-      @parentCategory.createAZKCategoryFiles
+      createCatFile(@category)
     else
       flash[:alert] = @category.errors
     end
@@ -63,9 +62,8 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
     @parentCategory = Category.find(@category.category_id) if @category.category_id != nil
-    @category.removeEntry("category", @category) if @category.category_id != nil
     if @category.name != params[:category][:name] then
-      @category.removeEntry("category", @category)
+      destroyCategoryFile(@category)
       @category.slug = params[:category][:name]
       @category.makeSlug("category")
     end
@@ -73,13 +71,7 @@ class CategoriesController < ApplicationController
 
     if @category.update(category_params)
       flash[:notice] = "Category has been updated!"
-
-      if @category.category_id != nil
-        @category.createAZKCategoryFiles
-        @parentCategory.createAZKCategoryFiles
-      else
-        @category.createAZKCategoryFiles
-      end
+      createCategoryFile(@category)
     else
       flash[:alert] = "Category hasn't been updated."
     end
@@ -94,12 +86,12 @@ class CategoriesController < ApplicationController
     if @category.is_enabled == "1"
       @category.update(:is_enabled => "0")
       flash[:notice] = "#{@category.name} has been archived."
-      @parentCategory.createAZKCategoryFiles
+      destroyCategoryFile(@category)
       redirect_to category_path(@parentCategory)
     else
       @category.update(:is_enabled => "1")
       flash[:notice] = "#{@category.name} has been enabled."
-      @parentCategory.createAZKCategoryFiles
+      createCategoryFile(@category)
       redirect_to category_path(@category)
     end
   end

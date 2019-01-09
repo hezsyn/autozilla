@@ -24,7 +24,6 @@ class AutozillaKeyConfigsController < ApplicationController
   end
 
     def rebuildKey
-      
       # Removing old key
       destroyStructure
       # Creating the structure
@@ -35,7 +34,13 @@ class AutozillaKeyConfigsController < ApplicationController
       copyCZFiles
       # Generating the grub.cfg / gfx files / cz file / ads file
       genGrubStructure
-      
+      #Create top level entries
+      createTopMenu
+      #Creation of the Category files
+      createCategoryFiles
+      #Creation of system files
+      createSystemFiles
+
       render :index
     end
 

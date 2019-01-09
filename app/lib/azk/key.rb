@@ -12,8 +12,7 @@
                 @cz = @root + "czSource"
                 @grub = @root + "grubSource"
                 @prodKey = @root + "production"
-                @download = @root + "live/image/download"
-                @upload = @root + "live/image/upload"
+                @imageLoc = @prodKey +"/live/image/"
             end
 
             def destroyStructure
@@ -27,7 +26,7 @@
                     @fu.cd "live"
                     @fu.rm_r "ads" if File.exist? "ads"
                     @fu.rm_r "clonezilla" if File.exist? "clonezilla"
-                    @fu.rm_r "imaging" if File.exist? "imaging"
+                    @fu.rm_r "image" if File.exist? "image"
                     @fu.rm_r "support" if File.exist? "support"
                 puts "Complete"
             end
@@ -44,7 +43,7 @@
                 # Creation of the Live Structure
                 @fu.cd "live"
                 puts "Creating live folder selection"
-                @fu.mkdir_p %w( ads clonezilla support imaging/upload imaging/download )
+                @fu.mkdir_p %w( ads clonezilla support image/upload image/download )
                 puts "Creation of the live folder creation complete"
             end
 
@@ -98,19 +97,115 @@
                 cz = File.new("cz.grub", "w+")
                     # Creates the PXE vs FD logic
                     cz.puts bootMethod
-                    ClonezillaVersion.where(is_enabled: 1).each do |czEntry|
-                        cz.puts genCZCFG(czEntry, czEntry.upload)
-                    end
+                        ClonezillaVersion.where(is_enabled: 1).each do |czEntry|
+                            cz.puts genCZCFG(czEntry, czEntry.upload)
+                        end
                 cz.close
                 
                 ads = File.new("ads.grub", "w+")
                     ads.puts genADSCFG
                 ads.close
-
-                selfupdate = File.new("selfupdate.grub", "w+")
-                    selfupdate.puts genSelfUpdate
-                selfupdate.close
             end
+
+            def createTopMenu
+                setSettings
+
+                topCats = Category.where(category_id: nil, is_enabled: 1).order(:name)
+
+                # create Top Level for download
+                ["download", "upload"].each do |dir|
+                    puts "Create #{dir} top menu"
+                    @fu.cd @imageLoc + dir
+                        file = File.new("main.grub", "w+")
+                            if dir == "upload"
+                                file.print setBG("/live/support/bg_upload.png")
+                                file.puts setColor("white/blue", "green/yellow")
+                            else 
+                                file.print setBG("/live/support/bg_download.png.png")
+                                file.puts setColor("white/blue", "green/yellow")
+                            end
+
+                            topCats.each do |cat|
+                                file.print genCF(cat.name, "/live/image/#{dir}/#{cat.filename}")
+                            end
+                        file.close
+                    puts "Complete"
+                end
+            end
+
+            def createCategoryFiles
+                setSettings
+
+                categories = Category.where(is_enabled: 1)
+
+                ["download", "upload"].each do |dir|
+                    @fu.cd @imageLoc + dir
+                        
+                        categories.each do |cat|
+                            file = File.new(cat.filename, "w+")
+                                file.print genCategoryFile(cat, dir)
+                            file.close
+                        end# End of Categories loop
+
+                end# End of download / upload loop
+            end# End of createCategoryFiles
+
+            def createSystemFiles
+                setSettings
+                
+                ["download", "upload"].each do |dir|
+                    @fu.cd @imageLoc + dir
+
+                        systems = System.where(is_enabled: 1)
+
+                        systems.each do |sys|
+                            file = File.new(sys.filename, "w+")
+                                file.print genSystemFile(sys, dir)
+                            file.close # Close of the file
+                        end # End of system loop
+
+                end# End of download / upload loop
+            end# End of createSystemFiles
+
+            def createCategoryFile(cat)
+                setSettings
+
+                ["download", "upload"].each do |dir|
+                    @fu.cd @imageLoc + dir
+                        @fu.rm cat.filename if File.exist? cat.filename
+                        @fu.rm cat.category.filename if File.exist? cat.category.filename
+
+                            #Regenerating the parent Category file
+                            file = File.new(cat.category.filename, "w+")
+                                file.print genCategoryFile(cat.category, dir)
+                            file.close
+
+                            #Creating the called for category file
+                            file = File.new(cat.filename, "w+")
+                                file.print genCategoryFile(cat, dir)
+                            file.close
+                end# End of the download/upload loop
+
+            end# End of createCatFile
+
+            def createSystemFile(sys)
+                setSettings
+
+                ["download", "upload"].each do |dir|
+                    @fu.cd @imageLoc + dir
+                        @fu.rm sys.filename if File.exist? sys.filename
+                        @fu.rm sys.category.filename if File.exist? sys.category.filename
+
+                            file = File.new(sys.category.filename, "w+")
+                                file.print genCategoryFile(sys.category, dir)
+                            file.close
+
+                            file = File.new(sys.filename, "w+")
+                                file.print genSystemFile(sys, dir)
+                            file.close
+
+                end# End of D/L loop
+            end# End of createSysFile
 
             def updateCZCFG
                 setSettings
@@ -123,9 +218,38 @@
                     cz.puts bootMethod
                     ClonezillaVersion.where(is_enabled: 1).each do |czEntry|
                         cz.puts genCZCFG(czEntry, czEntry.upload)
-                    end
+                    end# End of ClonezillaVersion
                 cz.close
+            end # End of updateCZCFG
+
+            def destroyCategoryFile(cat)
+                setSettings
+
+                ["download", "upload"].each do |dir|
+                    @fu.cd @imageLoc + dir
+                        @fu.rm cat.filename if File.exist? cat.filename
+                        @fu.rm cat.category.filename if File.exist? cat.category.filename
+
+                        file = File.new(cat.category.filename, "w+")
+                            file.print genCategoryFile(cat.category, dir)
+                        file.close
+
+                end# End of download/upload loop
+            end# End of destroyCatFile
+
+            def destroySystemFile(sys)
+                setSettings
+
+                ["download", "upload"].each do |dir|
+                    @fu.cd @imageLoc + dir
+                        @fu.rm sys.filename if File.exist? sys.filename
+                        @fu.rm sys.category.filename if File.exist? sys.category.filename
+
+                        file = File.new(sys.category.filename, "w+")
+                            file.print genCategoryFile(sys.category, dir)
+                        file.close
+                end# End of D/U loop
             end
 
-    end
-end
+    end # End of Key Module
+end # End of AZK Module

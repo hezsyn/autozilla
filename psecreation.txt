@@ -41,5 +41,4 @@ Iterate over...
     - Image\Upload
 
 
-    Creating a Grub Config File
     

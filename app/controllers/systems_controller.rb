@@ -1,4 +1,5 @@
 class SystemsController < ApplicationController
+  include Azk::Key
 
   def show
     @categories = Category.where(category_id: nil, is_enabled: 1).order(:name)
@@ -31,8 +32,7 @@ class SystemsController < ApplicationController
     if @system.save
       flash[:notice] = "System has been created!"
       @system.save
-      @category.createAZKCategoryFiles
-      @system.createAZKSystemFiles
+      createSystemFiles(@system)
     else
       flash[:alert] = @system.errors.full_messages
     end
@@ -48,10 +48,9 @@ class SystemsController < ApplicationController
     @category = Category.find(params[:category_id])
     @system = @category.systems.find(params[:id])
     if @system.name != params[:system][:name] then
-      @system.removeEntry("system", @system)
+      destroySystemFile(@system)
       @system.slug = params[:system][:name]
       @system.makeSlug("system")
-      puts @system.slug
     end
     @system.default_disk.downcase!
 
@@ -59,8 +58,7 @@ class SystemsController < ApplicationController
       flash[:notice] = "System has been updated"
       @system.file_location = @system.objectLocation
       @system.save
-      @category.createAZKCategoryFiles
-      @system.createAZKSystemFiles
+      createSystemFile(@system)
     else
       flash[:alert] = "System failed to update"
     end
@@ -74,12 +72,12 @@ class SystemsController < ApplicationController
     if @system.is_enabled == 1
       @system.update(:is_enabled => 0)
       flash[:notice] = "#{@system.name} has been archived"
-      @parentCategory.createAZKCategoryFiles
+      destroySystemFile(@system)
       redirect_to category_path(@parentCategory)
     else
       @system.update(is_enabled: 1)
       flash[:notice] = "#{@system.name} has been enabled"
-      @parentCategory.createAZKCategoryFiles
+      createSystemFile(@system)
       redirect_to category_system_path(@parentCategory, @system)
     end
   end
