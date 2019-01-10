@@ -3,7 +3,7 @@ module Grub
         #These are used in lines to change the formatting
         def settings
             @preLine = "\n\s\s"
-            @apLine = " \\"
+            @apLine = "\\"
         end
 
         def grubDefaults
@@ -61,15 +61,15 @@ module Grub
 
         def bootMethod
             "if test \$pxe_default_server -eq \" \"; then\n" \
-            "\s\sset fs_location=\"live-media-path=/live/Clonezilla\"\n" \
+            "\s\sset fs_location=\"live-media-path=/live/clonezilla/\"\n" \
             "else\n" \
-            "\s\sset fs_location=\"fetch=http://idds-superzilla.hf.intel.com/Development/production/live/clonezilla\"\n" \
+            "\s\sset fs_location=\"fetch=http://idds-superzilla.hf.intel.com/Development/production/live/clonezilla/\"\n" \
             "\s\sset fs_file=\"/filesystem.squashfs\"\n" \
             "fi\n" 
         end
 
         def czVar(value)
-             "#{@preLine}set  cz=#{value}#{@apLine}"
+             "#{@preLine}set cz=#{value}"
         end
 
         def linux
@@ -77,7 +77,7 @@ module Grub
         end
 
         def bootSet
-            "#{@preLine}boot=live, union=overlay username=user#{@apLine}"
+            "#{@preLine}boot=live union=overlay username=user#{@apLine}"
         end
 
         def parameters(value)
@@ -117,7 +117,7 @@ module Grub
         end
 
         def locales(value)
-             "#{@preLine}locales=\"#{value}\"#{@apLine}"
+             "#{@preLine}locales=#{value}#{@apLine}"
         end
 
         def vga(value)
@@ -133,7 +133,7 @@ module Grub
         end
 
         def fsLocation
-             "#{@preLine}\$fs_location/\$cz\$fs_file"
+             "#{@preLine}\$fs_location\$cz\$fs_file"
         end
 
         def path

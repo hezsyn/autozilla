@@ -53,7 +53,7 @@
                 # Copy files for key
                 @fu.cd @grub
                 puts "Coping all EFI files from grub folder"
-                @fu.cp %w(  bootia32.efi bootx64.efi grub64.efi grubx64.efi ) , "#{@prodKey}/EFI/boot"
+                @fu.cp %w(  bootx64.efi grubx64.efi ) , "#{@prodKey}/EFI/boot"
                 puts "Complete transfer of EFI files"
 
                 puts "Coping all pictures to support"
