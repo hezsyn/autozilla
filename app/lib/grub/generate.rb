@@ -130,10 +130,16 @@ module Grub
             return woo
         end#End of genSysFile
 
+        def check()
+            
+        end
+
         def genImageEntry(img, dir)
             settings
 
             dir == "download" ? tal = img.download : tal = img.upload
+            filePath = img.file_location
+            netPath = img.location.location
 
             woo = startEntry(img.name)
                 woo += czVar(img.clonezilla_version.name)
@@ -143,18 +149,18 @@ module Grub
                 woo += edd(tal.edd)
                 woo += locales(tal.locales)
                 woo += keyboard("NONE")
-                woo += prerun("01", tal.prerun0)
-                woo += prerun("02", tal.prerun1)
-                woo += prerun("03", tal.prerun2)
-                woo += prerun("04", tal.prerun3)
-                woo += prerun("05", tal.prerun4)
-                woo += liverun(tal.live_run)
-                woo += postrun("01", tal.postrun0)
-                woo += postrun("02", tal.postrun1)
-                woo += postrun("03", tal.postrun2)
-                woo += postrun("04", tal.postrun3)
-                woo += postrun("05", tal.postrun4)
-                woo += liverun(tal.live_run)
+                (0..4).each do |count|
+                    output  = tal.send("prerun#{count}")
+                    output = eval '"' + output + '"'
+                    woo += prerun("0#{count}", output ) if output  != ""
+                end
+                output = eval '"' + tal.live_run + '"'
+                woo += liverun(output)
+                (0..4).each do |count|
+                    output  =  tal.send("postrun#{count}")
+                    output = eval '"' + output + '"'
+                    woo += postrun("0#{count}", output ) if output  != ""
+                end
                 woo += vga("788")
                 woo += ram("filesystem.squashfs")
                 woo += net("0")
