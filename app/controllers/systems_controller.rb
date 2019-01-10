@@ -32,7 +32,7 @@ class SystemsController < ApplicationController
     if @system.save
       flash[:notice] = "System has been created!"
       @system.save
-      createSystemFiles(@system)
+      createSystemFile(@system)
     else
       flash[:alert] = @system.errors.full_messages
     end
